@@ -44,7 +44,7 @@ class StackPage extends StatelessWidget {
                   getRedBox(),
                   Positioned(child: getBlueBox(),right: -50,bottom: -50,)
                 ],
-                clipBehavior: Clip.none,
+                // clipBehavior: Clip.none,
               ),
             ],
           ),

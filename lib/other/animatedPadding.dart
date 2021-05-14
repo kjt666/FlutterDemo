@@ -35,9 +35,10 @@ class _AnimatedPaddingState extends State<AnimatedPaddingPage> {
                 padding: EdgeInsets.all(_padding),
                 duration: Duration(milliseconds: 500),
                 child: ListTile(
-                  tileColor: i.isOdd
+                  title: Text(i.toString()),
+                  /*tileColor: i.isOdd
                       ? Colors.blue.withOpacity(0.15)
-                      : Colors.blue.withOpacity(0.35),
+                      : Colors.blue.withOpacity(0.35),*/
                 ))
         ],
       ),

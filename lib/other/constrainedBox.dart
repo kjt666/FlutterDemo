@@ -25,7 +25,7 @@ class ConstrainedBoxPage extends StatelessWidget {
               ),
               ConstrainedBox(
                 constraints: BoxConstraints(minHeight: 100),
-                child: ElevatedButton(
+                child: RaisedButton(
                   onPressed: () {},
                   child: Text(
                     "Tap Me!",

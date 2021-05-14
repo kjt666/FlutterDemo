@@ -41,7 +41,7 @@ class AlertDialogPage extends StatelessWidget {
                 onPressed: () {
                   showCupertinoDialog(
                       context: context,
-                      barrierDismissible: true,
+                      // barrierDismissible: true,
                       builder: (_) => CupertinoAlertDialog(
                             title: Text("Accept?"),
                             content: Text("Do you accept?"),

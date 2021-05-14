@@ -41,7 +41,7 @@ class ImagePage extends StatelessWidget {
                 return progress == null
                     ? child
                     : LinearProgressIndicator(
-                        minHeight: 10,
+                        // minHeight: 10,
                       );
               },
             )

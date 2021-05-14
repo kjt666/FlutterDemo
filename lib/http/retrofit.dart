@@ -21,7 +21,7 @@ class Task {
 
   Task({this.id, this.name, this.avatar, this.createdAt});
 
-  factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
-  Map<String, dynamic> toJson() => _$TaskToJson(this);
+  // factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
+  // Map<String, dynamic> toJson() => _$TaskToJson(this);
 }
 

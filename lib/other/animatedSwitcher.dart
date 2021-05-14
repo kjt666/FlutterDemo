@@ -61,7 +61,7 @@ class _AnimatedSwitcher extends State<AnimatedSwitcherPage>
                 child: _switcherShapeWidget,
               ),
             ),
-            ElevatedButton(
+            RaisedButton(
                 onPressed: () {
                   setState(() {
                     _switcherShapeWidget = getChangeWidget();
@@ -91,7 +91,7 @@ class _AnimatedSwitcher extends State<AnimatedSwitcherPage>
                 ),
               ),
             ),
-            ElevatedButton(
+            RaisedButton(
                 onPressed: () {
                   setState(() {
                     _color = RandomUtil.getColor();

@@ -44,10 +44,10 @@ class ButtonTransition extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return OutlineButton(
       onPressed: () {},
       child: Container(alignment:Alignment.center,child: Text("WTF!",style: TextStyle(fontSize: 32,fontStyle: FontStyle.italic),),width: 200,height: 60,),
-      style: TextButton.styleFrom(side: BorderSide(width: width.value,color: Colors.blue)),
+      // style: TextButton.styleFrom(side: BorderSide(width: width.value,color: Colors.blue)),
     );
   }
 

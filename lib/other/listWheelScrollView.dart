@@ -55,7 +55,7 @@ class ListWheelScrollViewPage extends StatelessWidget {
             //放大倍数
             // magnification: 1.2,
             //非选中item透明度
-            overAndUnderCenterOpacity: 0.4,
+            // overAndUnderCenterOpacity: 0.4,
             //item挤压倍数，1为标准
             squeeze: 2,
             //x轴角度

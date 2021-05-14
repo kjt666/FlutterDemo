@@ -43,7 +43,7 @@ class _ReorderableListViewPage extends State<ReorderableListViewPage> {
         children: [
           for(final item in _items)
             ListTile(
-              tileColor: item.isOdd?oddItemColor:evenItemColor,
+              // tileColor: item.isOdd?oddItemColor:evenItemColor,
               key: ValueKey(item),
               title: Text("Item #$item"),
             )
