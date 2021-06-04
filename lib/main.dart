@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app/bean/httpResponse.dart';
 import 'package:flutter_app/bean/user_bean.dart';
 import 'package:flutter_app/other/jumpPage.dart';
+import 'package:flutter_app/util/methodChannelUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,8 +51,7 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
-  static const nativeChannel =
-      const MethodChannel("com.fengwo.reading.flutter_app/native");
+  var logger = Logger(printer: PrettyPrinter());
   var _result = "";
   TextStyle headTextStyle = new TextStyle(fontSize: 10, color: Colors.grey);
 
@@ -64,6 +63,10 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    MethodChannelUtil.nativeChannel.setMethodCallHandler((call) {
+      print("${call.method}");
+      return Future.value("Hello~ android\nI'm flutter");
+    });
     WidgetsBinding.instance.addObserver(this);
     var baseUrl = "http://apidev.laidan.com:81/";
     var options = BaseOptions(
@@ -209,7 +212,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
                 size: 18,
               ),
               onPressed: () {
-                nativeChannel.invokeMethod("jumpToNative",
+                MethodChannelUtil.nativeChannel.invokeMethod("jumpToNative",
                     {'msg': userData == null ? "" : userData.toString()});
               })
         ],
@@ -348,6 +351,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
         color: Colors.white,
         child: new GestureDetector(
             onTap: () {
+              logger.d(title);
               Fluttertoast.showToast(
                   msg: title,
                   toastLength: Toast.LENGTH_SHORT,

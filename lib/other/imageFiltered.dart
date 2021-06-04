@@ -25,10 +25,10 @@ class _ImageFilteredState extends State<ImageFilteredPage> {
             padding: EdgeInsets.all(20),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(20)),
-             /* child: ImageFiltered(
+              child: ImageFiltered(
                 imageFilter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
                 child: Image.asset("images/gyy.jpeg"),
-              ),*/
+              ),
             ),
           ),
           Slider(
