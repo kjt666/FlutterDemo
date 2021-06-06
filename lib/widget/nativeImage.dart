@@ -6,8 +6,10 @@ import 'package:flutter_app/util/methodChannelUtil.dart';
 
 class NativeImage extends StatefulWidget {
   String url = "";
+  double width =20;
+  double height =20;
 
-  NativeImage(this.url);
+  NativeImage(this.url,{this.width,this.height});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,11 +25,10 @@ class _NativeImageState extends State<NativeImage> {
   void initState() {
     super.initState();
     if (widget.url.startsWith("http") || widget.url.startsWith("https")) {
-      image = Image.network(widget.url);
+      image = Image.network(widget.url,width: widget.width,height: widget.height);
     } else {
-      image = Image.file(File(imagePath));
+      image = Image.file(File(imagePath),width: widget.width,height: widget.height);
     }
-    getNativeImage();
   }
 
   Future<void> getNativeImage() async {
@@ -35,6 +36,7 @@ class _NativeImageState extends State<NativeImage> {
     try {
       path = await MethodChannelUtil.nativeChannel
           .invokeMethod("image", {'name': '${widget.url}'});
+      print("$path");
       setState(() {
         imagePath = path;
       });

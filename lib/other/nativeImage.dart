@@ -20,6 +20,7 @@ class _NativeState extends State<NativeImagePage> {
     String path;
     try {
       path = await MethodChannelUtil.nativeChannel.invokeMethod("image", {'name': 'ic_launcher'});
+      print("$path");
       setState(() {
         imagePath = path;
       });

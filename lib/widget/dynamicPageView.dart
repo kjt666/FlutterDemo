@@ -25,6 +25,7 @@ class _DynamicPageState extends State<DynamicPageView> {
   var _currentIndex = 0;
   var _nextIndex = 0;
   var _pageViewHeight;
+  var _showIndex = 0;
 
   List<double> _heightList = List.empty(growable: true);
   List<Widget> _widgetList = List.empty(growable: true);
@@ -64,7 +65,7 @@ class _DynamicPageState extends State<DynamicPageView> {
         }
       });
     });
-    print(queryData.toString());
+//    print(queryData.toString());
     for (var i = 0; i < widget._urls.length; i++) {
       _widgetList.add(GestureDetector(
         child: Image.network(
@@ -108,6 +109,11 @@ class _DynamicPageState extends State<DynamicPageView> {
           // alignment: Alignment.bottomRight,
           children: [
             PageView(
+              onPageChanged: (index){
+                setState(() {
+                  _showIndex = index;
+                });
+              },
               controller: _pageController,
               children: _widgetList,
             ),
@@ -118,7 +124,7 @@ class _DynamicPageState extends State<DynamicPageView> {
                     padding: EdgeInsets.fromLTRB(7, 2, 7, 2),
                     color: Colors.black54,
                     child: Text(
-                      "${_currentIndex + 1}/${_heightList.length}",
+                      "${_showIndex + 1}/${_heightList.length}",
                       style: TextStyle(color: Colors.white, fontSize: 11),
                     ),
                   )),

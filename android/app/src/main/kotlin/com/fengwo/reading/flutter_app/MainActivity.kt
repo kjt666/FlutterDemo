@@ -41,12 +41,14 @@ class MainActivity : FlutterActivity() {
                                 result.success("成功接收来自flutter的消息")
                             }
                             "image" -> {
-                                val imageName = call.argument<String>("name")
-                                val bitmap = BitmapFactory.decodeResource(resources, RUtils.getDrawableId(this@MainActivity, imageName))
-                                val filePath = "${externalCacheDir?.absolutePath}${File.separator}$imageName"
-                                val fos = FileOutputStream(filePath)
-                                val sucess = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-                                if (sucess)result.success(filePath) else result.error("","图片本地化失败",null)
+                                if (call.hasArgument("name")) {
+                                    val path = call.argument<String>("name")?.let { getImageAsFile(it) }
+                                    if (path.isNullOrEmpty()) {
+                                        result.error("-1", "调用原生图片失败", null)
+                                    } else {
+                                        result.success(path)
+                                    }
+                                }
                             }
                             "logger"->{
                                 val level = call.argument<String>("level")
@@ -63,5 +65,26 @@ class MainActivity : FlutterActivity() {
                 })
     }
 
+    private fun getImageAsFile(imageName: String): String {
+        var imageFilePath = "$externalCacheDir${File.separator}$imageName"
+        val imageFile = File(imageFilePath)
+        if (!imageFile.exists()) {
+            var imageId = resources.getIdentifier(imageName, "mipmap", packageName)
+            if (imageId == 0) {
+                imageId = resources.getIdentifier(imageName, "drawable", packageName)
+            }
+            if (imageId == 0) {
+                return ""
+            }
+            val imageBitmap = BitmapFactory.decodeResource(resources, imageId)
+            val fos = FileOutputStream(imageFile)
+            val success = imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+            if (!success) {
+                imageFile.delete()
+                return ""
+            }
+        }
+        return imageFilePath
+    }
 
 }
