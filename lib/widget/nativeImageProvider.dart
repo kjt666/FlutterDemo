@@ -66,7 +66,7 @@ class NativeImageProvider extends ImageProvider<NativeImageProvider> {
     return SynchronousFuture<NativeImageProvider>(this);
   }
 
-  /*@override
+  @override
   int get hashCode => ui.hashValues(imageName, scale);
 
   @override
@@ -76,5 +76,5 @@ class NativeImageProvider extends ImageProvider<NativeImageProvider> {
     return other is NativeImageProvider
         && other.imageName == imageName
         && other.scale == scale;
-  }*/
+  }
 }

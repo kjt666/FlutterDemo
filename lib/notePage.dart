@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/dynamicPageView.dart';
+import 'package:flutter_app/widget/filletImage.dart';
 import 'package:flutter_app/widget/labelImage.dart';
-import 'package:flutter_app/widget/nativeImage.dart';
+import 'package:flutter_app/widget/myBar.dart';
 import 'package:flutter_app/widget/nativeImageProvider.dart';
 
 class NotePage extends StatefulWidget {
@@ -32,31 +33,256 @@ class _NotePageState extends State<NotePage> {
     "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201408%2F07%2F213601f2xz7usscm2z1mjh.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=d0bdae3b2600e107000acc475aa6b2bb"
   ];
 
+  ScrollController scrollController;
+  GlobalKey key = GlobalKey();
+  double titleBarOpacity = 0;
+
+  GlobalKey<AppBarWeightState> barKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+
+      int alpha = ((scrollController.offset/200)*255).toInt();
+      print("----------$alpha---------");
+      barKey.currentState.onChange(alpha<255?alpha:255);
+
+      RenderBox render = key.currentContext.findRenderObject();
+      double dy = render.localToGlobal(Offset.zero).dy;
+      if (dy <= 0) {
+        print("滑动到头像的位置了");
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      RenderBox render = key.currentContext.findRenderObject();
+      print("${render.size}");
+      print("${render.localToGlobal(Offset.zero)}");
+    });
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: DynamicPageView(
-              context,
-              urls,
-            ),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              _getHeader(),
+              _getMiddleContent(),
+              _getListTitle(),
+              _getList(),
+            ],
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return _getListItem();
-            }, childCount: 20),
-          )
+          AppBarWeight(barKey)
         ],
       ),
       bottomNavigationBar: _getBottomBar(),
     );
   }
 
+  Widget _getHeader() {
+    return SliverToBoxAdapter(
+      child: DynamicPageView(
+        context,
+        urls,
+      ),
+    );
+  }
+
+  Widget _getMiddleContent() {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("哈利路亚",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black)),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                CircleImage(
+                    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6",
+                    width: 35,
+                    height: 35,
+                    onTap: () {}),
+                SizedBox(width: 10),
+                Column(
+                  key: key,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Text("f**k",
+                          style: TextStyle(fontSize: 14, color: Colors.black)),
+                      Image(
+                          image: NativeImageProvider("like"),
+                          width: 15,
+                          height: 15)
+                    ]),
+                    SizedBox(height: 5),
+                    Text("2021-06-06",
+                        style: TextStyle(fontSize: 12, color: Colors.grey))
+                  ],
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(15, 3, 15, 3),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.green),
+                  child: Text("关注",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                )
+              ],
+            ),
+            SizedBox(height: 20),
+            Text(
+                "春秋时期，齐国的公子纠与公子小白争夺君位，管仲和鲍叔分别辅佐他们。管仲带兵阻击小白，用箭射中他的衣带钩，小白装死逃脱。后来小白即位为君，史称齐桓公。鲍叔对桓公说，要想成就霸王之业，非管仲不可。于是桓公重用管仲，鲍叔甘居其下，终成一代霸业。后人称颂齐桓公九合诸侯、一匡天下，为“春秋五霸”之首。孔子说：“桓公九合诸侯，不以兵车，管仲之力也。”司马迁说：“天下不多（称赞）管仲之贤而多鲍叔能知人也。”",
+                style: TextStyle(
+                  fontSize: 16,
+                  height: 1.5,
+                  color: Colors.black,
+                )),
+            SizedBox(height: 20),
+            _getMiddleBook(),
+            SizedBox(height: 20),
+            Row(children: [
+              Image(image: NativeImageProvider("like"), width: 18, height: 18),
+              Text("来自话题：", style: TextStyle(color: Colors.grey)),
+              Text("论持久战", style: TextStyle(color: Colors.blue)),
+            ]),
+            SizedBox(height: 20),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              _getMiddleIconBtn("11"),
+              SizedBox(width: 10),
+              _getMiddleIconBtn("微信"),
+              SizedBox(width: 10),
+              _getMiddleIconBtn("朋友圈"),
+              SizedBox(width: 10),
+              _getMiddleIconBtn("复制链接"),
+            ])
+          ],
+        ),
+      ),
+    );
+  }
+
+  var imageUrl =
+      "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6";
+
+  Widget _getMiddleBook() {
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        Container(
+          height: 64,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: Color(0xfffaf6f6),
+          ),
+          padding: EdgeInsets.all(7),
+          child: Row(
+            children: [
+              FilletImage(imageUrl, corner: 5, width: 40),
+              SizedBox(width: 10),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text("激荡一百年", style: TextStyle(fontSize: 16)),
+                SizedBox(height: 5),
+                Text("吴晓波", style: TextStyle(color: Colors.grey))
+              ])
+            ],
+          ),
+        ),
+        Image(
+          image: NativeImageProvider("like"),
+          width: 40,
+          height: 40,
+        )
+      ],
+    );
+  }
+
+  Widget _getMiddleIconBtn(String text,
+      {String iconName, GestureTapCallback onTap}) {
+    return Flexible(
+        flex: 1,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(top: 3, bottom: 3),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.5),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(
+                    image: NativeImageProvider("like"), width: 20, height: 20),
+                SizedBox(
+                  width: 2,
+                ),
+                Text(
+                  text,
+                  style: TextStyle(fontSize: 11, color: Colors.grey[700]),
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+
+  Widget _getListTitle() {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.grey[100],
+            height: 10,
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(15, 20, 0, 0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text("评论",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17)),
+                SizedBox(width: 7),
+                Text("20条评论",
+                    style: TextStyle(fontSize: 13, color: Colors.grey))
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _getList() {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((context, index) {
+        return _getListItem();
+      }, childCount: 20),
+    );
+  }
+
   Widget _getListItem() {
+    TextStyle bottomTextStyle = TextStyle(color: Colors.grey, fontSize: 12);
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -64,6 +290,7 @@ class _NotePageState extends State<NotePage> {
             "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6",
             width: 40,
             height: 40,
+            onTap: () {},
           ),
           SizedBox(
             width: 20,
@@ -72,31 +299,26 @@ class _NotePageState extends State<NotePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("f**k"),
+                GestureDetector(
+                    child: Text("f**k",
+                        style: TextStyle(fontSize: 16, color: Colors.grey))),
                 SizedBox(height: 10),
-                Text(
-                  "that thumbnail is fucking amazing!that thumbnail is fucking amazing!",
-                  style: TextStyle(),
-                ),
+                GestureDetector(
+                    child: Text(
+                        "that thumbnail is fucking amazing!that thumbnail is fucking amazing!")),
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Text(
-                      "一小时前",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    Spacer(
-                      flex: 1,
-                    ),
+                    Text("1小时前", style: bottomTextStyle),
+                    Spacer(flex: 1),
                     TextButton.icon(
+                        style: ButtonStyle(),
                         onPressed: () {},
                         icon: Image(
-                          width: 15,
-                          height: 15,
-                          image: NetworkImage(
-                              "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6"),
-                        ),
-                        label: Text("33")),
+                            width: 15,
+                            height: 15,
+                            image: NativeImageProvider("like")),
+                        label: Text("点赞", style: bottomTextStyle)),
                     TextButton.icon(
                         onPressed: () {},
                         icon: Image(
@@ -104,10 +326,10 @@ class _NotePageState extends State<NotePage> {
                           height: 15,
                           image: NativeImageProvider("like"),
                         ),
-                        label: Text("评论")),
+                        label: Text("评论", style: bottomTextStyle))
                   ],
                 ),
-                Divider(height: 0.5,color: Colors.grey[200],)
+                Divider(height: 0.5, color: Colors.grey[100])
               ],
             ),
           ),
@@ -121,7 +343,7 @@ class _NotePageState extends State<NotePage> {
         elevation: 8.0,
         color: Colors.white,
         child: Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+            padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
             height: 50,
             child: Row(children: [
               CircleImage(
@@ -168,5 +390,11 @@ class _NotePageState extends State<NotePage> {
                 flex: 1,
               )
             ])));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 }
