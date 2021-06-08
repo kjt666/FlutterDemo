@@ -46,9 +46,9 @@ class _LabelImageState extends State<LabelImage> {
           clipBehavior: Clip.none,
           children: [
             Image(
-              image: NativeImageProvider("like"),
-              width: widget.width ?? 25,
-              height: widget.height ?? 25,
+              image: NativeImageProvider(widget.url),
+              width: widget.width ?? 30,
+              height: widget.height ?? 30,
             ),
             /*NativeImage(
             widget.url,
@@ -57,7 +57,7 @@ class _LabelImageState extends State<LabelImage> {
           ),*/
             Positioned(
                 top: 2,
-                right: -6,
+                right: -5,
                 child: Container(
                   padding: EdgeInsets.fromLTRB(2, 1, 2, 1),
                   decoration: BoxDecoration(

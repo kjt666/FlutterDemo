@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: Colors.blue,
+
           //配置分割线样式
           dividerTheme: DividerThemeData(
               space: 1,
