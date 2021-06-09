@@ -11,15 +11,17 @@ class DynamicPageView extends StatefulWidget {
   final BuildContext _context;
   final ClickCallBack clickCallBack;
 
-  DynamicPageView(this._context, this._urls, {this.clickCallBack});
+  DynamicPageView(Key key, this._context, this._urls,
+      {this.clickCallBack})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _DynamicPageState();
+    return DynamicPageState();
   }
 }
 
-class _DynamicPageState extends State<DynamicPageView> {
+class DynamicPageState extends State<DynamicPageView> {
   var _defaultHeight = 300.0;
 
   var _currentIndex = 0;
@@ -65,7 +67,7 @@ class _DynamicPageState extends State<DynamicPageView> {
         }
       });
     });
-//    print(queryData.toString());
+    print(queryData.toString());
     for (var i = 0; i < widget._urls.length; i++) {
       _widgetList.add(GestureDetector(
         child: Image.network(
@@ -77,13 +79,17 @@ class _DynamicPageState extends State<DynamicPageView> {
         },
       ));
       loadImage(widget._urls[i]).then((value) {
-        _heightList[i] = value.height.toDouble() / queryData.devicePixelRatio;
+        _heightList[i] = (value.height.toDouble() /
+                queryData.devicePixelRatio) *
+            (queryData.size.width / (value.width / queryData.devicePixelRatio));
         print("第$i张图片的宽度是--->${value.width},高度是--->${value.height}");
+        if (i == 0) {
+          setState(() {
+            _pageViewHeight = _heightList[0];
+          });
+        }
       });
     }
-    setState(() {
-      _pageViewHeight = _heightList[0];
-    });
   }
 
   Future<ui.Image> loadImage(String url) async {
@@ -109,7 +115,7 @@ class _DynamicPageState extends State<DynamicPageView> {
           // alignment: Alignment.bottomRight,
           children: [
             PageView(
-              onPageChanged: (index){
+              onPageChanged: (index) {
                 setState(() {
                   _showIndex = index;
                 });
@@ -133,6 +139,13 @@ class _DynamicPageState extends State<DynamicPageView> {
             ),
           ],
         ));
+  }
+
+  void setUrls(List<String> url) {
+    widget._urls.clear();
+    setState(() {
+      widget._urls.addAll(url);
+    });
   }
 
   @override

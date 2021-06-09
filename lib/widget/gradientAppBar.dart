@@ -5,7 +5,10 @@ import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/filletButton.dart';
 
 class GradientAppBar extends StatefulWidget {
-  GradientAppBar(Key barKey) : super(key: barKey);
+  GradientAppBar(Key barKey,this.url,this.name) : super(key: barKey);
+
+  String url;
+  String name;
 
   @override
   State<StatefulWidget> createState() {
@@ -43,12 +46,12 @@ class GradientAppBarState extends State<GradientAppBar> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleImage(
-                          "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6",
+                          widget.url,
                           width: 35,
                           height: 35),
                       SizedBox(width: 10),
                       Text(
-                        "f**k",
+                       widget.name,
                         style: TextStyle(fontSize: 16),
                       ),
                       Spacer(flex: 1),

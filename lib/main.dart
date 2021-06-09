@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/bean/httpResponse.dart';
 import 'package:flutter_app/bean/user_bean.dart';
 import 'package:flutter_app/other/jumpPage.dart';
+import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
@@ -56,7 +57,6 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
   var _result = "";
   TextStyle headTextStyle = new TextStyle(fontSize: 10, color: Colors.grey);
 
-  var dio = Dio();
   var userData = User_data();
 
   AppLifecycleState _lastLifecycleState;
@@ -69,22 +69,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
       return Future.value("Hello~ android\nI'm flutter");
     });
     WidgetsBinding.instance.addObserver(this);
-    var baseUrl = "http://apidev.laidan.com:81/";
-    var options = BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: 5000,
-        receiveTimeout: 10000,
-        headers: {
-          'X-YS-os': 'android',
-          'X-YS-uid': '1',
-          'X-YS-CHANNEL': 'youshu',
-          'X-YS-soft': '5.27.1'
-        },
-        contentType: Headers.formUrlEncodedContentType,
-        responseType: ResponseType.plain);
-    dio.options = options;
-    dio.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+    DioUtil.init();
   }
 
   @override
@@ -107,7 +92,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
   }
 
   void getUserData() async {
-    var response = await dio.post("m/user/login",
+    var response = await DioUtil.dio.post("m/user/login",
         options:
             buildCacheOptions(Duration(days: 7), maxStale: Duration(days: 30)),
         data: {

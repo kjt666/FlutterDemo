@@ -27,6 +27,7 @@ class _PageViewPageState extends State<PageViewPage> {
         body: ListView(
           children: [
             DynamicPageView(
+              null,
               context,
               urls,
               clickCallBack: (index, url) {

@@ -1,12 +1,18 @@
+import 'dart:convert';
+
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/bean/noteInfoBean.dart';
+import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/dynamicPageView.dart';
 import 'package:flutter_app/widget/filletButton.dart';
 import 'package:flutter_app/widget/filletImage.dart';
-import 'package:flutter_app/widget/labelImage.dart';
 import 'package:flutter_app/widget/gradientAppBar.dart';
+import 'package:flutter_app/widget/labelImage.dart';
 import 'package:flutter_app/widget/nativeImageProvider.dart';
+import 'package:logger/logger.dart';
 
 class NotePage extends StatefulWidget {
   @override
@@ -16,30 +22,24 @@ class NotePage extends StatefulWidget {
 }
 
 class _NotePageState extends State<NotePage> {
-  /*List<String> urls = [
-    "http://img.youshu.cc/readwith/testNote/9dac16187fb8b3332bef66f96316c2f9.jpg",
-    "http://img.youshu.cc/readwith/testNote/8c034773addc8ba95fb856fb43ec2d71.jpg",
-    "http://img.youshu.cc/readwith/testNote/7effe4fd75b685737fb06fb1636ef9f4.jpg",
-    "http://img.youshu.cc/readwith/testNote/3d7867e969dd4693e17b3aa89c6a4154.jpg",
-    "http://img.youshu.cc/readwith/testNote/b279d5c988e41e5930d19567e40ef862.jpg",
-    "http://img.youshu.cc/readwith/testNote/4dbe25736d6ea8705279439ebc0c09ac.jpg",
-    "http://img.youshu.cc/readwith/testNote/db92fc3d885b6526213d2af2637c33a3.jpg"
-  ];*/
+  Logger logger = Logger();
 
   List<String> urls = [
-    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201205%2F03%2F01400598djmyeczcskh2yr.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=c4dd86212d09a55d4f6b256ee05e253a',
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fww4.sinaimg.cn%2Fmw690%2F007ZVs3Jgy1gql936kg8hj30t01qjnab.jpg&refer=http%3A%2F%2Fwww.sina.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625293779&t=a5b2e6d0d36a29421980b5bd4f1cae1d",
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201308%2F23%2F144350zazrmibjc212v201.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=12d663b6e0fda2eadbb29282b7ecb622",
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fmw690%2F007ZVs3Jgy1gql9361pfij30t01qj152.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625299176&t=59f130a5a57d029f258b8f32dea7015b",
-    "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201408%2F07%2F213601f2xz7usscm2z1mjh.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=d0bdae3b2600e107000acc475aa6b2bb"
+    // 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201205%2F03%2F01400598djmyeczcskh2yr.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=c4dd86212d09a55d4f6b256ee05e253a',
+    // "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fww4.sinaimg.cn%2Fmw690%2F007ZVs3Jgy1gql936kg8hj30t01qjnab.jpg&refer=http%3A%2F%2Fwww.sina.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625293779&t=a5b2e6d0d36a29421980b5bd4f1cae1d",
+    // "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201308%2F23%2F144350zazrmibjc212v201.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=12d663b6e0fda2eadbb29282b7ecb622",
+    // "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fmw690%2F007ZVs3Jgy1gql9361pfij30t01qj152.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625299176&t=59f130a5a57d029f258b8f32dea7015b",
+    // "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201408%2F07%2F213601f2xz7usscm2z1mjh.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625291567&t=d0bdae3b2600e107000acc475aa6b2bb"
   ];
 
   ScrollController scrollController;
   GlobalKey middleHeaderkey = GlobalKey();
   double titleBarOpacity = 0;
-  double middleHeaderOffset;
 
   GlobalKey<GradientAppBarState> barKey = GlobalKey();
+  GlobalKey<DynamicPageState> headerKey = GlobalKey();
+  RenderBox middleHeaderRender;
+  double barHeaderShowOffset =0;
 
   @override
   void initState() {
@@ -47,27 +47,22 @@ class _NotePageState extends State<NotePage> {
     scrollController = ScrollController();
     scrollController.addListener(() {
       int alpha = ((scrollController.offset / 200) * 255).toInt();
-      print("----------$scrollController.offset---------");
+      // print("----------$scrollController.offset---------");
       barKey.currentState.changeBarColor(alpha < 255 ? alpha : 255);
 
+      // print("${render.localToGlobal(Offset.zero)}");
       barKey.currentState
-          .showHeader(scrollController.offset >= middleHeaderOffset);
+          .showHeader(middleHeaderRender.localToGlobal(Offset.zero).dy <= barHeaderShowOffset);
     });
+    _getNoteData();
   }
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      RenderBox render = middleHeaderkey.currentContext.findRenderObject();
-      print("${render.size}");
-      print("${render.localToGlobal(Offset.zero)}");
-      RenderBox barRender = barKey.currentContext.findRenderObject();
-      print("appbar size = ${barRender.size}");
-      print("appbar location = ${barRender.localToGlobal(Offset.zero)}");
-      middleHeaderOffset = render.localToGlobal(Offset.zero).dy -
-          barRender.localToGlobal(Offset.zero).dy -
-          render.size.height;
-      print("中间头像竖直偏移量阈值 = $middleHeaderOffset");
+      middleHeaderRender = middleHeaderkey.currentContext.findRenderObject();
+      RenderBox render2 = barKey.currentContext.findRenderObject();
+      barHeaderShowOffset = render2.size.height - middleHeaderRender.size.height;
     });
     return Scaffold(
       body: Stack(
@@ -81,7 +76,7 @@ class _NotePageState extends State<NotePage> {
               _getList(),
             ],
           ),
-          GradientAppBar(barKey)
+          GradientAppBar(barKey,imageUrl,noteInfo.userData.name??"")
         ],
       ),
       bottomNavigationBar: _getBottomBar(),
@@ -90,10 +85,13 @@ class _NotePageState extends State<NotePage> {
 
   Widget _getHeader() {
     return SliverToBoxAdapter(
-      child: DynamicPageView(
-        context,
-        urls,
-      ),
+      child: urls.isNotEmpty
+          ? DynamicPageView(
+              headerKey,
+              context,
+              urls,
+            )
+          : Container(),
     );
   }
 
@@ -107,7 +105,7 @@ class _NotePageState extends State<NotePage> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: 10),
-                child: Text("哈利路亚",
+                child: Text(noteInfo.title ?? "",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -121,7 +119,7 @@ class _NotePageState extends State<NotePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
-                      Text("f**k",
+                      Text(noteInfo.userData.name??"",
                           style: TextStyle(fontSize: 16, color: Colors.black)),
                       Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -137,7 +135,7 @@ class _NotePageState extends State<NotePage> {
                               height: 15))
                     ]),
                     SizedBox(height: 5),
-                    Text("2021-06-06",
+                    Text(noteInfo.updateTime??"",
                         style: TextStyle(fontSize: 12, color: Colors.grey))
                   ],
                 ),
@@ -148,8 +146,7 @@ class _NotePageState extends State<NotePage> {
               ],
             ),
             SizedBox(height: 20),
-            Text(
-                "春秋时期，齐国的公子纠与公子小白争夺君位，管仲和鲍叔分别辅佐他们。管仲带兵阻击小白，用箭射中他的衣带钩，小白装死逃脱。后来小白即位为君，史称齐桓公。鲍叔对桓公说，要想成就霸王之业，非管仲不可。于是桓公重用管仲，鲍叔甘居其下，终成一代霸业。后人称颂齐桓公九合诸侯、一匡天下，为“春秋五霸”之首。孔子说：“桓公九合诸侯，不以兵车，管仲之力也。”司马迁说：“天下不多（称赞）管仲之贤而多鲍叔能知人也。”",
+            Text(noteInfo.content ?? "",
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.5,
@@ -165,13 +162,16 @@ class _NotePageState extends State<NotePage> {
                   height: 18),
               SizedBox(width: 5),
               Text("来自话题：", style: TextStyle(color: Colors.grey)),
-              Text("论持久战", style: TextStyle(color: Colors.blue)),
+              Text(noteInfo.topicTitle ?? "",
+                  style: TextStyle(color: Colors.blue)),
             ]),
             SizedBox(height: 20),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               _getMiddleIconBtn("11", "tabbar_like_icon"),
               SizedBox(width: 10),
-              _getMiddleIconBtn("微信", "wenzhang_detail_wechat"),
+              _getMiddleIconBtn("微信", "wenzhang_detail_wechat", onTap: () {
+                _openModalBottomSheet();
+              }),
               SizedBox(width: 10),
               _getMiddleIconBtn("朋友圈", "wenzhang_detail_pengyouquan"),
               SizedBox(width: 10),
@@ -183,7 +183,7 @@ class _NotePageState extends State<NotePage> {
     );
   }
 
-  static const imageUrl =
+  static var imageUrl =
       "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6";
 
   Widget _getMiddleBook() {
@@ -199,12 +199,15 @@ class _NotePageState extends State<NotePage> {
           padding: EdgeInsets.all(7),
           child: Row(
             children: [
-              FilletImage(imageUrl, corner: 5, width: 40),
+              FilletImage(noteInfo.relationData?.relationCover ?? "",
+                  corner: 5, width: 40),
               SizedBox(width: 10),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text("激荡一百年", style: TextStyle(fontSize: 16)),
+                Text(noteInfo.relationData?.relationTitle ?? "",
+                    style: TextStyle(fontSize: 16)),
                 SizedBox(height: 5),
-                Text("吴晓波", style: TextStyle(color: Colors.grey))
+                Text(noteInfo.relationData?.author ?? "",
+                    style: TextStyle(color: Colors.grey))
               ])
             ],
           ),
@@ -358,7 +361,7 @@ class _NotePageState extends State<NotePage> {
             height: 50,
             child: Row(children: [
               CircleImage(
-                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2F50%2Fv2-fce4f8a778fe3f24bca2cafc709b6847_hd.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625454014&t=e763deff04dcef7530b0745d632f86d6",
+                imageUrl,
                 width: 30,
                 height: 30,
               ),
@@ -403,9 +406,64 @@ class _NotePageState extends State<NotePage> {
             ])));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    scrollController.dispose();
+  Future _openModalBottomSheet() async {
+    final option = await showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+        builder: (BuildContext context) {
+          return Container(
+            height: 200.0,
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text('拍照', textAlign: TextAlign.center),
+                  onTap: () {
+                    Navigator.pop(context, '拍照');
+                  },
+                ),
+                ListTile(
+                  title: Text('从相册选择', textAlign: TextAlign.center),
+                  onTap: () {
+                    Navigator.pop(context, '从相册选择');
+                  },
+                ),
+                ListTile(
+                  title: Text('取消', textAlign: TextAlign.center),
+                  onTap: () {
+                    Navigator.pop(context, '取消');
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+    @override
+    void dispose() {
+      super.dispose();
+      scrollController.dispose();
+    }
+  }
+
+  NoteInfo noteInfo = NoteInfo();
+
+  void _getNoteData() async {
+    var response = await DioUtil.dio.post("m/bp/info",
+        options:
+            buildCacheOptions(Duration(days: 7), maxStale: Duration(days: 30)),
+        data: {
+          'user_id': '90005749',
+          'id': '3335233884500656157',
+          'type': 'note',
+          'source': '0'
+        });
+    logger.d(response.data);
+    Map<String, dynamic> data = json.decode(response.data);
+    setState(() {
+      noteInfo = NoteInfo.fromJson(data['data']);
+      imageUrl = noteInfo.userData.avatar;
+      urls = noteInfo.imgStr;
+    });
   }
 }
