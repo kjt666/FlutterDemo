@@ -57,16 +57,17 @@ class _LabelImageState extends State<LabelImage> {
           ),*/
             Positioned(
                 top: 2,
-                right: -5,
+                right: -7,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(2, 1, 2, 1),
+                  padding: EdgeInsets.fromLTRB(7, 1, 7, 1),
                   decoration: BoxDecoration(
                       color: widget.labelBgColor,
-                      borderRadius: BorderRadius.circular(5)),
+                      border: widget.labelBgColor==null?null:Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(7)),
                   child: Text(
                     widget.labelText ?? "",
                     style: widget.labelTextStyle ??
-                        TextStyle(fontSize: 8, color: Colors.grey[700]),
+                        TextStyle(fontSize: 8, color: Colors.black),
                   ),
                 ))
           ],

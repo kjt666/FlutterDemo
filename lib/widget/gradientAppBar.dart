@@ -5,10 +5,12 @@ import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/filletButton.dart';
 
 class GradientAppBar extends StatefulWidget {
-  GradientAppBar(Key barKey,this.url,this.name) : super(key: barKey);
+  GradientAppBar(Key barKey, this.url, this.name, this.moreTapCallback)
+      : super(key: barKey);
 
   String url;
   String name;
+  VoidCallback moreTapCallback;
 
   @override
   State<StatefulWidget> createState() {
@@ -24,8 +26,7 @@ class GradientAppBarState extends State<GradientAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: /*Theme.of(context).primaryColor.withAlpha(bgAlpha)*/ Colors.white
-          .withAlpha(bgAlpha),
+      color: Colors.white.withAlpha(bgAlpha),
       height: 85,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -35,42 +36,54 @@ class GradientAppBarState extends State<GradientAppBar> {
                 Icons.arrow_back,
                 color: iconColor,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           SizedBox(width: 5),
-          Flexible(child: Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: AnimatedOpacity(
-                duration: Duration(milliseconds: 500),
-                opacity: headerOpacity,
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleImage(
-                          widget.url,
-                          width: 35,
-                          height: 35),
-                      SizedBox(width: 10),
-                      Text(
-                       widget.name,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Spacer(flex: 1),
-                      FilletButton("关注",onTap: (){
-                        print("f*********k");
-                      },)
-                    ]),
-              )),),
+          Flexible(
+            child: Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: AnimatedOpacity(
+                  duration: Duration(milliseconds: 500),
+                  opacity: headerOpacity,
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleImage(widget.url, width: 35, height: 35),
+                        SizedBox(width: 10),
+                        Text(
+                          widget.name,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Spacer(flex: 1),
+                        Offstage(offstage: true, child: FilletButton("关注"))
+                      ]),
+                )),
+          ),
           IconButton(
-              icon: Icon(Icons.more_horiz, color: iconColor), onPressed: () {}),
+              icon: Icon(Icons.more_horiz, color: iconColor),
+              onPressed: widget.moreTapCallback),
         ],
       ),
     );
   }
 
-  void changeBarColor(int alpha) {
+  void changeBarWithIconColor(int alpha) {
     setState(() {
       iconColor = alpha == 0 ? Colors.white : Colors.black;
       bgAlpha = alpha;
+    });
+  }
+
+  void changeBarColor(int alpha) {
+    setState(() {
+      bgAlpha = alpha;
+    });
+  }
+
+  void changeIconColor(Color color){
+    setState(() {
+      iconColor = color;
     });
   }
 

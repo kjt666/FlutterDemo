@@ -15,7 +15,8 @@ class DioUtil {
           'X-YS-uid': '1',
           'X-YS-CHANNEL': 'youshu',
           'X-YS-soft': '5.30.0',
-          'X-YS-USER-TOKEN': 'b9d81b74af3c6605d38ecf7cb1393d38'
+          // 'X-YS-USER-TOKEN': 'b9d81b74af3c6605d38ecf7cb1393d38'
+          'X-YS-USER-TOKEN':'064688c93660d1bd5b71ed2b5152872a'
         },
         contentType: Headers.formUrlEncodedContentType,
         responseType: ResponseType.plain);
