@@ -33,12 +33,14 @@ class _NotePageState extends State<NotePage> {
   double titleBarOpacity = 0;
 
   GlobalKey<GradientAppBarState> barKey = GlobalKey();
-  GlobalKey<DynamicPageState> headerKey = GlobalKey();
+  GlobalKey<DynamicPageState> bannerKey = GlobalKey();
   RenderBox middleHeaderRender;
 
   //显示标题栏头像需要的位移量
   double barHeaderShowOffset = 0;
   bool noHeaderImg = true;
+
+  GlobalKey commentTitleKey = GlobalKey();
 
   @override
   void initState() {
@@ -99,7 +101,7 @@ class _NotePageState extends State<NotePage> {
               color: Colors.white,
             )
           : DynamicPageView(
-              headerKey,
+              bannerKey,
               context,
               urls,
             ),
@@ -309,6 +311,7 @@ class _NotePageState extends State<NotePage> {
             height: 10,
           ),
           Container(
+            key: commentTitleKey,
             color: Colors.white,
             padding: EdgeInsets.fromLTRB(15, 20, 0, 0),
             child: Row(
@@ -387,6 +390,13 @@ class _NotePageState extends State<NotePage> {
                         labelBgColor: Colors.redAccent,
                         labelTextStyle:
                             TextStyle(fontSize: 8, color: Colors.white),
+                        onTap: () {
+                          RenderBox render =
+                              commentTitleKey.currentContext.findRenderObject();
+                          scrollController.animateTo(
+                              render.localToGlobal(Offset.zero).dy,
+                              duration: Duration(milliseconds: 250));
+                        },
                       ),
                       LabelImage("tabbar_share_icon")
                     ]),
