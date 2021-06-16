@@ -65,8 +65,10 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     MethodChannelUtil.nativeChannel.setMethodCallHandler((call) {
-      print("${call.method}");
-      return Future.value("Hello~ android\nI'm flutter");
+      if(call.method == "lal") {
+        return Future.value("Hello~ ${call.arguments}\nI'm flutter");
+      }
+      return null;
     });
     WidgetsBinding.instance.addObserver(this);
     DioUtil.init();

@@ -11,6 +11,11 @@ class SecondActivity : FlutterActivity() {
 
     lateinit var channel: MethodChannel
 
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+        channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_NATIVE)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
@@ -19,9 +24,9 @@ class SecondActivity : FlutterActivity() {
             tv_value.text = stringExtra
         }
         btn.setOnClickListener {
-            channel.invokeMethod("lal", "Hello~ \nI'm android", object : MethodChannel.Result {
+            channel.invokeMethod("lal", "android", object : MethodChannel.Result {
                 override fun notImplemented() {
-                    TODO("Not yet implemented")
+                    Toast.makeText(this@SecondActivity, "notImplemented", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
@@ -35,10 +40,5 @@ class SecondActivity : FlutterActivity() {
 
             })
         }
-    }
-
-    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-        super.configureFlutterEngine(flutterEngine)
-        channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_NATIVE)
     }
 }
