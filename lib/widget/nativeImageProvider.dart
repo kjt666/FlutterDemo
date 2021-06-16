@@ -20,7 +20,7 @@ class NativeImageProvider extends ImageProvider<NativeImageProvider> {
     return MultiFrameImageStreamCompleter(
       codec: _loadAsync(key),
       scale: key.scale,
-      debugLabel: key.imageName,
+      // debugLabel: key.imageName,
       informationCollector: () {
         return <DiagnosticsNode>[
           DiagnosticsProperty<ImageProvider>('Image provider', this),

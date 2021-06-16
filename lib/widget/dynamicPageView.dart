@@ -29,8 +29,8 @@ class DynamicPageState extends State<DynamicPageView> {
   var _pageViewHeight;
   var _showIndex = 0;
 
-  List<double> _heightList = List.empty(growable: true);
-  List<Widget> _widgetList = List.empty(growable: true);
+  List<double> _heightList = [];
+  List<Widget> _widgetList = [];
 
   PageController _pageController;
 

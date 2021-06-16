@@ -68,33 +68,42 @@ class CommentItemState extends State<CommentItem> {
                   children: [
                     Text(widget.itemBean.createTime, style: bottomTextStyle),
                     Spacer(flex: 1),
-                    TextButton.icon(
-                        style: ButtonStyle(),
-                        onPressed: () {
+                    GestureDetector(
+                        onTap: () {
                           _diggComment();
                         },
-                        icon: Image(
-                            width: 15,
-                            height: 15,
-                            image: NativeImageProvider(
-                                widget.itemBean.isDigg == "1"
-                                    ? "digg"
-                                    : "undigg")),
-                        label: Text(
-                            widget.itemBean.diggCount == "0"
-                                ? "点赞"
-                                : widget.itemBean.diggCount,
-                            style: bottomTextStyle)),
-                    TextButton.icon(
-                        onPressed: () {},
-                        icon: Image(
-                          width: 15,
-                          height: 15,
-                          image: NativeImageProvider("square_icon_comment"),
-                        ),
-                        label: Text("评论", style: bottomTextStyle))
+                        child: Row(children: [
+                          Image(
+                              width: 15,
+                              height: 15,
+                              image: NativeImageProvider(
+                                  widget.itemBean.isDigg == "1"
+                                      ? "digg"
+                                      : "undigg")),
+                          SizedBox(width: 5),
+                          Text(
+                              widget.itemBean.diggCount == "0"
+                                  ? "点赞"
+                                  : widget.itemBean.diggCount,
+                              style: bottomTextStyle)
+                        ])),
+                    SizedBox(width: 10),
+                    GestureDetector(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            Image(
+                              width: 15,
+                              height: 15,
+                              image: NativeImageProvider("square_icon_comment"),
+                            ),
+                            SizedBox(width: 5),
+                            Text("评论", style: bottomTextStyle)
+                          ],
+                        ))
                   ],
                 ),
+                SizedBox(height: 10),
                 Divider(height: 0.5, color: Colors.grey[100])
               ],
             ),

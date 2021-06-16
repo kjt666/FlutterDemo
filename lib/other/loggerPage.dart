@@ -19,26 +19,26 @@ class LoggerPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton(
+          RaisedButton(
             child: Text("输出info日志"),
             onPressed: () {
               logger.i("info~info~info~info~info~info~info~");
             },
           ),
-          ElevatedButton(
+          RaisedButton(
             child: Text("输出debug日志"),
             onPressed: () {
               logger.d("debug~debug~debug~debug~debug~debug~debug~");
             },
           ),
-          ElevatedButton(
+          RaisedButton(
             child: Text("输出warning日志"),
             onPressed: () {
               logger.w(
                   "warning~warning~warning~warning~warning~warning~warning~");
             },
           ),
-          ElevatedButton(
+          RaisedButton(
             child: Text("输出error日志"),
             onPressed: () {
               try {
