@@ -14,7 +14,7 @@ import 'package:flutter_app/widget/nativeImageProvider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
-import 'bean/comment_list_bean.dart';
+import 'bean/comment_list.dart';
 
 class NotePage extends StatefulWidget {
   @override
@@ -398,11 +398,60 @@ class _NotePageState extends State<NotePage> {
                               duration: Duration(milliseconds: 250));
                         },
                       ),
-                      LabelImage("tabbar_share_icon")
+                      LabelImage("tabbar_share_icon",
+                          onTap: () => _openShareBottomSheet())
                     ]),
                 flex: 1,
               )
             ])));
+  }
+
+  Future _openShareBottomSheet() async {
+    await showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+        builder: (BuildContext context) {
+          return Container(
+            height: 290,
+            child: Column(
+              children: [
+                GridView.count(
+                  padding: EdgeInsets.only(top: 20, bottom: 20),
+                  crossAxisCount: 5,
+                  mainAxisSpacing: 30,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    getMorePopItem("微信好友", "weixin2",
+                            () =>  Navigator.pop(context)),
+                    getMorePopItem("微信朋友圈", "pengyouquan2",
+                            () =>  Navigator.pop(context)),
+                    getMorePopItem("QQ空间", "kongjian",
+                            () =>  Navigator.pop(context)),
+                    getMorePopItem("新浪微博", "weiibo2",
+                            () =>  Navigator.pop(context)),
+                    getMorePopItem("复制链接", "lianjie",
+                            () =>  Navigator.pop(context)),
+                    getMorePopItem("转发", "guangchang", () {
+                      Navigator.pop(context);
+                    }),
+                  ],
+                ),
+                Container(height: 10, color: Colors.grey[100]),
+                GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      child: Text("取消",
+                          style: TextStyle(color: Colors.grey, fontSize: 15)),
+                      height: 40,
+                      alignment: Alignment.center,
+                    )),
+              ],
+            ),
+          );
+        });
   }
 
   Future _openMoreBottomSheet() async {

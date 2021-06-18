@@ -1,7 +1,7 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/bean/comment_list_bean.dart';
+import 'package:flutter_app/bean/comment_list.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -29,7 +29,7 @@ class CommentItemState extends State<CommentItem> {
     goUserHomePage = () {
       Fluttertoast.showToast(msg: widget.itemBean.userData?.name);
     };
-    goCommentDetailPage = (){
+    goCommentDetailPage = () {
       Fluttertoast.showToast(msg: widget.itemBean.content);
     };
   }
@@ -62,7 +62,8 @@ class CommentItemState extends State<CommentItem> {
                         style: TextStyle(fontSize: 16, color: Colors.grey))),
                 SizedBox(height: 10),
                 GestureDetector(
-                    onTap: goCommentDetailPage, child: Text(widget.itemBean.content)),
+                    onTap: goCommentDetailPage,
+                    child: Text(widget.itemBean.content)),
                 SizedBox(height: 10),
                 Row(
                   children: [
@@ -104,6 +105,7 @@ class CommentItemState extends State<CommentItem> {
                   ],
                 ),
                 SizedBox(height: 10),
+                getSubCommentListView(),
                 Divider(height: 0.5, color: Colors.grey[100])
               ],
             ),
@@ -111,6 +113,91 @@ class CommentItemState extends State<CommentItem> {
         ],
       ),
     );
+  }
+
+  Widget getSubCommentListView() {
+    var list = widget.itemBean.commentList;
+    return list == null
+        ? SizedBox()
+        : ListView.builder(
+            shrinkWrap: true,
+            physics: new NeverScrollableScrollPhysics(),
+            itemBuilder: (context, i) {
+              bool samePerson =
+                  list[i].userData.userId == list[i].replyUserData.userId;
+              return Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: /*Text("${list[i].userData.name} 回复 ${list[i].replyUserData.name}：${list[i].content}")*/ RichText(
+                      text: TextSpan(
+                          style: TextStyle(color: Colors.black, fontSize: 13),
+                          children: [
+                        TextSpan(
+                            text: "${list[i].userData.name}",
+                            style: TextStyle(
+                                color: Color(0xff00bf7f), fontSize: 13),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Fluttertoast.showToast(
+                                    msg: "${list[i].userData.name}");
+                              }),
+                        samePerson ? TextSpan() : TextSpan(text: " 回复 "),
+                        samePerson
+                            ? TextSpan()
+                            : TextSpan(
+                                text: "${list[i].replyUserData.name}",
+                                style: TextStyle(
+                                    color: Color(0xff00bf7f), fontSize: 13),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Fluttertoast.showToast(
+                                        msg: "${list[i].replyUserData.name}");
+                                  }),
+                        TextSpan(
+                            text: "：${list[i].content}",
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                _openReportBottomSheet();
+                              }),
+                      ])));
+            },
+            itemCount: list == null ? 0 : list.length);
+  }
+
+  Future _openReportBottomSheet() async {
+    await showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+        builder: (BuildContext context) {
+          return Container(
+            height: 200.0,
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text("回复", textAlign: TextAlign.center),
+                  onTap: () => Navigator.pop(context),
+                ),
+                ListTile(
+                  title: Text("举报", textAlign: TextAlign.center),
+                  onTap: () => Navigator.pop(context),
+                ),
+                Container(
+                    height: 10,
+                    margin: EdgeInsets.only(top: 20),
+                    color: Colors.grey[100]),
+                GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      child: Text("取消",
+                          style: TextStyle(color: Colors.grey, fontSize: 15)),
+                      height: 50,
+                      alignment: Alignment.center,
+                    )),
+              ],
+            ),
+          );
+        });
   }
 
   //评论点赞
