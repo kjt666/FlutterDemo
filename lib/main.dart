@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
+
+// import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bean/httpResponse.dart';
 import 'package:flutter_app/bean/user_bean.dart';
@@ -10,9 +11,11 @@ import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(RefreshConfiguration(
+      maxOverScrollExtent: 50, maxUnderScrollExtent: 50, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -65,7 +68,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     MethodChannelUtil.nativeChannel.setMethodCallHandler((call) {
-      if(call.method == "lal") {
+      if (call.method == "lal") {
         return Future.value("Hello~ ${call.arguments}\nI'm flutter");
       }
       return null;
@@ -95,8 +98,8 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
 
   void getUserData() async {
     var response = await DioUtil.dio.post("m/user/login",
-        options:
-            buildCacheOptions(Duration(days: 7), maxStale: Duration(days: 30)),
+        // options:
+        //     buildCacheOptions(Duration(days: 7), maxStale: Duration(days: 30)),
         data: {
           'type': 'mobile',
           'data':

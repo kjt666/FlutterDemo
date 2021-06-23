@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/bean/note_info_bean.dart';
+import 'package:flutter_app/eum_noscroll_behavior.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/commentItem.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_app/widget/labelImage.dart';
 import 'package:flutter_app/widget/nativeImageProvider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'bean/comment_list.dart';
 
@@ -41,6 +44,9 @@ class _NotePageState extends State<NotePage> {
   bool noHeaderImg = true;
 
   GlobalKey commentTitleKey = GlobalKey();
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
@@ -75,15 +81,47 @@ class _NotePageState extends State<NotePage> {
     return Scaffold(
       body: Stack(
         children: [
-          CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              _getHeader(),
-              _getMiddleContent(),
-              _getListTitle(),
-              _getList(),
-            ],
-          ),
+          ScrollConfiguration(
+              behavior: EUMNoScrollBehavior(),
+              child: SmartRefresher(
+                enablePullDown: false,
+                enablePullUp: true,
+                onLoading: _onLoading,
+                controller: _refreshController,
+                footer: CustomFooter(
+                  loadStyle: LoadStyle.ShowWhenLoading,
+                  builder: (BuildContext context, LoadStatus mode) {
+                    Widget body;
+                    if (mode == LoadStatus.idle) {
+                      body = Text("上拉加载");
+                    } else if (mode == LoadStatus.loading) {
+                      body = CupertinoActivityIndicator();
+                    } else if (mode == LoadStatus.failed) {
+                      body = Text("加载失败！点击重试！");
+                    } else if (mode == LoadStatus.canLoading) {
+                      body = Text("松手,加载更多!");
+                    } else {
+                      // body = Text("没有更多数据了!");
+                      // body = Image(image: NativeImageProvider("youshu_slogn"));
+                      body = Image.asset("images/youshu_slogn.png");
+                    }
+                    return Container(
+                      height: 60,
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      child: Center(child: body),
+                    );
+                  },
+                ),
+                child: CustomScrollView(
+                  controller: scrollController,
+                  slivers: [
+                    _getHeader(),
+                    _getMiddleContent(),
+                    _getListTitle(),
+                    _getList(),
+                  ],
+                ),
+              )),
           GradientAppBar(barKey, imageUrl, noteInfo.userData?.name ?? "", () {
             _openMoreBottomSheet();
           })
@@ -424,16 +462,16 @@ class _NotePageState extends State<NotePage> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    getMorePopItem("微信好友", "weixin2",
-                            () =>  Navigator.pop(context)),
-                    getMorePopItem("微信朋友圈", "pengyouquan2",
-                            () =>  Navigator.pop(context)),
-                    getMorePopItem("QQ空间", "kongjian",
-                            () =>  Navigator.pop(context)),
-                    getMorePopItem("新浪微博", "weiibo2",
-                            () =>  Navigator.pop(context)),
-                    getMorePopItem("复制链接", "lianjie",
-                            () =>  Navigator.pop(context)),
+                    getMorePopItem(
+                        "微信好友", "weixin2", () => Navigator.pop(context)),
+                    getMorePopItem(
+                        "微信朋友圈", "pengyouquan2", () => Navigator.pop(context)),
+                    getMorePopItem(
+                        "QQ空间", "kongjian", () => Navigator.pop(context)),
+                    getMorePopItem(
+                        "新浪微博", "weiibo2", () => Navigator.pop(context)),
+                    getMorePopItem(
+                        "复制链接", "lianjie", () => Navigator.pop(context)),
                     getMorePopItem("转发", "guangchang", () {
                       Navigator.pop(context);
                     }),
@@ -644,6 +682,18 @@ class _NotePageState extends State<NotePage> {
         noteInfo.diggCount = (++diggCount).toString();
       }
     });
+  }
+
+  int count = 0;
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 2000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted) setState(() {});
+    count++ < 3
+        ? _refreshController.loadComplete()
+        : _refreshController.loadNoData();
   }
 
   @override

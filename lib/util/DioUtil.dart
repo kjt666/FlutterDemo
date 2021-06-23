@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
+// import 'package:dio_http_cache/dio_http_cache.dart';
 
 class DioUtil {
   static var dio = Dio();
@@ -21,7 +21,7 @@ class DioUtil {
         contentType: Headers.formUrlEncodedContentType,
         responseType: ResponseType.plain);
     dio.options = options;
-    dio.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+    // dio.interceptors
+    //     .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
   }
 }

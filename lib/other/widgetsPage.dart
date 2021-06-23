@@ -19,6 +19,7 @@ import 'package:flutter_app/other/draggableScrollableSheet.dart';
 import 'package:flutter_app/other/drawer.dart';
 import 'package:flutter_app/other/flexiblePage.dart';
 import 'package:flutter_app/other/fractionallySizedBox.dart';
+import 'package:flutter_app/other/html.dart';
 import 'package:flutter_app/other/image.dart';
 import 'package:flutter_app/other/imageFiltered.dart';
 import 'package:flutter_app/other/indexedStack.dart';
@@ -137,6 +138,7 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("imageFiltered", new ImageFilteredPage()),
             getJumpItem("physicalModel", new PhysicalModelPage()),
             getJumpItem("pageView(viewPager)", new PageViewPage()),
+            getJumpItem("html", new HtmlPage())
           ],
         ),
       ),
