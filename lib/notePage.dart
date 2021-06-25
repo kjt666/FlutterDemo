@@ -115,6 +115,17 @@ class _NotePageState extends State<NotePage> {
                 child: CustomScrollView(
                   controller: scrollController,
                   slivers: [
+                    /*SliverAppBar(
+                      floating: true,
+                      pinned: true,
+                      snap: false,
+                      toolbarHeight: 0,
+                      collapsedHeight:220,
+                      expandedHeight: 220.0,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Image.asset("images/1.jpeg",fit: BoxFit.cover,),
+                      ),
+                    ),*/
                     _getHeader(),
                     _getMiddleContent(),
                     _getListTitle(),

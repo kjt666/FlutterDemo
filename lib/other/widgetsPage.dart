@@ -39,6 +39,7 @@ import 'package:flutter_app/other/slider.dart';
 import 'package:flutter_app/other/sliverAppBar.dart';
 import 'package:flutter_app/other/spacer.dart';
 import 'package:flutter_app/other/stack.dart';
+import 'package:flutter_app/other/text_span.dart';
 import 'package:flutter_app/other/toggleButtons.dart';
 import 'package:flutter_app/other/tweenAnimationBuilder.dart';
 import 'package:logger/logger.dart';
@@ -138,7 +139,8 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("imageFiltered", new ImageFilteredPage()),
             getJumpItem("physicalModel", new PhysicalModelPage()),
             getJumpItem("pageView(viewPager)", new PageViewPage()),
-            getJumpItem("html", new HtmlPage())
+            getJumpItem("html", new HtmlPage()),
+            getJumpItem("textSpan", new TextSpanPage())
           ],
         ),
       ),
