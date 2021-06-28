@@ -15,6 +15,7 @@ import 'package:flutter_app/other/checkBoxListTile.dart';
 import 'package:flutter_app/other/clipOval.dart';
 import 'package:flutter_app/other/colorFiltered.dart';
 import 'package:flutter_app/other/constrainedBox.dart';
+import 'package:flutter_app/other/custom_paint.dart';
 import 'package:flutter_app/other/draggableScrollableSheet.dart';
 import 'package:flutter_app/other/drawer.dart';
 import 'package:flutter_app/other/flexiblePage.dart';
@@ -140,7 +141,8 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("physicalModel", new PhysicalModelPage()),
             getJumpItem("pageView(viewPager)", new PageViewPage()),
             getJumpItem("html", new HtmlPage()),
-            getJumpItem("textSpan", new TextSpanPage())
+            getJumpItem("textSpan", new TextSpanPage()),
+            getJumpItem("customPaint", new CustomPaintPage())
           ],
         ),
       ),
