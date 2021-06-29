@@ -9,6 +9,7 @@ import 'package:flutter_app/other/animatedPadding.dart';
 import 'package:flutter_app/other/animatedPositioned.dart';
 import 'package:flutter_app/other/animatedSwitcher.dart';
 import 'package:flutter_app/other/animatedWidget.dart';
+import 'package:flutter_app/other/animation.dart';
 import 'package:flutter_app/other/aspectRatio.dart';
 import 'package:flutter_app/other/builder.dart';
 import 'package:flutter_app/other/checkBoxListTile.dart';
@@ -131,7 +132,6 @@ class _WidgetsPageState extends State<WidgetsPage> {
             // getJumpItem("builder", new BuilderPage())
             getJumpItem("progressIndicator(进度条)", new ProgressIndicatorPage()),
             getJumpItem("clipOval(裁剪椭圆型)", new ClipOvalPage()),
-            getJumpItem("animatedWidget(动画小部件)", new AnimatedWidgetPage()),
             getJumpItem(
                 "checkBoxListTile(复选框列表item)", new CheckBoxListTilePage()),
             getJumpItem("sliverAppBar", new SliverAppBarPage()),
@@ -142,7 +142,9 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("pageView(viewPager)", new PageViewPage()),
             getJumpItem("html", new HtmlPage()),
             getJumpItem("textSpan", new TextSpanPage()),
-            getJumpItem("customPaint", new CustomPaintPage())
+            getJumpItem("customPaint", new CustomPaintPage()),
+            getJumpItem("animation", new AnimationPage()),
+            getJumpItem("animatedWidget(动画小部件)", new AnimatedWidgetPage()),
           ],
         ),
       ),
