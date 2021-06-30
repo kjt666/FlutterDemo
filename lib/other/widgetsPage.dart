@@ -134,15 +134,15 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("animatedWidget(动画小部件)", new AnimatedWidgetPage()),
             getJumpItem(
                 "checkBoxListTile(复选框列表item)", new CheckBoxListTilePage()),
-            getJumpItem("sliverAppBar", new SliverAppBarPage()),
+            getJumpItem("sliverAppBar(列表滑动折叠)", new SliverAppBarPage()),
             getJumpItem(
                 "interactiveViewer(手势放大缩小)", new InteractiveViewerPage()),
-            getJumpItem("imageFiltered", new ImageFilteredPage()),
-            getJumpItem("physicalModel", new PhysicalModelPage()),
+            getJumpItem("imageFiltered(高斯模糊)", new ImageFilteredPage()),
+            getJumpItem("physicalModel(物理模型)", new PhysicalModelPage()),
             getJumpItem("pageView(viewPager)", new PageViewPage()),
-            getJumpItem("html", new HtmlPage()),
-            getJumpItem("textSpan", new TextSpanPage()),
-            getJumpItem("customPaint", new CustomPaintPage())
+            getJumpItem("html(富文本)", new HtmlPage()),
+            getJumpItem("textSpan(扩展文本)", new TextSpanPage()),
+            getJumpItem("customPaint(自定义Widget)", new CustomPaintPage())
           ],
         ),
       ),

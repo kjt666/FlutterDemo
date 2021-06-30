@@ -10,7 +10,7 @@ class InteractiveViewerPage extends StatelessWidget {
       ),
       body: Container(
         height: double.infinity,
-        /*child: InteractiveViewer(
+        child: InteractiveViewer(
           //只能在水平或竖直方向上平移
           // alignPanAxis: true,
           //如果为false，则将阻止用户平移
@@ -20,7 +20,7 @@ class InteractiveViewerPage extends StatelessWidget {
           maxScale: 5,
           child: Image.network(
               "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201503%2F02%2F203935nub7j7vvt0uberrk.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621578280&t=3ca69068c29d86594eb3f821aa89c9be"),
-        ),*/
+        ),
       ),
     );
   }
