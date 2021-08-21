@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app/bean/note_info_bean.dart';
 import 'package:flutter_app/eum_noscroll_behavior.dart';
 import 'package:flutter_app/util/DioUtil.dart';
+import 'package:flutter_app/util/TimeUtil.dart';
 import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/commentItem.dart';
 import 'package:flutter_app/widget/dynamicPageView.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_app/widget/filletImage.dart';
 import 'package:flutter_app/widget/gradientAppBar.dart';
 import 'package:flutter_app/widget/labelImage.dart';
 import 'package:flutter_app/widget/nativeImageProvider.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -174,12 +176,21 @@ class _NotePageState extends State<NotePage> {
                         color: Colors.black))),
             _getMiddleHeader(),
             SizedBox(height: 20),
-            Text(noteInfo.content ?? "",
+            /*Text(noteInfo.content ?? "",
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.5,
                   color: Colors.black,
-                )),
+                )),*/
+            Html(
+              data:
+              "<div style=\"line-height: 20px\">${noteInfo.content ?? ""}<\/div>" ??
+                  "",
+              onImageTap: (url, context, attributes, element) {
+                // NavigatorUtil.pushImageBrowserPage(0, [url]);
+                Fluttertoast.showToast(msg: url);
+              },
+            ),
             SizedBox(height: 20),
             _getMiddleBook(),
             SizedBox(height: 20),
@@ -244,7 +255,7 @@ class _NotePageState extends State<NotePage> {
                               height: 15))),
                 ]),
                 SizedBox(height: 5),
-                Text(noteInfo.updateTime ?? "",
+                Text(TimeUtil.formatCommentTime(noteInfo.updateTime),
                     style: TextStyle(fontSize: 12, color: Colors.grey))
               ],
             )),
@@ -607,8 +618,8 @@ class _NotePageState extends State<NotePage> {
   //获取文章信息
   void _getNoteData() async {
     var response = await DioUtil.dio.post("m/bp/info", data: {
-      'user_id': '90005784',
-      'id': '3335233884500656157',
+      'user_id': '90006269',
+      'id': '3328779617678000128',//3335233884500656157
       'type': 'note',
       'source': '0'
     });
@@ -617,6 +628,8 @@ class _NotePageState extends State<NotePage> {
 
     setState(() {
       noteInfo = NoteInfo.fromJson(data['data']);
+      noteInfo.content = noteInfo.content.replaceAll("\n", "</br>");
+      print(noteInfo.content);
       print("-----------isDigg = ${noteInfo.isDigg},isFav = ${noteInfo.isFav}");
       noHeaderImg = noteInfo.imgStr.isEmpty;
       barKey.currentState.changeIconColor(Colors.black);
@@ -636,7 +649,7 @@ class _NotePageState extends State<NotePage> {
       'business_type': '104',
       'business_id': '0',
       'collection_id': '1',
-      'chapter_id': '3335233884500656157',
+      'chapter_id': '3314629710482374686',
     });
     logger.d(response.data);
     Map<String, dynamic> data = json.decode(response.data);

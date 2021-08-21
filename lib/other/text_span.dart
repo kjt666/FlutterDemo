@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/util/emojiUtil.dart';
 
@@ -73,7 +74,12 @@ class _TextSpanState extends State<TextSpanPage> {
             RichText(text: TextSpan(children: spans)),
             ElevatedButton(
                 onPressed: () {
-                  var list = EmojiUtil.getInstance().addSmiles(s);
+                  var list = EmojiUtil.getInstance().addSmiles(
+                      s,
+                      TapGestureRecognizer()
+                        ..onTap = () {
+                          print("啊哦~");
+                        });
                   spans = list;
                   setState(() {});
                 },

@@ -1,6 +1,7 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 class EmojiUtil {
   static List<String> _keyList = [
     "[(a)]",
@@ -298,7 +299,7 @@ class EmojiUtil {
     return _instance;
   }
 
-  List<InlineSpan> addSmiles(String content) {
+  List<InlineSpan> addSmiles(String content, TapGestureRecognizer recognizer) {
     List<InlineSpan> widgets = [];
     TextStyle style = TextStyle(color: Colors.black);
     content = content.replaceAll("\]", "\[");
@@ -308,9 +309,18 @@ class EmojiUtil {
     for (int i = 0; i < list.length; i++) {
       int index = _keyList.indexOf("[${list[i]}]");
       if (index >= 0) {
-        widgets.add(WidgetSpan(child: Image.asset("images/${_valueList[index]}.png",width: 25,height: 25,)));
+        widgets.add(WidgetSpan(
+            child: GestureDetector(
+          child: Image.asset(
+            "images/${_valueList[index]}.png",
+            width: 25,
+            height: 25,
+          ),
+          onTap: recognizer.onTap,
+        )));
       } else {
-        widgets.add(TextSpan(text: list[i],style: style));
+        widgets
+            .add(TextSpan(text: list[i], style: style, recognizer: recognizer));
       }
     }
     return widgets;

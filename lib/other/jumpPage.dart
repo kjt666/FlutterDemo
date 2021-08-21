@@ -4,6 +4,7 @@ import 'package:flutter_app/myPage.dart';
 import 'package:flutter_app/notePage.dart';
 import 'package:flutter_app/other/loggerPage.dart';
 import 'package:flutter_app/other/widgetsPage.dart';
+import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 
 import 'nativeImage.dart';
@@ -19,6 +20,19 @@ class _JumpState extends State<JumpPage> {
   int index = 0;
   Color oddItemColor = Colors.blueGrey[50];
   Color evenItemColor = Colors.blueGrey[100];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    MethodChannelUtil.nativeChannel.setMethodCallHandler((call) {
+      if (call.method == "lal") {
+        return Future.value("Hello~ ${call.arguments}\nI'm flutter");
+      }
+      return null;
+    });
+    DioUtil.init();
+  }
 
   @override
   Widget build(BuildContext context) {

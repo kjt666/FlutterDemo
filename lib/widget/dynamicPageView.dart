@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -72,16 +73,19 @@ class DynamicPageState extends State<DynamicPageView> {
       _widgetList.add(GestureDetector(
         child: Image.network(
           widget._urls[i],
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
         onTap: () {
           widget.clickCallBack?.call(i, widget._urls[i]);
         },
       ));
       loadImage(widget._urls[i]).then((value) {
-        _heightList[i] = (value.height.toDouble() /
+        double height = (value.height.toDouble() /
                 queryData.devicePixelRatio) *
             (queryData.size.width / (value.width / queryData.devicePixelRatio));
+
+        _heightList[i] = min(height, queryData.size.height * 3 / 4);
+
         print("第$i张图片的宽度是--->${value.width},高度是--->${value.height}");
         if (i == 0) {
           setState(() {

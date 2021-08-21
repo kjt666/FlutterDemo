@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/bean/comment_list.dart';
 import 'package:flutter_app/util/DioUtil.dart';
+import 'package:flutter_app/util/TimeUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'circleImage.dart';
@@ -67,7 +68,8 @@ class CommentItemState extends State<CommentItem> {
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Text(widget.itemBean.createTime, style: bottomTextStyle),
+                    Text(TimeUtil.formatCommentTime(widget.itemBean.createTime),
+                        style: bottomTextStyle),
                     Spacer(flex: 1),
                     GestureDetector(
                         onTap: () {
@@ -104,9 +106,11 @@ class CommentItemState extends State<CommentItem> {
                         ))
                   ],
                 ),
-                SizedBox(height: 10),
                 getSubCommentListView(),
-                Divider(height: 0.5, color: Colors.grey[100])
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Divider(height: 0.5, color: Colors.grey[100]),
+                )
               ],
             ),
           ),
@@ -117,50 +121,85 @@ class CommentItemState extends State<CommentItem> {
 
   Widget getSubCommentListView() {
     var list = widget.itemBean.commentList;
-    return list == null
+    var commentCount = int.tryParse(widget.itemBean.commentCount);
+    if (commentCount == null) commentCount = 0;
+    return (list == null || list.isEmpty)
         ? SizedBox()
-        : ListView.builder(
-            shrinkWrap: true,
-            physics: new NeverScrollableScrollPhysics(),
-            itemBuilder: (context, i) {
-              bool samePerson =
-                  list[i].userData.userId == list[i].replyUserData.userId;
-              return Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: /*Text("${list[i].userData.name} 回复 ${list[i].replyUserData.name}：${list[i].content}")*/ RichText(
-                      text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                          children: [
-                        TextSpan(
-                            text: "${list[i].userData.name}",
-                            style: TextStyle(
-                                color: Color(0xff00bf7f), fontSize: 13),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Fluttertoast.showToast(
-                                    msg: "${list[i].userData.name}");
-                              }),
-                        samePerson ? TextSpan() : TextSpan(text: " 回复 "),
-                        samePerson
-                            ? TextSpan()
-                            : TextSpan(
-                                text: "${list[i].replyUserData.name}",
+        : MediaQuery.removePadding(
+            removeTop: true,
+            removeBottom: true,
+            context: context,
+            child: Container(
+                decoration: BoxDecoration(
+                    color: Color(0xfff6f7fa),
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                padding: EdgeInsets.fromLTRB(15, 15, 5, 5),
+                margin: EdgeInsets.only(top: 10),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: new NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, i) {
+                      if (i == 3) {
+                        return Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: GestureDetector(
+                              onTap: goCommentDetailPage,
+                              child: Text(
+                                "查看全部${widget.itemBean.commentCount}条回复",
                                 style: TextStyle(
                                     color: Color(0xff00bf7f), fontSize: 13),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Fluttertoast.showToast(
-                                        msg: "${list[i].replyUserData.name}");
-                                  }),
-                        TextSpan(
-                            text: "：${list[i].content}",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                _openReportBottomSheet();
-                              }),
-                      ])));
-            },
-            itemCount: list == null ? 0 : list.length);
+                              ),
+                            ));
+                      } else {
+                        bool samePerson = list[i].userData.userId ==
+                            list[i].replyUserData.userId;
+                        return Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: /*Text("${list[i].userData.name} 回复 ${list[i].replyUserData.name}：${list[i].content}")*/ RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 13),
+                                    children: [
+                                  TextSpan(
+                                      text: "${list[i].userData.name}",
+                                      style: TextStyle(
+                                          color: Color(0xff00bf7f),
+                                          fontSize: 13),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Fluttertoast.showToast(
+                                              msg: "${list[i].userData.name}");
+                                        }),
+                                  samePerson
+                                      ? TextSpan()
+                                      : TextSpan(text: " 回复 "),
+                                  samePerson
+                                      ? TextSpan()
+                                      : TextSpan(
+                                          text: "${list[i].replyUserData.name}",
+                                          style: TextStyle(
+                                              color: Color(0xff00bf7f),
+                                              fontSize: 13),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Fluttertoast.showToast(
+                                                  msg:
+                                                      "${list[i].replyUserData.name}");
+                                            }),
+                                  TextSpan(
+                                      text: "：${list[i].content}",
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          _openReportBottomSheet();
+                                        }),
+                                ])));
+                      }
+                    },
+                    itemCount: list == null
+                        ? 0
+                        : commentCount > 3
+                            ? 4
+                            : list.length)));
   }
 
   Future _openReportBottomSheet() async {
