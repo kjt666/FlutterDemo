@@ -18,19 +18,19 @@ class AlertDialogPage extends StatelessWidget {
                   showDialog(
                       context: context,
                       barrierDismissible: true,
-                      builder: (_a) => AlertDialog(
+                      builder: (buildContext) => AlertDialog(
                             title: Text("Accept?"),
                             content: Text("Do you accept?"),
                             backgroundColor: Colors.amberAccent,
                             actions: [
                               RaisedButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop(false);
+                                    Navigator.pop(buildContext);
                                   },
                                   child: Text("No")),
                               RaisedButton(
                                   onPressed: () {
-                                    Navigator.of(context).pop(false);
+                                    Navigator.pop(buildContext);
                                   },
                                   child: Text("Yes"))
                             ],

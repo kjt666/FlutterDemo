@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app/bean/comment_list.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/TimeUtil.dart';
+import 'package:flutter_app/util/emojiUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'circleImage.dart';
@@ -63,8 +64,16 @@ class CommentItemState extends State<CommentItem> {
                         style: TextStyle(fontSize: 16, color: Colors.grey))),
                 SizedBox(height: 10),
                 GestureDetector(
-                    onTap: goCommentDetailPage,
-                    child: Text(widget.itemBean.content)),
+                  onTap: goCommentDetailPage,
+                  child: RichText(
+                      text: TextSpan(
+                          children: EmojiUtil.getInstance().addSmiles(
+                              widget.itemBean.content,
+                              TapGestureRecognizer()
+                                ..onTap = () {
+                                  print("啊哦~");
+                                }))),
+                ) /*Text(widget.itemBean.content))*/,
                 SizedBox(height: 10),
                 Row(
                   children: [
