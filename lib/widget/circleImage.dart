@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CircleImage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _CircleImageState extends State<CircleImage> {
         height: widget.height ?? 80,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
+          border: Border.all(color: Colors.grey[300],width: 0.5),
           image: DecorationImage(
               image: NetworkImage(widget.url), fit: BoxFit.cover),
         ),

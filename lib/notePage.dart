@@ -522,7 +522,7 @@ class _NotePageState extends State<NotePage> {
                 topLeft: Radius.circular(5), topRight: Radius.circular(5))),
         builder: (BuildContext context) {
           return Container(
-            height: 200,
+            height: 190,
             padding: EdgeInsets.only(top: 30),
             child: Column(
               children: <Widget>[
