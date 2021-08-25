@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/shims/dart_ui_real.dart';
-import 'dart:ui' as ui;
 
 class Loading extends StatefulWidget {
+  Loading(this.lineColor, {this.center = true});
+
+  final Color lineColor;
+  final bool center;
+
   @override
   State<StatefulWidget> createState() {
     return _LoadingState();
@@ -69,28 +72,31 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
   Widget _buildIndicator(BuildContext context, double value) {
     return Center(
       child: CustomPaint(
-        size: Size(140, 50),
-        foregroundPainter:
-            LoadingPainter(frameList, speed, (_controller.value * 12).floor()),
+        size: widget.center ? Size(40, 20) : Size(140, 50),
+        foregroundPainter: LoadingPainter(frameList, speed, widget.lineColor,
+            (_controller.value * 12).floor()),
       ),
     );
   }
 }
 
 class LoadingPainter extends CustomPainter {
-  LoadingPainter(this.frameList, this.speed, this.progressDegree);
+  LoadingPainter(
+      this.frameList, this.speed, this.lineColor, this.progressDegree) {
+    _paint = Paint()
+      ..color = lineColor
+      ..strokeCap = StrokeCap.round
+      ..isAntiAlias = true
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1.0;
+  }
 
-  Paint _paint = Paint()
-    ..color = Colors.grey[500]
-    ..strokeCap = StrokeCap.round
-    ..isAntiAlias = true
-    ..style = PaintingStyle.fill
-    ..strokeWidth = 1.0;
-
+  Paint _paint;
   int progressDegree = 0;
   double vW = 2.5;
   double row_w = 3;
   int speed = 6;
+  Color lineColor;
   List<int> frames = [6, 4, 2, 4, 6, 4];
   List<int> frameList = [];
 
@@ -127,16 +133,16 @@ class LoadingPainter extends CustomPainter {
         (height) / 2 - vH3 / 2, vW, vH3);
 
     // 1-2 段落构造器并添加文本信息
-    ParagraphBuilder bulder = ParagraphBuilder(
-        ParagraphStyle(fontSize: 14, fontStyle: FontStyle.normal))
-      ..pushStyle(ui.TextStyle(color: Colors.grey[600]))
-      ..addText("书友请稍等...");
-    // 3 设置段落容器宽度
-    ParagraphConstraints pc = ParagraphConstraints(width: 90);
-    // 4 计算文本位置及尺寸
-    Paragraph paragraph = bulder.build()..layout(pc);
+    // ParagraphBuilder bulder = ParagraphBuilder(
+    //     ParagraphStyle(fontSize: 14, fontStyle: FontStyle.normal))
+    //   ..pushStyle(ui.TextStyle(color: Colors.grey[600]))
+    //   ..addText("书友请稍等...");
+    // // 3 设置段落容器宽度
+    // ParagraphConstraints pc = ParagraphConstraints(width: 90);
+    // // 4 计算文本位置及尺寸
+    // Paragraph paragraph = bulder.build()..layout(pc);
     // 5 文本绘制
-    canvas.drawParagraph(paragraph, Offset(45, 0));
+    // canvas.drawParagraph(paragraph, Offset(45, 0));
   }
 
   @override

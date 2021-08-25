@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class FilletButton extends StatelessWidget {
-
   final String text;
   final TextStyle textStyle;
   final Color bgColor;
@@ -11,7 +10,7 @@ class FilletButton extends StatelessWidget {
   final GestureTapCallback onTap;
 
   FilletButton(this.text,
-      {this.textStyle, this.bgColor, this.radius, this.padding,this.onTap});
+      {this.textStyle, this.bgColor, this.radius, this.padding, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,10 @@ class FilletButton extends StatelessWidget {
             color: bgColor ?? Color(0xff00bf7f)),
         child: Text(text,
             style: textStyle ??
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12)),
       ),
     );
   }

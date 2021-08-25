@@ -9,16 +9,16 @@ class CustomPaintPage extends StatefulWidget {
   }
 }
 
-class _CustomPatinState extends State<CustomPaintPage>{
-
+class _CustomPatinState extends State<CustomPaintPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("CustomPaint"),
         ),
-        body: Loading());
+        body: Loading(
+          Colors.grey[500],
+          center: false,
+        ));
   }
-
 }
-

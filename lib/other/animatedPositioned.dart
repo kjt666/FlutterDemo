@@ -48,16 +48,21 @@ class _AnimatedPositionedState extends State<AnimatedPositionedPage> {
                           _showMessage = !_showMessage;
                         });
                       },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: Container(
-                          width: 150,
-                          height: 100,
-                          color: Colors.blueAccent,
-                          alignment: Alignment.center,
-                          child: Text(
-                            "点我",
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                      child: AnimatedOpacity(
+                        opacity: _showMessage?1:0.5,
+                        duration: Duration(milliseconds: 500),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          child: Container(
+                            width: 150,
+                            height: 100,
+                            color: Colors.blueAccent,
+                            alignment: Alignment.center,
+                            child: Text(
+                              "点我",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
                           ),
                         ),
                       ),

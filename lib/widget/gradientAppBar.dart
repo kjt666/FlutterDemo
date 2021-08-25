@@ -22,6 +22,7 @@ class GradientAppBarState extends State<GradientAppBar> {
   int bgAlpha = 0;
   Color iconColor = Colors.white;
   double headerOpacity = 0;
+  bool hideMore = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,28 +42,33 @@ class GradientAppBarState extends State<GradientAppBar> {
               }),
           SizedBox(width: 5),
           Flexible(
-            child: Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: AnimatedOpacity(
+              child: Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            /*child: AnimatedPositioned(
                   duration: Duration(milliseconds: 500),
-                  opacity: headerOpacity,
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleImage(widget.url, width: 35, height: 35),
-                        SizedBox(width: 10),
-                        Text(
-                          widget.name,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        Spacer(flex: 1),
-                        Offstage(offstage: true, child: FilletButton("关注"))
-                      ]),
-                )),
-          ),
-          IconButton(
-              icon: Icon(Icons.more_horiz, color: iconColor),
-              onPressed: widget.moreTapCallback),
+                  left:  headerOpacity == 1 ?0 : 50,*/
+            child: AnimatedOpacity(
+              duration: Duration(milliseconds: 500),
+              opacity: headerOpacity,
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                CircleImage(widget.url, width: 35, height: 35),
+                SizedBox(width: 10),
+                Text(
+                  widget.name,
+                  style: TextStyle(fontSize: 16),
+                ),
+                Spacer(flex: 1),
+                Offstage(offstage: true, child: FilletButton("关注"))
+              ]),
+            ),
+          )),
+          // ),
+          Offstage(
+              offstage: hideMore,
+              child: IconButton(
+                  icon: Icon(Icons.more_horiz, color: iconColor),
+                  onPressed: widget.moreTapCallback)),
         ],
       ),
     );
@@ -81,7 +87,7 @@ class GradientAppBarState extends State<GradientAppBar> {
     });
   }
 
-  void changeIconColor(Color color){
+  void changeIconColor(Color color) {
     setState(() {
       iconColor = color;
     });
@@ -98,5 +104,11 @@ class GradientAppBarState extends State<GradientAppBar> {
         headerOpacity = 0;
       });
     }
+  }
+
+  void hideMoreIcon(bool b){
+    setState(() {
+      hideMore = b;
+    });
   }
 }

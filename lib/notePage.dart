@@ -9,6 +9,7 @@ import 'package:flutter_app/util/TimeUtil.dart';
 import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/commentItem.dart';
 import 'package:flutter_app/widget/dynamicPageView.dart';
+import 'package:flutter_app/widget/emptyView.dart';
 import 'package:flutter_app/widget/filletButton.dart';
 import 'package:flutter_app/widget/filletImage.dart';
 import 'package:flutter_app/widget/gradientAppBar.dart';
@@ -46,6 +47,7 @@ class _NotePageState extends State<NotePage> {
   bool noHeaderImg = true;
 
   GlobalKey commentTitleKey = GlobalKey();
+  GlobalKey<EmptyViewState> emptyViewKey = GlobalKey();
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -135,6 +137,12 @@ class _NotePageState extends State<NotePage> {
                   ],
                 ),
               )),
+          Offstage(
+              offstage: noteInfo.id != null,
+              child: EmptyView(emptyViewKey, "quesheng_wuwifi_07", "加载失败,请稍后重试",
+                  () {
+                _getNoteData();
+              })),
           GradientAppBar(barKey, imageUrl, noteInfo.userData?.name ?? "", () {
             _openMoreBottomSheet();
           })
@@ -175,7 +183,7 @@ class _NotePageState extends State<NotePage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.black))),
             _getMiddleHeader(),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             /*Text(noteInfo.content ?? "",
                 style: TextStyle(
                   fontSize: 16,
@@ -184,8 +192,8 @@ class _NotePageState extends State<NotePage> {
                 )),*/
             Html(
               data:
-              "<div style=\"line-height: 20px\">${noteInfo.content ?? ""}<\/div>" ??
-                  "",
+                  "<div style=\"line-height: 20px\">${noteInfo.content ?? ""}<\/div>" ??
+                      "",
               onImageTap: (url, context, attributes, element) {
                 // NavigatorUtil.pushImageBrowserPage(0, [url]);
                 Fluttertoast.showToast(msg: url);
@@ -262,7 +270,7 @@ class _NotePageState extends State<NotePage> {
         Spacer(
           flex: 1,
         ),
-        Offstage(offstage: true, child: FilletButton("关注"))
+        Offstage(offstage: "1" == noteInfo.isFollow, child: FilletButton("关注"))
       ],
     );
   }
@@ -290,13 +298,23 @@ class _NotePageState extends State<NotePage> {
                           corner: 5, width: 40),
                       SizedBox(width: 10),
                       Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(noteInfo.relationData?.relationTitle ?? "",
-                                style: TextStyle(fontSize: 16)),
-                            SizedBox(height: 5),
-                            Text(noteInfo.relationData?.author ?? "",
-                                style: TextStyle(color: Colors.grey))
+                            Text(
+                              noteInfo.relationData?.relationTitle ?? "",
+                              style: TextStyle(fontSize: 15),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 2.5),
+                            Text(
+                              noteInfo.relationData?.author ?? "",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 12),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
                           ])
                     ],
                   ),
@@ -337,24 +355,25 @@ class _NotePageState extends State<NotePage> {
           onTap: onTap,
           child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.only(top: 6, bottom: 6),
+            padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey[300], width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image(
                     image: NativeImageProvider(iconName),
-                    width: 18,
-                    height: 18),
+                    width: 15,
+                    height: 15),
                 SizedBox(
-                  width: 5,
+                  width: 4,
                 ),
                 Text(
                   text,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  style: TextStyle(fontSize: 11, color: Colors.grey[700]),
                 )
               ],
             ),
@@ -383,9 +402,8 @@ class _NotePageState extends State<NotePage> {
                         fontWeight: FontWeight.bold,
                         fontSize: 17)),
                 SizedBox(width: 7),
-                Text(
-                    "${commentList.list == null ? 0 : commentList.list.length}条评论",
-                    style: TextStyle(fontSize: 13, color: Colors.grey))
+                Text("${noteInfo.commentCount ?? 0}条评论",
+                    style: TextStyle(fontSize: 12, color: Colors.grey))
               ],
             ),
           )
@@ -403,67 +421,71 @@ class _NotePageState extends State<NotePage> {
   }
 
   Widget _getBottomBar() {
-    return BottomAppBar(
-        elevation: 5.0,
-        color: Colors.white,
-        child: Container(
-            padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
-            height: 50,
-            child: Row(children: [
-              CircleImage(
-                imageUrl,
-                width: 30,
-                height: 30,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                  width: 180,
-                  padding: EdgeInsets.fromLTRB(10, 7, 10, 7),
-                  decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(children: [
-                    Image(
-                      image: NativeImageProvider("tabbar_user_comment_icon"),
-                      width: 15,
-                      height: 15,
-                    ),
-                    Text("说点什么吧...",
-                        style: TextStyle(fontSize: 13, color: Colors.grey[600]))
-                  ])),
-              Flexible(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      LabelImage(
-                          "1" == noteInfo.isDigg
-                              ? "tabbar_like_click_icon"
-                              : "tabbar_like_icon",
-                          labelText: noteInfo.diggCount ?? "0", onTap: () {
-                        _like();
-                      }),
-                      LabelImage(
-                        "tabbar_comment_icon",
-                        labelText: noteInfo.commentCount ?? "0",
-                        labelBgColor: Colors.redAccent,
-                        labelTextStyle:
-                            TextStyle(fontSize: 8, color: Colors.white),
-                        onTap: () {
-                          RenderBox render =
-                              commentTitleKey.currentContext.findRenderObject();
-                          scrollController.animateTo(
-                              render.localToGlobal(Offset.zero).dy,
-                              duration: Duration(milliseconds: 250));
-                        },
-                      ),
-                      LabelImage("tabbar_share_icon",
-                          onTap: () => _openShareBottomSheet())
-                    ]),
-                flex: 1,
-              )
-            ])));
+    return Offstage(
+        offstage: noteInfo.id == null,
+        child: BottomAppBar(
+            elevation: 5.0,
+            color: Colors.white,
+            child: Container(
+                padding: EdgeInsets.fromLTRB(15, 5, 0, 5),
+                height: 50,
+                child: Row(children: [
+                  CircleImage(
+                    imageUrl,
+                    width: 30,
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                      width: 180,
+                      padding: EdgeInsets.fromLTRB(10, 7, 10, 7),
+                      decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Row(children: [
+                        Image(
+                          image:
+                              NativeImageProvider("tabbar_user_comment_icon"),
+                          width: 15,
+                          height: 15,
+                        ),
+                        Text("说点什么吧...",
+                            style: TextStyle(
+                                fontSize: 13, color: Colors.grey[600]))
+                      ])),
+                  Flexible(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          LabelImage(
+                              "1" == noteInfo.isDigg
+                                  ? "tabbar_like_click_icon"
+                                  : "tabbar_like_icon",
+                              labelText: noteInfo.diggCount ?? "0", onTap: () {
+                            _like();
+                          }),
+                          LabelImage(
+                            "tabbar_comment_icon",
+                            labelText: noteInfo.commentCount ?? "0",
+                            labelBgColor: Colors.redAccent,
+                            labelTextStyle:
+                                TextStyle(fontSize: 8, color: Colors.white),
+                            onTap: () {
+                              RenderBox render = commentTitleKey.currentContext
+                                  .findRenderObject();
+                              scrollController.animateTo(
+                                  render.localToGlobal(Offset.zero).dy,
+                                  duration: Duration(milliseconds: 250));
+                            },
+                          ),
+                          LabelImage("tabbar_share_icon",
+                              onTap: () => _openShareBottomSheet())
+                        ]),
+                    flex: 1,
+                  )
+                ]))));
   }
 
   Future _openShareBottomSheet() async {
@@ -619,23 +641,32 @@ class _NotePageState extends State<NotePage> {
   void _getNoteData() async {
     var response = await DioUtil.dio.post("m/bp/info", data: {
       'user_id': '90006269',
-      'id': '3328779617678000128',//3335233884500656157
+      'id': '3335233884500656157', //3328779617678000128
       'type': 'note',
       'source': '0'
     });
     logger.d(response.data);
     Map<String, dynamic> data = json.decode(response.data);
-
-    setState(() {
-      noteInfo = NoteInfo.fromJson(data['data']);
-      noteInfo.content = noteInfo.content.replaceAll("\n", "</br>");
-      print(noteInfo.content);
-      print("-----------isDigg = ${noteInfo.isDigg},isFav = ${noteInfo.isFav}");
-      noHeaderImg = noteInfo.imgStr.isEmpty;
+    if (data['code'] != "1") {
+      print("接口凑无！！！");
+      barKey.currentState.hideMoreIcon(true);
       barKey.currentState.changeIconColor(Colors.black);
-      imageUrl = noteInfo.userData.avatar;
-      urls = noteInfo.imgStr;
-    });
+      emptyViewKey.currentState.showEmptyView(true);
+    } else {
+      setState(() {
+        noteInfo = NoteInfo.fromJson(data['data']);
+        noteInfo.content = noteInfo.content.replaceAll("\n", "</br>");
+        print(noteInfo.content);
+        print(
+            "-----------isDigg = ${noteInfo.isDigg},isFav = ${noteInfo.isFav}");
+        noHeaderImg = noteInfo.imgStr.isEmpty;
+        barKey.currentState.hideMoreIcon(false);
+        barKey.currentState.changeIconColor(Colors.black);
+        imageUrl = noteInfo.userData.avatar;
+        urls = noteInfo.imgStr;
+        emptyViewKey.currentState.showLoading(false);
+      });
+    }
   }
 
   CommentList commentList = new CommentList();

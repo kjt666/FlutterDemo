@@ -47,12 +47,12 @@ class CommentItemState extends State<CommentItem> {
         children: [
           CircleImage(
             widget.itemBean.userData?.avatar,
-            width: 40,
-            height: 40,
+            width: 37.5,
+            height: 37.5,
             onTap: goUserHomePage,
           ),
           SizedBox(
-            width: 20,
+            width: 14,
           ),
           Flexible(
             child: Column(
