@@ -196,11 +196,18 @@ class CommentItemState extends State<CommentItem> {
                                                       "${list[i].replyUserData.name}");
                                             }),
                                   TextSpan(
-                                      text: "：${list[i].content}",
-                                      recognizer: TapGestureRecognizer()
+                                    children: EmojiUtil.getInstance().addSmiles(
+                                        list[i].content,
+                                        TapGestureRecognizer()
+                                          ..onTap = () {
+                                            print("啊哦~");
+                                          }),
+                                      // text: "：${list[i].content}",
+                                    /*recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           _openReportBottomSheet();
-                                        }),
+                                        }*/
+                                  ),
                                 ])));
                       }
                     },

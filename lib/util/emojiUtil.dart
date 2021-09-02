@@ -313,8 +313,8 @@ class EmojiUtil {
             child: GestureDetector(
           child: Image.asset(
             "images/${_valueList[index]}.png",
-            width: 25,
-            height: 25,
+            width: 20,
+            height: 20,
           ),
           onTap: recognizer.onTap,
         )));

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/widget/circleImage.dart';
@@ -29,9 +27,11 @@ class GradientAppBarState extends State<GradientAppBar> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white.withAlpha(bgAlpha),
-      height: 75,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      height: 80,
+      width: double.infinity,
+      // padding: EdgeInsets.only(bottom: 3),
+      child: Stack(
+        alignment: Alignment.bottomLeft,
         children: [
           IconButton(
               icon: Icon(
@@ -42,34 +42,41 @@ class GradientAppBarState extends State<GradientAppBar> {
                 Navigator.pop(context);
               }),
           SizedBox(width: 5),
-          Flexible(
-              child: Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            /*child: AnimatedPositioned(
-                  duration: Duration(milliseconds: 500),
-                  left:  headerOpacity == 1 ?0 : 50,*/
-            child: AnimatedOpacity(
-              duration: Duration(milliseconds: 500),
-              opacity: headerOpacity,
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                CircleImage(widget.url, width: 35, height: 35),
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 300),
+            left: 45,
+            right: 45,
+            top: headerOpacity == 1 ? 38 : 53,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AnimatedOpacity(
+                    child: CircleImage(widget.url, width: 35, height: 35),
+                    opacity: headerOpacity,
+                    duration: Duration(milliseconds: 200)),
                 SizedBox(width: 10),
-                Text(
-                  widget.name,
-                  style: TextStyle(fontSize: 16),
-                ),
+                AnimatedOpacity(
+                    child: Text(
+                      widget.name,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    opacity: headerOpacity,
+                    duration: Duration(milliseconds: 200)),
                 Spacer(flex: 1),
-                Offstage(offstage: true, child: FilletButton("关注"))
-              ]),
+                AnimatedOpacity(
+                    child: Offstage(offstage: false, child: FilletButton("关注")),
+                    opacity: headerOpacity,
+                    duration: Duration(milliseconds: 200))
+              ],
             ),
-          )),
-          // ),
-          Offstage(
-              offstage: hideMore,
-              child: IconButton(
-                  icon: Icon(Icons.more_horiz, color: iconColor),
-                  onPressed: widget.moreTapCallback)),
+          ),
+          Positioned(
+              right: 0,
+              child: Offstage(
+                  offstage: hideMore,
+                  child: IconButton(
+                      icon: Icon(Icons.more_horiz, color: iconColor),
+                      onPressed: widget.moreTapCallback))),
         ],
       ),
     );
@@ -107,7 +114,7 @@ class GradientAppBarState extends State<GradientAppBar> {
     }
   }
 
-  void hideMoreIcon(bool b){
+  void hideMoreIcon(bool b) {
     setState(() {
       hideMore = b;
     });

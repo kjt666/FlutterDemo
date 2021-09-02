@@ -1,16 +1,8 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 
 // import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bean/httpResponse.dart';
-import 'package:flutter_app/bean/user_bean.dart';
 import 'package:flutter_app/page/jumpPage.dart';
-import 'package:flutter_app/util/DioUtil.dart';
-import 'package:flutter_app/util/methodChannelUtil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() {
@@ -22,9 +14,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    return ScreenUtilInit(
+      designSize: Size(375, 667),
+      builder: () => MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
@@ -34,16 +28,24 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.blue,
+            primarySwatch: Colors.blue,
 
-          //配置分割线样式
-          dividerTheme: DividerThemeData(
-              space: 1,
-              thickness: 1,
-              color: Colors.redAccent,
-              indent: 10,
-              endIndent: 10)),
-      home: JumpPage(),
+            //配置分割线样式
+            dividerTheme: DividerThemeData(
+                space: 1,
+                thickness: 1,
+                color: Colors.redAccent,
+                indent: 10,
+                endIndent: 10)),
+        builder: (context, widget) {
+          return MediaQuery(
+            //Setting font does not change with system font size
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: widget,
+          );
+        },
+        home: JumpPage(),
+      ),
     );
   }
 }

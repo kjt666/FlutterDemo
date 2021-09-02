@@ -22,6 +22,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../bean/comment_list.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class NotePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -585,7 +587,7 @@ class _NotePageState extends State<NotePage> {
       onTap: onTap,
       child: Column(
         children: [
-          Image(width: 55, height: 55, image: NativeImageProvider(imgName)),
+          Image(width: 50.w, height: 50.w, image: NativeImageProvider(imgName)),
           SizedBox(height: 5),
           Text(text, style: TextStyle(color: Colors.grey[700], fontSize: 12))
         ],
@@ -680,7 +682,7 @@ class _NotePageState extends State<NotePage> {
       'business_type': '104',
       'business_id': '0',
       'collection_id': '1',
-      'chapter_id': '3314629710482374686',
+      'chapter_id': '3335233884500656157', //3314629710482374686
     });
     logger.d(response.data);
     Map<String, dynamic> data = json.decode(response.data);
