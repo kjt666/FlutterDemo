@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bean/httpResponse.dart';
 import 'package:flutter_app/bean/user_bean.dart';
-import 'package:flutter_app/other/jumpPage.dart';
+import 'package:flutter_app/page/jumpPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';

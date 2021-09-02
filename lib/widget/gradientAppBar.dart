@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/notePage.dart';
 import 'package:flutter_app/widget/circleImage.dart';
 import 'package:flutter_app/widget/filletButton.dart';
 
@@ -28,7 +29,7 @@ class GradientAppBarState extends State<GradientAppBar> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white.withAlpha(bgAlpha),
-      height: 85,
+      height: 75,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

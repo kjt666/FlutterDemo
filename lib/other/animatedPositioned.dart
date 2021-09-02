@@ -49,7 +49,7 @@ class _AnimatedPositionedState extends State<AnimatedPositionedPage> {
                         });
                       },
                       child: AnimatedOpacity(
-                        opacity: _showMessage?1:0.5,
+                        opacity: _showMessage?0.5:1,
                         duration: Duration(milliseconds: 500),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(10)),

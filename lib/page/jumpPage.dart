@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/myPage.dart';
-import 'package:flutter_app/notePage.dart';
+import 'package:flutter_app/page/myPage.dart';
+import 'package:flutter_app/page/notePage.dart';
 import 'package:flutter_app/other/loggerPage.dart';
-import 'package:flutter_app/other/widgetsPage.dart';
+import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 
-import 'nativeImage.dart';
+import '../other/nativeImage.dart';
 
 class JumpPage extends StatefulWidget {
   @override

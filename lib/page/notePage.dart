@@ -20,7 +20,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import 'bean/comment_list.dart';
+import '../bean/comment_list.dart';
 
 class NotePage extends StatefulWidget {
   @override

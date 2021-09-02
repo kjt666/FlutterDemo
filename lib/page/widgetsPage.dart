@@ -47,7 +47,7 @@ import 'package:flutter_app/other/toggleButtons.dart';
 import 'package:flutter_app/other/tweenAnimationBuilder.dart';
 import 'package:logger/logger.dart';
 
-import 'animatedIcon.dart';
+import '../other/animatedIcon.dart';
 
 class WidgetsPage extends StatefulWidget {
   @override

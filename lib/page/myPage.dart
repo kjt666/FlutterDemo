@@ -9,8 +9,8 @@ import 'package:flutter_app/util/methodChannelUtil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
-import 'bean/user_bean.dart';
-import 'other/jumpPage.dart';
+import '../bean/user_bean.dart';
+import 'jumpPage.dart';
 
 class MyPage extends StatefulWidget {
   @override
