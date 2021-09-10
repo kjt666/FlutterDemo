@@ -4,6 +4,7 @@ import 'package:flutter_app/page/ScreenUtilPage.dart';
 import 'package:flutter_app/page/myPage.dart';
 import 'package:flutter_app/page/notePage.dart';
 import 'package:flutter_app/other/loggerPage.dart';
+import 'package:flutter_app/page/webViewPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
@@ -51,7 +52,8 @@ class _JumpState extends State<JumpPage> {
           }),
           getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
-          getJumpItem("Flutter页面适配",jumpPage: new ScreenUtilPage())
+          getJumpItem("Flutter页面适配",jumpPage: new ScreenUtilPage()),
+          getJumpItem("WebView",jumpPage: new WebViewExample())
         ],
       ),
     );

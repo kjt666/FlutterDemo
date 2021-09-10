@@ -23,6 +23,7 @@ class SecondActivity : FlutterActivity() {
         if (stringExtra != null) {
             tv_value.text = stringExtra
         }
+        tv_value.text = "density = ${getResources().getDisplayMetrics().toString()}\ndensityDpi = ${getResources().getDisplayMetrics().densityDpi}"
         btn.setOnClickListener {
             channel.invokeMethod("lal", "android", object : MethodChannel.Result {
                 override fun notImplemented() {
