@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
 
           //配置分割线样式
           dividerTheme: DividerThemeData(
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
               color: Colors.redAccent,
               indent: 10,
               endIndent: 10)),
+      darkTheme: ThemeData.dark(),
       home: JumpPage(),
     );
   }

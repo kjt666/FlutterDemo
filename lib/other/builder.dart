@@ -1,4 +1,3 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -12,6 +11,7 @@ class BuilderPage extends StatelessWidget {
       body: TextButton(
         child: Text("Click Here!"),
         onPressed: () {
+          print(Scaffold.of(context).hasAppBar);
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Help!")));
         },
@@ -19,4 +19,3 @@ class BuilderPage extends StatelessWidget {
     );
   }
 }
-*/
