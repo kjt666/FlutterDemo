@@ -13,6 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+      BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width,
+          maxHeight: MediaQuery.of(context).size.height),
+      designSize: Size(375, 667),
+    );
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
