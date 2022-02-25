@@ -27,13 +27,13 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.green,
 
-          //配置分割线样式
+         /* //配置分割线样式
           dividerTheme: DividerThemeData(
               space: 1,
               thickness: 1,
               color: Colors.redAccent,
               indent: 10,
-              endIndent: 10)),
+              endIndent: 10)*/),
       darkTheme: ThemeData.dark(),
       home: JumpPage(),
     );
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline,
+              style: Theme.of(context).textTheme.headline1,
             ),
           ],
         ),

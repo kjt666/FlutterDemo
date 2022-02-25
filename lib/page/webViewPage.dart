@@ -18,11 +18,15 @@ class WebViewExample extends StatefulWidget {
 class _WebViewExampleState extends State<WebViewExample> {
   final Completer<WebViewController> _controller =
   Completer<WebViewController>();
+  String contentBase64;
 
   @override
   void initState() {
     super.initState();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    var webContent = kNavigationExamplePage.replaceAll("<img", "<img style=\"max-width:100%;height:auto\"");
+    contentBase64 =
+    base64Encode(const Utf8Encoder().convert(webContent));
   }
 
   @override
@@ -40,7 +44,7 @@ class _WebViewExampleState extends State<WebViewExample> {
       // to allow calling Scaffold.of(context) so we can show a snackbar.
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'https://flutter.cn',
+          initialUrl: 'data:text/html;base64,$contentBase64',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);

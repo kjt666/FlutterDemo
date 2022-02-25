@@ -12,6 +12,7 @@ import 'package:flutter_app/other/animatedSwitcher.dart';
 import 'package:flutter_app/other/animatedWidget.dart';
 import 'package:flutter_app/other/animation.dart';
 import 'package:flutter_app/other/aspectRatio.dart';
+import 'package:flutter_app/other/baseline.dart';
 import 'package:flutter_app/other/builder.dart';
 import 'package:flutter_app/other/checkBoxListTile.dart';
 import 'package:flutter_app/other/clipOval.dart';
@@ -20,6 +21,7 @@ import 'package:flutter_app/other/constrainedBox.dart';
 import 'package:flutter_app/other/custom_paint.dart';
 import 'package:flutter_app/other/draggableScrollableSheet.dart';
 import 'package:flutter_app/other/drawer.dart';
+import 'package:flutter_app/other/expansionPanel.dart';
 import 'package:flutter_app/other/flexiblePage.dart';
 import 'package:flutter_app/other/fractionallySizedBox.dart';
 import 'package:flutter_app/other/html.dart';
@@ -37,13 +39,18 @@ import 'package:flutter_app/other/placeHolder.dart';
 import 'package:flutter_app/other/progressIndicator.dart';
 import 'package:flutter_app/other/reorderableListView.dart';
 import 'package:flutter_app/other/richText.dart';
+import 'package:flutter_app/other/rotatedBox.dart';
 import 'package:flutter_app/other/selectableText.dart';
 import 'package:flutter_app/other/slider.dart';
 import 'package:flutter_app/other/sliverAppBar.dart';
 import 'package:flutter_app/other/spacer.dart';
 import 'package:flutter_app/other/stack.dart';
 import 'package:flutter_app/other/staggeredAnimation.dart';
+import 'package:flutter_app/other/tabPageSelector.dart';
 import 'package:flutter_app/other/text_span.dart';
+import 'package:flutter_app/other/third/badge.dart';
+import 'package:flutter_app/other/third/cachedNetworkImage.dart';
+import 'package:flutter_app/other/third/slidable.dart';
 import 'package:flutter_app/other/toggleButtons.dart';
 import 'package:flutter_app/other/tweenAnimationBuilder.dart';
 import 'package:logger/logger.dart';
@@ -150,6 +157,20 @@ class _WidgetsPageState extends State<WidgetsPage> {
                 "staggeredAnimation(组合动画)", new StaggeredAnimationPage()),
             getJumpItem(
                 "inherited(继承，多Widget嵌套下的数据调用)", new InheritedPage()),
+            getJumpItem(
+                "slidable(左滑右滑)", new SlidablePage()),
+            getJumpItem(
+                "rotatedBox(旋转盒子)", new RotatedBoxPage()),
+            getJumpItem(
+                "expansionPanel(扩展面板)", new ExpansionPanelPage()),
+            getJumpItem(
+                "tabPageSelector(指示器)", new TabPageSelectorPage()),
+            getJumpItem(
+                "cachedNetworkImage(带网络缓存的图片)", new CachedNetworkImagePage()),
+            getJumpItem(
+                "baseline(基线)", new BaselinePage()),
+            getJumpItem(
+                "badge(徽章，小红点)", new BadgePage()),
           ],
         ),
       ),

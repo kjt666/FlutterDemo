@@ -38,6 +38,9 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   webview_flutter: ^2.0.12
   google_fonts: ^2.1.0
+  flutter_slidable: ^1.2.0
+  cached_network_image: ^3.2.0
+  badges: ^2.0.2
 
 dev_dependencies:
   flutter_test:

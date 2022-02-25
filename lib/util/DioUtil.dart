@@ -5,18 +5,18 @@ class DioUtil {
   static var dio = Dio();
 
   static void init() {
-    var baseUrl = "http://apidev.laidan.com:81/";
+    var baseUrl = "https://gongdu.laidan.com/";
     var options = BaseOptions(
         baseUrl: baseUrl,
         connectTimeout: 5000,
         receiveTimeout: 10000,
         headers: {
-          'X-YS-os': 'android',
-          'X-YS-uid': '1',
-          'X-YS-CHANNEL': 'youshu',
-          'X-YS-soft': '5.30.0',
-          // 'X-YS-USER-TOKEN': 'b9d81b74af3c6605d38ecf7cb1393d38'
-          'X-YS-USER-TOKEN':'064688c93660d1bd5b71ed2b5152872a'
+          'x-ys-os': 'android',
+          'x-ys-uid': '90006269',
+          'x-ys-CHANNEL': 'youshu',
+          'x-ys-soft': '6.1.13',
+          'X-YS-device-id': '03554a2d-e907-4838-8645-5cde6cb3d154',
+          'x-ys-user-token':'V28_MTY0NTA2NTM1OGNlMWIwYjNkNjc3NDY2YWJiY2UyYmVlMjJjYjZkMGQ2NzQ5ODVmYTI='
         },
         contentType: Headers.formUrlEncodedContentType,
         responseType: ResponseType.plain);
