@@ -11,6 +11,7 @@ import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 
 import '../other/nativeImage.dart';
+import 'questionDetailPage.dart';
 
 class JumpPage extends StatefulWidget {
   @override
@@ -55,7 +56,8 @@ class _JumpState extends State<JumpPage> {
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
           getJumpItem("Flutter页面适配",jumpPage: new ScreenUtilPage()),
           getJumpItem("WebView",jumpPage: new WebViewExample()),
-          getJumpItem("GoogleFonts",jumpPage: new GoogleFontsPage())
+          getJumpItem("GoogleFonts",jumpPage: new GoogleFontsPage()),
+          getJumpItem("QuestionDetailPage",jumpPage: new QuestionDetailPage())
         ],
       ),
     );

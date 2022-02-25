@@ -13,9 +13,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    return ScreenUtilInit(
+      designSize: Size(375, 667),
+      builder: () => MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
@@ -27,15 +29,24 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.green,
 
-         /* //配置分割线样式
+          /* //配置分割线样式
           dividerTheme: DividerThemeData(
               space: 1,
               thickness: 1,
               color: Colors.redAccent,
               indent: 10,
-              endIndent: 10)*/),
-      darkTheme: ThemeData.dark(),
-      home: JumpPage(),
+              endIndent: 10)*/
+        ),
+        darkTheme: ThemeData.dark(),
+        builder: (context, widget) {
+          return MediaQuery(
+            //Setting font does not change with system font size
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: widget,
+          );
+        },
+        home: JumpPage(),
+      ),
     );
   }
 }
