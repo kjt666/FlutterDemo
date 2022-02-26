@@ -35,7 +35,6 @@ class _QuestionDetailPageState extends State {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
-        alignment: Alignment.center,
         children: [
           ScrollConfiguration(
             behavior: EUMNoScrollBehavior(),
@@ -62,52 +61,59 @@ class _QuestionDetailPageState extends State {
   }
 
   Widget _getTabBar() {
-    return Positioned(
-        child: Container(
-          height: 44.h,
-          color: Colors.white,
-          child: Row(
-            children: [
-              IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    // Navigator.pop(context);
-                  }),
-              SizedBox(width: 10.w),
-              Padding(
-                  padding: EdgeInsets.only(left: 10.w, right: 5.w),
-                  child: CircleImage(
-                    "http://avatar.youshu.cc/readwith/20210408/606eb24bf2335.jpg",
-                    width: 24.r,
-                    height: 24.r,
-                  )),
-              Text(
-                "沃斯尼蝶",
-                style: TextStyle(color: Color(0xff1b1b1b), fontSize: 13.sp),
-              ),
-              Spacer(),
-              FilletButton(
-                "关注",
-                radius: 0.5.w,
-                bgColor: Colors.blue,
-                padding: EdgeInsets.fromLTRB(8.5.w, 1.5.h, 8.5.w, 2.h),
-              ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.share))
-            ],
-          ),
+    return Container(
+        width: double.infinity,
+        alignment: Alignment.bottomLeft,
+        height: 69.h,
+        color: Colors.white,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black87,
+                ),
+                onPressed: () {
+                  // Navigator.pop(context);
+                }),
+            Padding(
+                padding: EdgeInsets.only(right: 5.w),
+                child: CircleImage(
+                  "http://avatar.youshu.cc/readwith/20210408/606eb24bf2335.jpg",
+                  width: 24.r,
+                  height: 24.r,
+                )),
+            Text(
+              "沃斯尼蝶",
+              style: TextStyle(color: Color(0xff1b1b1b), fontSize: 13.sp),
+            ),
+            Spacer(),
+            FilletButton(
+              "关注",
+              radius: 2.w,
+              bgColor: Colors.white,
+              border: Border.all(color: Color(0xff00BF7F)),
+              textStyle: TextStyle(color: Color(0xff00BF7F), fontSize: 12.sp),
+              padding: EdgeInsets.fromLTRB(8.5.w, 1.5.h, 8.5.w, 2.h),
+            ),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.share_sharp,
+                  color: Colors.black87,
+                ))
+          ],
         ));
   }
 
   Widget _getContent() {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(15.w, 20.h, 15.w, 15.h),
+        padding: EdgeInsets.fromLTRB(15.w, 69.h, 15.w, 15.h),
         child: Column(
           children: [
-            SizedBox(height: 25.h),
+            SizedBox(height: 10.h),
             Text(
               "孩子们所谓的“提升”反映了哪些现实问题，如果有机会，你愿意接受这种“提升”吗？",
               style: TextStyle(
@@ -260,11 +266,12 @@ class _QuestionDetailPageState extends State {
   }
 
   Widget _getWriteAnswerButton() {
-    return Positioned(
-        bottom: 28.5.h,
+    return Align(
+        alignment: Alignment.bottomCenter,
         child: GestureDetector(
             onTap: () {},
             child: Container(
+              margin: EdgeInsets.only(bottom: 28.5.h),
               width: 100.w,
               height: 35.h,
               alignment: Alignment.center,

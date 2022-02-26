@@ -5,12 +5,18 @@ class FilletButton extends StatelessWidget {
   final String text;
   final TextStyle textStyle;
   final Color bgColor;
+  final BoxBorder border;
   final double radius;
   final EdgeInsetsGeometry padding;
   final GestureTapCallback onTap;
 
   FilletButton(this.text,
-      {this.textStyle, this.bgColor, this.radius, this.padding, this.onTap});
+      {this.textStyle,
+      this.bgColor,
+      this.border,
+      this.radius,
+      this.padding,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +25,7 @@ class FilletButton extends StatelessWidget {
       child: Container(
         padding: padding ?? EdgeInsets.fromLTRB(13, 4, 13, 4),
         decoration: BoxDecoration(
+            border: border,
             borderRadius: BorderRadius.circular(radius ?? 15),
             color: bgColor ?? Color(0xff00bf7f)),
         child: Text(text,
