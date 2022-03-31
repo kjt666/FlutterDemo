@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/page/ScreenUtilPage.dart';
 import 'package:flutter_app/page/googleFontsPage.dart';
+import 'package:flutter_app/page/imagePicker.dart';
 import 'package:flutter_app/page/myPage.dart';
 import 'package:flutter_app/page/notePage.dart';
 import 'package:flutter_app/other/loggerPage.dart';
+import 'package:flutter_app/page/providerPage.dart';
+import 'package:flutter_app/page/stateTestPage.dart';
 import 'package:flutter_app/page/webViewPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
@@ -51,11 +54,14 @@ class _JumpState extends State<JumpPage> {
           getJumpItem("打开原生页面", function: () {
             MethodChannelUtil.nativeChannel.invokeMethod("jumpToNative");
           }),
-          getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
+          // getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
           getJumpItem("Flutter页面适配",jumpPage: new ScreenUtilPage()),
           getJumpItem("WebView",jumpPage: new WebViewExample()),
-          getJumpItem("GoogleFonts",jumpPage: new GoogleFontsPage())
+          getJumpItem("GoogleFonts",jumpPage: new GoogleFontsPage()),
+          getJumpItem("ImagePicker",jumpPage: new ImagePickerPage()),
+          getJumpItem("StateTest",jumpPage: new StateTestPage()),
+          getJumpItem("Provider",jumpPage: new ProviderPage())
         ],
       ),
     );

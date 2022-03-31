@@ -41,6 +41,9 @@ dependencies:
   flutter_slidable: ^1.2.0
   cached_network_image: ^3.2.0
   badges: ^2.0.2
+  image_picker: 0.8.4+11
+  video_player: any
+  provider: 6.0.2
 
 dev_dependencies:
   flutter_test:
