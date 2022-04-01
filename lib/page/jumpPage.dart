@@ -8,6 +8,7 @@ import 'package:flutter_app/page/notePage.dart';
 import 'package:flutter_app/other/loggerPage.dart';
 import 'package:flutter_app/page/providerPage.dart';
 import 'package:flutter_app/page/stateTestPage.dart';
+import 'package:flutter_app/page/thirdPage.dart';
 import 'package:flutter_app/page/webViewPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
@@ -48,7 +49,8 @@ class _JumpState extends State<JumpPage> {
       ),
       body: ListView(
         children: [
-          getJumpItem("小部件集合", jumpPage: new WidgetsPage()),
+          getJumpItem("原生小部件集合", jumpPage: new WidgetsPage()),
+          getJumpItem("第三方框架", jumpPage: new ThirdPage()),
           getJumpItem("展示原生中的图片", jumpPage: new NativeImagePage()),
           getJumpItem("logger日志输出", jumpPage: new LoggerPage()),
           getJumpItem("打开原生页面", function: () {
@@ -56,12 +58,7 @@ class _JumpState extends State<JumpPage> {
           }),
           // getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
-          getJumpItem("Flutter页面适配",jumpPage: new ScreenUtilPage()),
-          getJumpItem("WebView",jumpPage: new WebViewExample()),
-          getJumpItem("GoogleFonts",jumpPage: new GoogleFontsPage()),
-          getJumpItem("ImagePicker",jumpPage: new ImagePickerPage()),
           getJumpItem("StateTest",jumpPage: new StateTestPage()),
-          getJumpItem("Provider",jumpPage: new ProviderPage())
         ],
       ),
     );

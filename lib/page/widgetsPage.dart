@@ -158,19 +158,14 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem(
                 "inherited(继承，多Widget嵌套下的数据调用)", new InheritedPage()),
             getJumpItem(
-                "slidable(左滑右滑)", new SlidablePage()),
-            getJumpItem(
                 "rotatedBox(旋转盒子)", new RotatedBoxPage()),
             getJumpItem(
                 "expansionPanel(扩展面板)", new ExpansionPanelPage()),
             getJumpItem(
                 "tabPageSelector(指示器)", new TabPageSelectorPage()),
             getJumpItem(
-                "cachedNetworkImage(带网络缓存的图片)", new CachedNetworkImagePage()),
-            getJumpItem(
                 "baseline(基线)", new BaselinePage()),
-            getJumpItem(
-                "badge(徽章，小红点)", new BadgePage()),
+
           ],
         ),
       ),

@@ -44,6 +44,7 @@ dependencies:
   image_picker: 0.8.4+11
   video_player: any
   provider: 6.0.2
+  lottie: 1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
        - images/
        - images/2.0x/
        - images/3.0x/
+       - assets/
 
 
 
