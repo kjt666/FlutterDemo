@@ -193,9 +193,15 @@ class _NotePageState extends State<NotePage> {
                   color: Colors.black,
                 )),*/
             Html(
-              data:
-                  "<div style=\"line-height: 20px\">${noteInfo.content ?? ""}<\/div>" ??
-                      "",
+              data: """
+            <div style=\"line-height: 24px;font-size:17px;background-color:red\">
+              <style>
+              a{color: #4DAAB8; text-decoration:none;}
+              <\/style>
+              ${noteInfo.content != null ? noteInfo.content.replaceAll("\n", "</br>") : ""}
+            <\/div>
+            """,
+              shrinkWrap: true,
               onImageTap: (url, context, attributes, element) {
                 // NavigatorUtil.pushImageBrowserPage(0, [url]);
                 Fluttertoast.showToast(msg: url);

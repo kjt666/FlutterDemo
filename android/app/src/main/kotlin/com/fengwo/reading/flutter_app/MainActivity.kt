@@ -58,6 +58,16 @@ class MainActivity : FlutterActivity() {
                                 val data = call.argument<List<String>>("data")
                                 data?.forEach { println("Android ------> $it") }
                             }
+	                        "saveImage"->{
+		                        if (call.hasArgument("data")) {
+			                        val flag = call.argument<ByteArray>("data")?.let { saveImage(it) }
+			                        if (flag!=null&&flag) {
+				                        result.success(flag)
+			                        } else {
+				                        result.error("-1", "调用原生图片失败", null)
+			                        }
+		                        }
+							}
                             else -> result.notImplemented()
                         }
                     }
@@ -86,5 +96,21 @@ class MainActivity : FlutterActivity() {
         }
         return imageFilePath
     }
+
+	private fun saveImage(data: ByteArray?): Boolean {
+		if (data==null||data.isEmpty()){
+			return false
+		}
+		var imageFilePath = "$externalCacheDir${File.separator}123.png"
+		val imageFile = File(imageFilePath)
+		val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+		val fos = FileOutputStream(imageFile)
+		val success = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+		if (!success) {
+			imageFile.delete()
+			return false
+		}
+		return true
+	}
 
 }

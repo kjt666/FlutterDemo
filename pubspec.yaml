@@ -45,6 +45,7 @@ dependencies:
   video_player: any
   provider: 6.0.2
   lottie: 1.2.2
+  path_provider: ^2.0.10
 
 dev_dependencies:
   flutter_test:

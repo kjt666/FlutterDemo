@@ -4,6 +4,7 @@ import 'package:flutter_app/page/ScreenUtilPage.dart';
 import 'package:flutter_app/page/googleFontsPage.dart';
 import 'package:flutter_app/page/imagePicker.dart';
 import 'package:flutter_app/page/myPage.dart';
+import 'package:flutter_app/page/noteLongGraphPage.dart';
 import 'package:flutter_app/page/notePage.dart';
 import 'package:flutter_app/other/loggerPage.dart';
 import 'package:flutter_app/page/providerPage.dart';
@@ -58,6 +59,7 @@ class _JumpState extends State<JumpPage> {
           }),
           // getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
+          getJumpItem("笔记长图~~~", jumpPage: new NoteLongGraphPage()),
           getJumpItem("StateTest",jumpPage: new StateTestPage()),
         ],
       ),
