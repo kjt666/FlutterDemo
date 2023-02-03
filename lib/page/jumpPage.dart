@@ -14,6 +14,8 @@ import 'package:flutter_app/page/webViewPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
+import 'package:flutter_app/video/videoPage.dart';
+import 'package:flutter_app/video/videoPage2.dart';
 
 import '../other/nativeImage.dart';
 
@@ -57,10 +59,12 @@ class _JumpState extends State<JumpPage> {
           getJumpItem("打开原生页面", function: () {
             MethodChannelUtil.nativeChannel.invokeMethod("jumpToNative");
           }),
-          // getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
+          getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
-          getJumpItem("笔记长图~~~", jumpPage: new NoteLongGraphPage()),
+          getJumpItem("复杂页面3~~~", jumpPage: new NoteLongGraphPage()),
           getJumpItem("StateTest",jumpPage: new StateTestPage()),
+          getJumpItem("AliVideoView",jumpPage: new VideoPage()),
+          getJumpItem("AliVideoView2",jumpPage: new VideoPage2()),
         ],
       ),
     );

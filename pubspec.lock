@@ -272,6 +272,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_aliplayer:
+    dependency: "direct main"
+    description:
+      name: flutter_aliplayer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.4.9"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -321,6 +328,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.5"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.1"
   flutter_screenutil:
     dependency: "direct main"
     description:

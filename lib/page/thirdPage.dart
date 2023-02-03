@@ -7,6 +7,7 @@ import 'package:flutter_app/page/providerPage.dart';
 import 'package:flutter_app/page/screenUtilPage.dart';
 import 'package:flutter_app/page/webViewPage.dart';
 import 'package:flutter_app/third/lottiePage.dart';
+import 'package:flutter_app/third/ratingBarPage.dart';
 
 import 'googleFontsPage.dart';
 import 'imagePicker.dart';
@@ -41,6 +42,7 @@ class ThirdPageState extends State<ThirdPage> {
               "cachedNetworkImage(带网络缓存的图片)", new CachedNetworkImagePage()),
           getJumpItem("slidable(左滑右滑)", new SlidablePage()),
           getJumpItem("lottie(Json动画)", new LottiePage()),
+          getJumpItem("ratingBar(评分栏)", new RatingBarPage()),
         ],
       ),
     );

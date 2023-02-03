@@ -1,4 +1,7 @@
 class NoteInfo {
+  String _video_height;
+  String _video_width;
+  String _audio_image;
 	String _id;
 	String _userId;
 	String _bookId;
@@ -71,7 +74,12 @@ class NoteInfo {
 	String _isSubMember;
 	TopicData _topicData;
 
-	NoteInfo({String id, String userId, String bookId, String title, String content, List<String> imgStr, String diggCount, String commentCount, String readCount, String isDelete, String isPub, String isTop, String stick, String isTougao, String shareNoteId, String shareType, String pbId, String noteType, String bussId, String length, String address, String createTime, String updateTime, String shareExt, String userStick, String isHandled, String handleAccountId, String handleTime, String money, String contributeNum, String planId, String contentType, String source, String isNotice, String newNoteId, String audioKey, String headImg, String audioBookId, String themeBookListId, String videoLen, String videoSize, String videoStatus, String videoId, String audioLen, String audioSize, String audioTitle, String imgNative, String abstract, String likeNum, List<Img> img, PreloadUser preloadUser, UserData userData, String bookTitle, String isDigg, String isFav, String isAppendImg, RelationData relationData, String isFollow, String topicId, String topicTitle, String shareImg, String shareJumpUrl, String isShowMask, String groupScheme, List<Null> diggUser, String noteInfoUrl, String wordCount, String isBuy, String isSub, String isSubMember, TopicData topicData}) {
+	NoteInfo({ String video_height,
+    String video_width,
+    String audio_image,String id, String userId, String bookId, String title, String content, List<String> imgStr, String diggCount, String commentCount, String readCount, String isDelete, String isPub, String isTop, String stick, String isTougao, String shareNoteId, String shareType, String pbId, String noteType, String bussId, String length, String address, String createTime, String updateTime, String shareExt, String userStick, String isHandled, String handleAccountId, String handleTime, String money, String contributeNum, String planId, String contentType, String source, String isNotice, String newNoteId, String audioKey, String headImg, String audioBookId, String themeBookListId, String videoLen, String videoSize, String videoStatus, String videoId, String audioLen, String audioSize, String audioTitle, String imgNative, String abstract, String likeNum, List<Img> img, PreloadUser preloadUser, UserData userData, String bookTitle, String isDigg, String isFav, String isAppendImg, RelationData relationData, String isFollow, String topicId, String topicTitle, String shareImg, String shareJumpUrl, String isShowMask, String groupScheme, List<Null> diggUser, String noteInfoUrl, String wordCount, String isBuy, String isSub, String isSubMember, TopicData topicData}) {
+    this._video_width = video_width;
+    this._video_height = video_height;
+    this._audio_image = audio_image;
 this._id = id;
 this._userId = userId;
 this._bookId = bookId;
@@ -144,7 +152,17 @@ this._isSub = isSub;
 this._isSubMember = isSubMember;
 this._topicData = topicData;
 }
+  String get video_height => _video_height;
 
+  set video_height(String video_height) => _video_height = video_height;
+
+  String get video_width => _video_width;
+
+  set video_width(String video_width) => _video_width = video_width;
+
+  String get audio_image => _audio_image;
+
+  set audio_image(String audio_image) => _audio_image = audio_image;
 	String get id => _id;
 	set id(String id) => _id = id;
 	String get userId => _userId;
@@ -289,6 +307,9 @@ this._topicData = topicData;
 	set topicData(TopicData topicData) => _topicData = topicData;
 
 	NoteInfo.fromJson(Map<String, dynamic> json) {
+    _video_width = json['video_width'];
+    _video_height = json['video_height'];
+    _audio_image = json['audio_image'];
 		_id = json['id'];
 		_userId = json['user_id'];
 		_bookId = json['book_id'];
@@ -370,6 +391,9 @@ this._topicData = topicData;
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['video_width'] = this._video_width;
+    data['video_height'] = this._video_height;
+    data['audio_image'] = this._audio_image;
 		data['id'] = this._id;
 		data['user_id'] = this._userId;
 		data['book_id'] = this._bookId;

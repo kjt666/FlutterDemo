@@ -17,8 +17,17 @@ class ShaderMaskPage extends StatelessWidget {
           children: [
             ShaderMask(
               shaderCallback: (rect) {
-                return LinearGradient(colors: [Colors.yellow, Colors.redAccent])
-                    .createShader(rect);
+                return LinearGradient(
+                  colors: [
+                    Colors.blue,
+                    Colors.deepPurple,
+                    Colors.greenAccent,
+                    Colors.yellow
+                  ],
+                  //从0到1，对应每个颜色的停靠点
+                  //默认是均分的，对应四种颜色也就是0.25，0.5，0.75，1
+                  stops: [0.2, 0.45, 0.7, 1],
+                ).createShader(rect);
               },
               child: Text(
                 "从左到右线性渐变",
@@ -48,6 +57,20 @@ class ShaderMaskPage extends StatelessWidget {
               },
               child: Text(
                 "从左上角到右下角线性渐变",
+                style: textStyle,
+              ),
+            ),
+            ShaderMask(
+              shaderCallback: (rect) {
+                return LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        transform: GradientRotation(math.pi / 4),
+                        colors: [Colors.yellow, Colors.redAccent])
+                    .createShader(rect);
+              },
+              child: Text(
+                "从左上角到右下角再加一些角度线性渐变",
                 style: textStyle,
               ),
             ),
@@ -125,7 +148,7 @@ class ShaderMaskPage extends StatelessWidget {
               shaderCallback: (rect) {
                 return SweepGradient(
                         center: Alignment.bottomLeft,
-                        startAngle: math.pi/2,
+                        startAngle: math.pi / 2,
                         endAngle: math.pi,
                         colors: [Colors.yellow, Colors.deepOrange])
                     .createShader(rect);
