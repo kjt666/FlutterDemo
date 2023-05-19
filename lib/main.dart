@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         designSize: Size(375, 667),
-        builder: () => MaterialApp(
+        builder: (
+          BuildContext context,
+          Widget child,
+        ) =>
+            MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
                 // This is the theme of your application.

@@ -30,14 +30,14 @@ class SecondActivity : FlutterActivity() {
                     Toast.makeText(this@SecondActivity, "notImplemented", Toast.LENGTH_SHORT).show()
                 }
 
-                override fun error(errorCode: String?, errorMessage: String?, errorDetails: Any?) {
-                    Toast.makeText(this@SecondActivity, "error：$errorMessage", Toast.LENGTH_SHORT).show()
-                }
-
                 override fun success(result: Any?) {
                     if (result != null)
                         Toast.makeText(this@SecondActivity, result as String, Toast.LENGTH_SHORT).show()
                 }
+
+	            override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
+		            Toast.makeText(this@SecondActivity, "error：$errorMessage", Toast.LENGTH_SHORT).show()
+	            }
 
             })
         }

@@ -44,7 +44,7 @@ class _LabelImageState extends State<LabelImage> {
         alignment: Alignment.center,
         child: Stack(
           // clipBehavior: Clip.none,
-          overflow: Overflow.visible,
+          // overflow: Overflow.visible,
           children: [
             Image(
               image: NativeImageProvider(widget.url),

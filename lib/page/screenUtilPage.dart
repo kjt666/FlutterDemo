@@ -6,9 +6,7 @@ class ScreenUtilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
-      BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width,
-          maxHeight: MediaQuery.of(context).size.height),
+      context,
       designSize: Size(360, 690),
     );
     return Scaffold(
