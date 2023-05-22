@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/widget/loading.dart';
-import 'package:flutter_app/widget/nativeImageProvider.dart';
+import 'package:flutter_app/custom_widget/loading.dart';
+
+import 'nativeImageProvider.dart';
 
 class EmptyView extends StatefulWidget {
   final String imageName;

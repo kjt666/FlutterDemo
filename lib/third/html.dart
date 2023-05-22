@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widget/commonAppBar.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+import '../custom_widget/commonAppBar.dart';
 
 class HtmlPage extends StatelessWidget {
   // var content =

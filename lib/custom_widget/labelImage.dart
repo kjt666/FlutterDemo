@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app/widget/nativeImageProvider.dart';
+import 'package:flutter_app/custom_widget/nativeImageProvider.dart';
 
 class LabelImage extends StatefulWidget {
   final String url;

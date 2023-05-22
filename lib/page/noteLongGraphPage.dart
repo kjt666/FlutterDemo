@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
-import 'package:flutter_app/widget/circleImage.dart';
-import 'package:flutter_app/widget/nativeImageProvider.dart';
-import 'package:flutter_app/widget/relatedBook.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../custom_widget/circleImage.dart';
+import '../custom_widget/nativeImageProvider.dart';
+import '../custom_widget/relatedBook.dart';
 import '../eum_noscroll_behavior.dart';
 
 class NoteLongGraphPage extends StatefulWidget {

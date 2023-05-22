@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/widget/dynamicPageView.dart';
+
+import '../custom_widget/dynamicPageView.dart';
 
 class PageViewPage extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app/widget/circleImage.dart';
-import 'package:flutter_app/widget/filletButton.dart';
+import 'package:flutter_app/custom_widget/circleImage.dart';
+import 'package:flutter_app/custom_widget/filletButton.dart';
+
 
 class GradientAppBar extends StatefulWidget {
   GradientAppBar(Key barKey, this.url, this.name, this.moreTapCallback)

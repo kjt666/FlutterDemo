@@ -13,7 +13,6 @@ import 'package:flutter_app/other/animatedWidget.dart';
 import 'package:flutter_app/other/animation.dart';
 import 'package:flutter_app/other/aspectRatio.dart';
 import 'package:flutter_app/other/baseline.dart';
-import 'package:flutter_app/other/builder.dart';
 import 'package:flutter_app/other/checkBoxListTile.dart';
 import 'package:flutter_app/other/clipOval.dart';
 import 'package:flutter_app/other/colorFiltered.dart';
@@ -24,7 +23,6 @@ import 'package:flutter_app/other/drawer.dart';
 import 'package:flutter_app/other/expansionPanel.dart';
 import 'package:flutter_app/other/flexiblePage.dart';
 import 'package:flutter_app/other/fractionallySizedBox.dart';
-import 'package:flutter_app/other/html.dart';
 import 'package:flutter_app/other/image.dart';
 import 'package:flutter_app/other/imageFiltered.dart';
 import 'package:flutter_app/other/indexedStack.dart';
@@ -32,7 +30,6 @@ import 'package:flutter_app/other/interactiveViewer.dart';
 import 'package:flutter_app/other/limitedBox.dart';
 import 'package:flutter_app/other/listWheelScrollView.dart';
 import 'package:flutter_app/other/mediaQueryPage.dart';
-import 'package:flutter_app/other/nativeImage.dart';
 import 'package:flutter_app/other/pageView.dart';
 import 'package:flutter_app/other/physicalModel.dart';
 import 'package:flutter_app/other/placeHolder.dart';
@@ -48,9 +45,6 @@ import 'package:flutter_app/other/stack.dart';
 import 'package:flutter_app/other/staggeredAnimation.dart';
 import 'package:flutter_app/other/tabPageSelector.dart';
 import 'package:flutter_app/other/text_span.dart';
-import 'package:flutter_app/other/third/badge.dart';
-import 'package:flutter_app/other/third/cachedNetworkImage.dart';
-import 'package:flutter_app/other/third/slidable.dart';
 import 'package:flutter_app/other/toggleButtons.dart';
 import 'package:flutter_app/other/tweenAnimationBuilder.dart';
 import 'package:logger/logger.dart';
@@ -148,7 +142,6 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("imageFiltered(高斯模糊)", new ImageFilteredPage()),
             getJumpItem("physicalModel(物理模型)", new PhysicalModelPage()),
             getJumpItem("pageView(viewPager)", new PageViewPage()),
-            getJumpItem("html(富文本)", new HtmlPage()),
             getJumpItem("textSpan(扩展文本)", new TextSpanPage()),
             getJumpItem("customPaint(自定义Widget)", new CustomPaintPage()),
             getJumpItem("animation", new AnimationPage()),

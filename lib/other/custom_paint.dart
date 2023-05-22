@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widget/loading.dart';
+
+import '../custom_widget/loading.dart';
 
 class CustomPaintPage extends StatefulWidget {
   @override

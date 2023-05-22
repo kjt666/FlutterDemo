@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/page/ScreenUtilPage.dart';
-import 'package:flutter_app/page/googleFontsPage.dart';
-import 'package:flutter_app/page/imagePicker.dart';
+import 'package:flutter_app/other/loggerPage.dart';
 import 'package:flutter_app/page/myPage.dart';
 import 'package:flutter_app/page/noteLongGraphPage.dart';
 import 'package:flutter_app/page/notePage.dart';
-import 'package:flutter_app/other/loggerPage.dart';
-import 'package:flutter_app/page/providerPage.dart';
 import 'package:flutter_app/page/stateTestPage.dart';
 import 'package:flutter_app/page/thirdPage.dart';
-import 'package:flutter_app/page/webViewPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';

@@ -11,8 +11,8 @@ import 'package:flutter_app/video/formatter_util.dart';
 import 'package:flutter_app/video/media_info.dart';
 import 'package:flutter_app/video/video_config.dart';
 
-import '../widget/filletImage.dart';
-import '../widget/nativeImageProvider.dart';
+import '../custom_widget/filletImage.dart';
+
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 

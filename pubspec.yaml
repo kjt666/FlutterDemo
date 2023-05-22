@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.2.2 <3.10.0"
 
 dependencies:
   flutter:
@@ -48,6 +48,7 @@ dependencies:
   path_provider: ^2.0.10
   flutter_aliplayer: ^5.4.9
   flutter_rating_bar: 4.0.1
+#  flutter_animate: 3.0.0
 
 dev_dependencies:
   flutter_test:

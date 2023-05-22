@@ -6,15 +6,6 @@ import 'package:flutter_app/bean/note_info_bean.dart';
 import 'package:flutter_app/eum_noscroll_behavior.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/TimeUtil.dart';
-import 'package:flutter_app/widget/circleImage.dart';
-import 'package:flutter_app/widget/commentItem.dart';
-import 'package:flutter_app/widget/dynamicPageView.dart';
-import 'package:flutter_app/widget/emptyView.dart';
-import 'package:flutter_app/widget/filletButton.dart';
-import 'package:flutter_app/widget/filletImage.dart';
-import 'package:flutter_app/widget/gradientAppBar.dart';
-import 'package:flutter_app/widget/labelImage.dart';
-import 'package:flutter_app/widget/nativeImageProvider.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
@@ -23,6 +14,16 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../bean/comment_list.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../custom_widget/circleImage.dart';
+import '../custom_widget/commentItem.dart';
+import '../custom_widget/dynamicPageView.dart';
+import '../custom_widget/emptyView.dart';
+import '../custom_widget/filletButton.dart';
+import '../custom_widget/filletImage.dart';
+import '../custom_widget/gradientAppBar.dart';
+import '../custom_widget/labelImage.dart';
+import '../custom_widget/nativeImageProvider.dart';
 
 class NotePage extends StatefulWidget {
   @override
