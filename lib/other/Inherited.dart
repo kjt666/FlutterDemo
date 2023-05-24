@@ -15,7 +15,9 @@ class InheritedPage extends StatelessWidget {
           return Text(
             "Hello Frog",
             style: GoogleFonts.fasterOne(
-                textStyle: TextStyle(color: FrogColor.of(innerContext).color),
+                textStyle: TextStyle(
+                    color:
+                        FrogColor.of(innerContext)?.color ?? Colors.blueAccent),
                 fontSize: 36),
           );
         })),
@@ -27,11 +29,11 @@ class InheritedPage extends StatelessWidget {
 class FrogColor extends InheritedWidget {
   final Color color;
 
-  const FrogColor(this.color, Widget child, {Key key})
+  const FrogColor(this.color, Widget child, {Key? key})
       : super(key: key, child: child);
 
-  static FrogColor of(BuildContext context) {
-    final FrogColor result =
+  static FrogColor? of(BuildContext context) {
+    final FrogColor? result =
         context.dependOnInheritedWidgetOfExactType<FrogColor>();
     assert(result != null, "No FrogColor found in context");
     return result;

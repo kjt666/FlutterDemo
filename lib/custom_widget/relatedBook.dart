@@ -29,7 +29,7 @@ class RelatedBook extends StatelessWidget {
             padding: EdgeInsets.all(8.r),
             child: Row(
               children: [
-                FilletImage(_bookCover ?? "", corner: 4.r, width: 34.5.w,height: 44.h,),
+                FilletImage(_bookCover, corner: 4.r, width: 34.5.w,height: 44.h,),
                 SizedBox(width: 10.w),
                 Flexible(
                     child: Column(
@@ -37,14 +37,14 @@ class RelatedBook extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                       Text(
-                        _title ?? "",
+                        _title,
                         style: TextStyle(fontSize: 14.sp),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: 2.h),
                       Text(
-                        _subTitle ?? "",
+                        _subTitle,
                         style: TextStyle(color: Colors.grey, fontSize: 12.sp),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

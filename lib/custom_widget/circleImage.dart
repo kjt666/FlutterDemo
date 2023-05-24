@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CircleImage extends StatefulWidget {
-  final String url;
-  final double width;
-  final double height;
-  final GestureTapCallback onTap;
+  String? url;
+  double width;
+  double height;
+  GestureTapCallback? onTap;
 
-  CircleImage(this.url, {this.width, this.height, this.onTap});
+  CircleImage(this.url, {this.width = 80, this.height = 80, this.onTap});
 
   @override
   State<StatefulWidget> createState() {
@@ -21,13 +21,13 @@ class _CircleImageState extends State<CircleImage> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        width: widget.width ?? 80,
-        height: widget.height ?? 80,
+        width: widget.width,
+        height: widget.height,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.grey[300],width: 0.5),
+          border: Border.all(color: Colors.grey.shade300, width: 0.5),
           image: DecorationImage(
-              image: NetworkImage(widget.url), fit: BoxFit.cover),
+              image: NetworkImage(widget.url ?? ""), fit: BoxFit.cover),
         ),
       ),
     );

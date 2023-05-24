@@ -5,11 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
 
 class NativeImage extends StatefulWidget {
-  String url = "";
-  double width =20;
-  double height =20;
+  String url;
+  double width;
+  double height;
 
-  NativeImage(this.url,{this.width,this.height});
+  NativeImage(this.url, {this.width = 20, this.height = 20});
 
   @override
   State<StatefulWidget> createState() {
@@ -18,16 +18,18 @@ class NativeImage extends StatefulWidget {
 }
 
 class _NativeImageState extends State<NativeImage> {
-  Widget image;
+  late Widget image;
   String imagePath = "";
 
   @override
   void initState() {
     super.initState();
     if (widget.url.startsWith("http") || widget.url.startsWith("https")) {
-      image = Image.network(widget.url,width: widget.width,height: widget.height);
+      image =
+          Image.network(widget.url, width: widget.width, height: widget.height);
     } else {
-      image = Image.file(File(imagePath),width: widget.width,height: widget.height);
+      image = Image.file(File(imagePath),
+          width: widget.width, height: widget.height);
     }
   }
 

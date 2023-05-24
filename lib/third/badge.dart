@@ -242,7 +242,7 @@ class BadgeState extends State {
     );
   }
 
-  Widget _getExampleBadge({double padding}) {
+  Widget _getExampleBadge({double? padding}) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Badge(

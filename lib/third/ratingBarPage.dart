@@ -9,16 +9,16 @@ class RatingBarPage extends StatefulWidget {
 }
 
 class RatingBarPageState extends State<RatingBarPage> {
-  TextEditingController _ratingController;
-  double _rating;
+  late TextEditingController _ratingController;
+  late double _rating;
 
   double _userRating = 3.0;
-  int _ratingBarMode = 1;
+  int? _ratingBarMode = 1;
   double _initialRating = 2.0;
   bool _isRTLMode = false;
   bool _isVertical = false;
 
-  IconData _selectedIcon;
+  IconData? _selectedIcon;
 
   @override
   void initState() {
@@ -89,8 +89,7 @@ class RatingBarPageState extends State<RatingBarPage> {
                     labelText: 'Enter rating',
                     suffixIcon: MaterialButton(
                       onPressed: () {
-                        _userRating =
-                            double.parse(_ratingController.text ?? '0.0');
+                        _userRating = double.parse(_ratingController.text);
                         setState(() {});
                       },
                       child: Text('Rate'),
@@ -187,7 +186,7 @@ class RatingBarPageState extends State<RatingBarPage> {
     );
   }
 
-  Widget _ratingBar(int mode) {
+  Widget _ratingBar(int? mode) {
     switch (mode) {
       case 1:
         return RatingBar.builder(

@@ -22,14 +22,14 @@ class CommentItem extends StatefulWidget {
 }
 
 class CommentItemState extends State<CommentItem> {
-  GestureTapCallback goUserHomePage;
-  GestureTapCallback goCommentDetailPage;
+  GestureTapCallback? goUserHomePage;
+  GestureTapCallback? goCommentDetailPage;
 
   @override
   void initState() {
     super.initState();
     goUserHomePage = () {
-      Fluttertoast.showToast(msg: widget.itemBean.userData?.name);
+      Fluttertoast.showToast(msg: widget.itemBean.userData?.name ?? "");
     };
     goCommentDetailPage = () {
       Fluttertoast.showToast(msg: widget.itemBean.content);
@@ -60,14 +60,14 @@ class CommentItemState extends State<CommentItem> {
               children: [
                 GestureDetector(
                     onTap: goUserHomePage,
-                    child: Text(widget.itemBean.userData?.name,
+                    child: Text(widget.itemBean.userData?.name ?? "",
                         style: TextStyle(fontSize: 16, color: Colors.grey))),
                 SizedBox(height: 10),
                 GestureDetector(
                   onTap: goCommentDetailPage,
                   child: RichText(
                       text: TextSpan(
-                          children: EmojiUtil.getInstance().addSmiles(
+                          children: EmojiUtil.getInstance()?.addSmiles(
                               widget.itemBean.content,
                               TapGestureRecognizer()
                                 ..onTap = () {
@@ -160,8 +160,8 @@ class CommentItemState extends State<CommentItem> {
                               ),
                             ));
                       } else {
-                        bool samePerson = list[i].userData.userId ==
-                            list[i].replyUserData.userId;
+                        bool samePerson = list[i].userData?.userId ==
+                            list[i].replyUserData?.userId;
                         return Padding(
                             padding: EdgeInsets.only(bottom: 10),
                             child: /*Text("${list[i].userData.name} 回复 ${list[i].replyUserData.name}：${list[i].content}")*/ RichText(
@@ -170,14 +170,14 @@ class CommentItemState extends State<CommentItem> {
                                         color: Colors.black, fontSize: 13),
                                     children: [
                                   TextSpan(
-                                      text: "${list[i].userData.name}",
+                                      text: "${list[i].userData?.name}",
                                       style: TextStyle(
                                           color: Color(0xff00bf7f),
                                           fontSize: 13),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           Fluttertoast.showToast(
-                                              msg: "${list[i].userData.name}");
+                                              msg: "${list[i].userData?.name}");
                                         }),
                                   samePerson
                                       ? TextSpan()
@@ -185,7 +185,7 @@ class CommentItemState extends State<CommentItem> {
                                   samePerson
                                       ? TextSpan()
                                       : TextSpan(
-                                          text: "${list[i].replyUserData.name}",
+                                          text: "${list[i].replyUserData?.name}",
                                           style: TextStyle(
                                               color: Color(0xff00bf7f),
                                               fontSize: 13),
@@ -193,16 +193,16 @@ class CommentItemState extends State<CommentItem> {
                                             ..onTap = () {
                                               Fluttertoast.showToast(
                                                   msg:
-                                                      "${list[i].replyUserData.name}");
+                                                      "${list[i].replyUserData?.name}");
                                             }),
                                   TextSpan(
-                                    children: EmojiUtil.getInstance().addSmiles(
+                                    children: EmojiUtil.getInstance()?.addSmiles(
                                         list[i].content,
                                         TapGestureRecognizer()
                                           ..onTap = () {
                                             print("啊哦~");
                                           }),
-                                      // text: "：${list[i].content}",
+                                    // text: "：${list[i].content}",
                                     /*recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           _openReportBottomSheet();
@@ -271,7 +271,7 @@ class CommentItemState extends State<CommentItem> {
       });
     }*/
     //
-    var diggCount = int.tryParse(widget.itemBean.diggCount);
+    var diggCount = int.parse(widget.itemBean.diggCount);
     setState(() {
       if ("1" == widget.itemBean.isDigg) {
         widget.itemBean.isDigg = "0";

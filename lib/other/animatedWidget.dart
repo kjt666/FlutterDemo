@@ -10,8 +10,8 @@ class AnimatedWidgetPage extends StatefulWidget {
 
 class _AnimatedWidgetState extends State<AnimatedWidgetPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  Animation<double>? _animation;
 
   @override
   void initState() {
@@ -60,6 +60,9 @@ class _AnimatedWidgetState extends State<AnimatedWidgetPage>
 }
 
 class ButtonTransition extends AnimatedWidget {
+
+  AnimationController controller;
+
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
@@ -78,7 +81,7 @@ class ButtonTransition extends AnimatedWidget {
     );
   }
 
-  ButtonTransition(animation) : super(listenable: animation);
+  ButtonTransition(this.controller) : super(listenable: controller);
 
-  Animation<double> get animation => listenable;
+  Animation<double> get animation => controller.view;
 }

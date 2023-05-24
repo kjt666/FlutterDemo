@@ -19,7 +19,7 @@ class GoogleFontsPage extends StatelessWidget {
               child: Text(
                 "Hello $key",
                 textAlign: TextAlign.center,
-                style: map[key].call(),
+                style: map[key]?.call(),
               ),
             )
         ],

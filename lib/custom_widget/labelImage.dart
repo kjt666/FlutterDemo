@@ -5,12 +5,12 @@ import 'package:flutter_app/custom_widget/nativeImageProvider.dart';
 
 class LabelImage extends StatefulWidget {
   final String url;
-  final double width;
-  final double height;
-  final Color labelBgColor;
-  final String labelText;
-  final TextStyle labelTextStyle;
-  final GestureTapCallback onTap;
+  final double? width;
+  final double? height;
+  final Color? labelBgColor;
+  final String? labelText;
+  final TextStyle? labelTextStyle;
+  final GestureTapCallback? onTap;
 
   LabelImage(this.url,
       {this.width,
@@ -62,7 +62,9 @@ class _LabelImageState extends State<LabelImage> {
                   padding: EdgeInsets.fromLTRB(7, 1, 7, 1),
                   decoration: BoxDecoration(
                       color: widget.labelBgColor,
-                      border: widget.labelBgColor==null?null:Border.all(color: Colors.white),
+                      border: widget.labelBgColor == null
+                          ? null
+                          : Border.all(color: Colors.white),
                       borderRadius: BorderRadius.circular(7)),
                   child: Text(
                     widget.labelText ?? "",

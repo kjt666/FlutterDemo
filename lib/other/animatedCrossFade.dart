@@ -53,7 +53,7 @@ class _AnimatedCrossFadeState extends State<AnimatedCrossFadePage> {
                 builder: (context, color, child) {
                   return ColorFiltered(
                       child: child,
-                      colorFilter: ColorFilter.mode(color, BlendMode.srcIn));
+                      colorFilter: ColorFilter.mode(color as Color, BlendMode.srcIn));
                 },
                 onEnd: () {
                   // print("TweenAnimationBuilder end");

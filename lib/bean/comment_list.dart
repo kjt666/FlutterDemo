@@ -1,12 +1,12 @@
 /// list : [{"id":"90005208","note_id":"3335233884500656157","send_user":"90005784","comment_type":"0","receive_user":"90006269","receive_cid":"0","receive_pid":"0","content":"“总书记来到我们家里，屋里屋外仔细察看。他待人真是亲切，让我们非常感动。”回忆起自己拿着照片向总书记介绍生活变化的场景，身着藏族盛装的索南才让满脸笑意。","create_time":"2021-06-10 11:07:08","digg_count":"2","status":"100","comment_count":"1","is_digg":"1","user_data":{"user_id":"90005784","name":"生如夏花之绚丽","avatar":"http://avatar.youshu.cc/readwith/20200609/5edf7a530b50d.jpeg@100w_100h.jpg"},"comment_list":[{"id":"90005211","note_id":"3335233884500656157","send_user":"90005749","comment_type":"1","receive_user":"90005784","receive_cid":"90005208","receive_pid":"90005208","content":"“修身以为弓，矫思以为矢，立义以为的，奠而后发，发必中矣。”","create_time":"2021-06-11 10:21:58","digg_count":"0","status":"100","user_data":{"user_id":"90005749","name":"亚古兽","avatar":"http://avatar.youshu.cc/readwith/20200707/5f044b9422e95.jpg@100w_100h.jpg"},"reply_user_data":{"user_id":"90005784","name":"生如夏花之绚丽","avatar":"http://avatar.youshu.cc/readwith/20200609/5edf7a530b50d.jpeg@100w_100h.jpg"}}],"source_scheme":"youshuapp://note id=3335233884500656157","business_type":"104","business_id":"0","collection_id":"1","chapter_id":"3335233884500656157"}]
 
 class CommentList {
-  List<Comment>  _list;
+  List<Comment>  _list = List.empty(growable: true);
 
   List<Comment>  get list => _list;
 
   CommentList({
-    List<Comment>  list}){
+    required List<Comment>  list}){
     _list = list;
   }
 
@@ -55,26 +55,26 @@ class CommentList {
 /// chapter_id : "3335233884500656157"
 
 class Comment {
-  String  _id;
-  String  _noteId;
-  String  _sendUser;
-  String  _commentType;
-  String  _receiveUser;
-  String  _receiveCid;
-  String  _receivePid;
-  String  _content;
-  String  _createTime;
-  String  _diggCount;
-  String  _status;
-  String  _commentCount;
-  String  _isDigg;
-  User_data  _userData;
-  List<Comment_list>  _commentList;
-  String  _sourceScheme;
-  String  _businessType;
-  String  _businessId;
-  String  _collectionId;
-  String  _chapterId;
+  String  _id = "";
+  String  _noteId= "";
+  String  _sendUser= "";
+  String  _commentType= "";
+  String  _receiveUser= "";
+  String  _receiveCid= "";
+  String  _receivePid= "";
+  String  _content= "";
+  String  _createTime= "";
+  String  _diggCount= "";
+  String  _status= "";
+  String  _commentCount= "";
+  String  _isDigg= "";
+  User_data?  _userData;
+  List<Comment_list>  _commentList = List.empty(growable: true);
+  String  _sourceScheme= "";
+  String  _businessType= "";
+  String  _businessId= "";
+  String  _collectionId= "";
+  String  _chapterId= "";
 
   String  get id => _id;
   String  get noteId => _noteId;
@@ -91,7 +91,7 @@ class Comment {
   String  get commentCount => _commentCount;
   String  get isDigg => _isDigg;
   set isDigg(String value) => _isDigg = value;
-  User_data  get userData => _userData;
+  User_data?  get userData => _userData;
   List<Comment_list>  get commentList => _commentList;
   String  get sourceScheme => _sourceScheme;
   String  get businessType => _businessType;
@@ -99,7 +99,7 @@ class Comment {
   String  get collectionId => _collectionId;
   String  get chapterId => _chapterId;
 
-  Comment({
+  /*Comment({
     String  id,
     String  noteId,
     String  sendUser,
@@ -140,7 +140,7 @@ class Comment {
     _businessId = businessId;
     _collectionId = collectionId;
     _chapterId = chapterId;
-  }
+  }*/
 
   Comment.fromJson(dynamic json) {
     _id = json["id"];
@@ -186,7 +186,7 @@ class Comment {
     map["comment_count"] = _commentCount;
     map["is_digg"] = _isDigg;
     if (_userData != null) {
-      map["user_data"] = _userData .toJson();
+      map["user_data"] = _userData?.toJson();
     }
     if (_commentList != null) {
       map["comment_list"] = _commentList .map((v) => v.toJson()).toList();
@@ -220,19 +220,19 @@ class Comment {
 /// reply_user_data : {"user_id":"90005784","name":"生如夏花之绚丽","avatar":"http://avatar.youshu.cc/readwith/20200609/5edf7a530b50d.jpeg@100w_100h.jpg"}
 
 class Comment_list {
-  String  _id;
-  String  _noteId;
-  String  _sendUser;
-  String  _commentType;
-  String  _receiveUser;
-  String  _receiveCid;
-  String  _receivePid;
-  String  _content;
-  String  _createTime;
-  String  _diggCount;
-  String  _status;
-  User_data  _userData;
-  Reply_user_data  _replyUserData;
+  String  _id = "";
+  String  _noteId = "";
+  String  _sendUser = "";
+  String  _commentType = "";
+  String  _receiveUser = "";
+  String  _receiveCid = "";
+  String  _receivePid = "";
+  String  _content = "";
+  String  _createTime = "";
+  String  _diggCount = "";
+  String  _status = "";
+  User_data?  _userData;
+  Reply_user_data?  _replyUserData;
 
   String  get id => _id;
   String  get noteId => _noteId;
@@ -245,10 +245,10 @@ class Comment_list {
   String  get createTime => _createTime;
   String  get diggCount => _diggCount;
   String  get status => _status;
-  User_data  get userData => _userData;
-  Reply_user_data  get replyUserData => _replyUserData;
+  User_data?  get userData => _userData;
+  Reply_user_data?  get replyUserData => _replyUserData;
 
-  Comment_list({
+  /*Comment_list({
     String  id,
     String  noteId,
     String  sendUser,
@@ -275,7 +275,7 @@ class Comment_list {
     _status = status;
     _userData = userData;
     _replyUserData = replyUserData;
-  }
+  }*/
 
   Comment_list.fromJson(dynamic json) {
     _id = json["id"];
@@ -307,10 +307,10 @@ class Comment_list {
     map["digg_count"] = _diggCount;
     map["status"] = _status;
     if (_userData != null) {
-      map["user_data"] = _userData .toJson();
+      map["user_data"] = _userData?.toJson();
     }
     if (_replyUserData != null) {
-      map["reply_user_data"] = _replyUserData .toJson();
+      map["reply_user_data"] = _replyUserData?.toJson();
     }
     return map;
   }
@@ -326,22 +326,22 @@ class Comment_list {
 /// avatar : "http://avatar.youshu.cc/readwith/20200609/5edf7a530b50d.jpeg@100w_100h.jpg"
 
 class Reply_user_data {
-  String  _userId;
-  String  _name;
-  String  _avatar;
+  String  _userId = "";
+  String  _name = "";
+  String  _avatar = "";
 
   String  get userId => _userId;
   String  get name => _name;
   String  get avatar => _avatar;
 
-  Reply_user_data({
+  /*Reply_user_data({
     String  userId,
     String  name,
     String  avatar}){
     _userId = userId;
     _name = name;
     _avatar = avatar;
-  }
+  }*/
 
   Reply_user_data.fromJson(dynamic json) {
     _userId = json["user_id"];
@@ -364,22 +364,22 @@ class Reply_user_data {
 /// avatar : "http://avatar.youshu.cc/readwith/20200707/5f044b9422e95.jpg@100w_100h.jpg"
 
 class User_data {
-  String  _userId;
-  String  _name;
-  String  _avatar;
+  String  _userId = "";
+  String  _name = "";
+  String  _avatar = "";
 
   String  get userId => _userId;
   String  get name => _name;
   String  get avatar => _avatar;
 
-  User_data({
+  /*User_data({
     String  userId,
     String  name,
     String  avatar}){
     _userId = userId;
     _name = name;
     _avatar = avatar;
-  }
+  }*/
 
   User_data.fromJson(dynamic json) {
     _userId = json["user_id"];

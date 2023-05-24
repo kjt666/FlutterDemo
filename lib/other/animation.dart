@@ -10,10 +10,10 @@ class AnimationPage extends StatefulWidget {
 
 class _AnimationState extends State<AnimationPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
-  Animation _curve;
-  Animation _curveAnimation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late Animation<double> _curve;
+  late Animation _curveAnimation;
 
   @override
   void initState() {

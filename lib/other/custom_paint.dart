@@ -18,7 +18,7 @@ class _CustomPatinState extends State<CustomPaintPage> {
           title: Text("CustomPaint"),
         ),
         body: Loading(
-          Colors.grey[500],
+          Colors.grey.shade500,
           center: false,
         ));
   }

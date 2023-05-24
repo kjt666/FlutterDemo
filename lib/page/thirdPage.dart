@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/third/badge.dart';
 import 'package:flutter_app/third/cachedNetworkImage.dart';
-import 'package:flutter_app/third/flutter_animate.dart';
 import 'package:flutter_app/third/lottiePage.dart';
+import 'package:flutter_app/third/pigeonPage.dart';
 import 'package:flutter_app/third/providerPage.dart';
 import 'package:flutter_app/third/ratingBarPage.dart';
 import 'package:flutter_app/third/screenUtilPage.dart';
@@ -23,8 +23,8 @@ class ThirdPage extends StatefulWidget {
 
 class ThirdPageState extends State<ThirdPage> {
   int index = 0;
-  Color oddItemColor = Colors.blueGrey[50];
-  Color evenItemColor = Colors.blueGrey[100];
+  Color oddItemColor = Colors.blueGrey.shade50;
+  Color evenItemColor = Colors.blueGrey.shade100;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +47,7 @@ class ThirdPageState extends State<ThirdPage> {
           getJumpItem("lottie(Json动画)", new LottiePage()),
           getJumpItem("ratingBar(评分栏)", new RatingBarPage()),
           // getJumpItem("flutter_animate(方便快捷实现动画效果)", new FlutterAnimate())
+          getJumpItem("pigeon", new PigeonPage()),
         ],
       ),
     );

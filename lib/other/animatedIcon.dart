@@ -10,8 +10,8 @@ class AnimatedIconPage extends StatefulWidget {
 
 class _AnimatedIconPageState extends State<AnimatedIconPage>
     with SingleTickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController controller;
+  Animation<double>? animation;
+  late AnimationController controller;
 
   @override
   void initState() {

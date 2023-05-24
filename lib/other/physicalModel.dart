@@ -10,7 +10,7 @@ class PhysicalModelPage extends StatefulWidget {
 
 class _PhysicalModelState extends State<PhysicalModelPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {

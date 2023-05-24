@@ -129,7 +129,7 @@ class CachedNetworkImagePage extends StatelessWidget {
     );
   }
 
-  Widget _sizedContainer(Widget child, {double width, double height}) {
+  Widget _sizedContainer(Widget child, {double? width, double? height}) {
     return Container(
       width: width,
       height: height,

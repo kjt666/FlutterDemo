@@ -14,7 +14,7 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
   int speed = 3;
   List<int> frames = [6, 4, 2, 4, 6, 4];
   List<int> frameList = [];
@@ -63,7 +63,7 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller.view,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return _buildIndicator(context, _controller.value);
       },
     );
@@ -91,7 +91,7 @@ class LoadingPainter extends CustomPainter {
       ..strokeWidth = 1.0;
   }
 
-  Paint _paint;
+  late Paint _paint;
   int progressDegree = 0;
   double vW = 2.5;
   double row_w = 3;

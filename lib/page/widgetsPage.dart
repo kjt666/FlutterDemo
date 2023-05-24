@@ -62,8 +62,8 @@ class _WidgetsPageState extends State<WidgetsPage> {
   var logger = Logger(printer: PrettyPrinter());
 
   int index = 0;
-  Color oddItemColor = Colors.blueGrey[50];
-  Color evenItemColor = Colors.blueGrey[100];
+  Color oddItemColor = Colors.blueGrey.shade50;
+  Color evenItemColor = Colors.blueGrey.shade100;
   bool disEnable = false;
 
   @override
@@ -148,17 +148,11 @@ class _WidgetsPageState extends State<WidgetsPage> {
             getJumpItem("animatedWidget(动画小部件)", new AnimatedWidgetPage()),
             getJumpItem(
                 "staggeredAnimation(组合动画)", new StaggeredAnimationPage()),
-            getJumpItem(
-                "inherited(继承，多Widget嵌套下的数据调用)", new InheritedPage()),
-            getJumpItem(
-                "rotatedBox(旋转盒子)", new RotatedBoxPage()),
-            getJumpItem(
-                "expansionPanel(扩展面板)", new ExpansionPanelPage()),
-            getJumpItem(
-                "tabPageSelector(指示器)", new TabPageSelectorPage()),
-            getJumpItem(
-                "baseline(基线)", new BaselinePage()),
-
+            getJumpItem("inherited(继承，多Widget嵌套下的数据调用)", new InheritedPage()),
+            getJumpItem("rotatedBox(旋转盒子)", new RotatedBoxPage()),
+            getJumpItem("expansionPanel(扩展面板)", new ExpansionPanelPage()),
+            getJumpItem("tabPageSelector(指示器)", new TabPageSelectorPage()),
+            getJumpItem("baseline(基线)", new BaselinePage()),
           ],
         ),
       ),

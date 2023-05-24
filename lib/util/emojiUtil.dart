@@ -290,9 +290,9 @@ class EmojiUtil {
     "ee_141",
   ];
 
-  static EmojiUtil _instance;
+  static EmojiUtil? _instance;
 
-  static EmojiUtil getInstance() {
+  static EmojiUtil? getInstance() {
     if (_instance == null) {
       _instance = EmojiUtil();
     }

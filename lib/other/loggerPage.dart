@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/log/myLogger.dart';
-import 'package:logger/logger.dart';
 
 // ignore: must_be_immutable
 class LoggerPage extends StatelessWidget {
   var logger = MyLogger();
-  List<String> nullList;
+  List<String>? nullList;
 
   @override
   Widget build(BuildContext context) {

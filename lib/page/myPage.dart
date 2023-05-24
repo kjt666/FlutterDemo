@@ -10,7 +10,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 
 import '../bean/user_bean.dart';
-import 'jumpPage.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -26,7 +25,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
 
   var userData = User_data();
 
-  AppLifecycleState _lastLifecycleState;
+  late AppLifecycleState _lastLifecycleState;
 
   @override
   void initState() {
@@ -35,7 +34,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
       if (call.method == "lal") {
         return Future.value("Hello~ ${call.arguments}\nI'm flutter");
       }
-      return null;
+      return Future.value(null);
     });
     WidgetsBinding.instance.addObserver(this);
     DioUtil.init();
@@ -67,14 +66,14 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
         data: {
           'type': 'mobile',
           'data':
-          'Mad2VU9hb7qCUQK7lzh/A6rkIE/pT7MsTwI/ySkofvT3A0gZvuVkyvpu1lvKmgZwg54bnQV9Yr95tFfISFTsghJ2AmzOPsPI4o7MUy9fJx2OJ9rQmBhpXUBsa0xn21Fk6OPCEJTdBI5qWJjPIGgBwap9ByP1ze6H5v7awo/0ZSH9y8h3lUbH35/2vYavWoQW/ApZQKFzojfOodL21FgWcOsiR7u1eODKAELZoTwJY0BR/SZ1ZJdNJPyYUS8bPluP6UrdQ5t+QP+ZxEPjpDA9DFHXs3beLzfaqgeMI5SlM9cruUszrUSRVa3E7fa471rtr6ucdGKekOEiGzvsuQcIQA==',
+              'Mad2VU9hb7qCUQK7lzh/A6rkIE/pT7MsTwI/ySkofvT3A0gZvuVkyvpu1lvKmgZwg54bnQV9Yr95tFfISFTsghJ2AmzOPsPI4o7MUy9fJx2OJ9rQmBhpXUBsa0xn21Fk6OPCEJTdBI5qWJjPIGgBwap9ByP1ze6H5v7awo/0ZSH9y8h3lUbH35/2vYavWoQW/ApZQKFzojfOodL21FgWcOsiR7u1eODKAELZoTwJY0BR/SZ1ZJdNJPyYUS8bPluP6UrdQ5t+QP+ZxEPjpDA9DFHXs3beLzfaqgeMI5SlM9cruUszrUSRVa3E7fa471rtr6ucdGKekOEiGzvsuQcIQA==',
           'device_id': '27c3a291-1f00-4c36-b7f0-762dd3076b9d'
         });
     print(response.data);
     Map<String, dynamic> data = json.decode(response.data);
     HttpResponse httpResponse = HttpResponse.fromJson(data);
     setState(() {
-      userData = httpResponse.data.userData;
+      userData = httpResponse.data?.userData ?? User_data();
     });
     // HttpResponse httpResponse = HttpResponse.fromJson(response.data);
     print(httpResponse.toString());
@@ -86,35 +85,35 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
       // appBar: AppBar(title: new Text("Flutter Test")),
       body: Container(
           child: ListView(
-            children: [
-              getTitleBar(),
-              getHeader(),
-              getTabs(),
-              new Padding(
-                  padding:
+        children: [
+          getTitleBar(),
+          getHeader(),
+          getTabs(),
+          new Padding(
+              padding:
                   EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 10),
-                  child: new Image.asset("images/home_ganxingqu_cardbg.png")),
-              getItem(Icons.star_border, "我的收藏"),
-              getHorizonLine(),
-              // Divider(),
-              getItem(Icons.supervisor_account, "我的社群"),
-              getHorizonLine(),
-              getItem(Icons.cloud_download, "我的缓存"),
-              new Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: getItem(Icons.adjust, "兴趣管理")),
-              getItem(Icons.archive, "订单中心"),
-              getHorizonLine(),
-              getItem(Icons.all_inclusive, "我的礼物"),
-              new Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: getItem(Icons.alternate_email, "联系客服")),
-              getHorizonLine(),
-              new Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: getItem(Icons.wifi_tethering, "邀请好友注册有书APP")),
-            ],
-          )),
+              child: new Image.asset("images/home_ganxingqu_cardbg.png")),
+          getItem(Icons.star_border, "我的收藏"),
+          getHorizonLine(),
+          // Divider(),
+          getItem(Icons.supervisor_account, "我的社群"),
+          getHorizonLine(),
+          getItem(Icons.cloud_download, "我的缓存"),
+          new Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
+              child: getItem(Icons.adjust, "兴趣管理")),
+          getItem(Icons.archive, "订单中心"),
+          getHorizonLine(),
+          getItem(Icons.all_inclusive, "我的礼物"),
+          new Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: getItem(Icons.alternate_email, "联系客服")),
+          getHorizonLine(),
+          new Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: getItem(Icons.wifi_tethering, "邀请好友注册有书APP")),
+        ],
+      )),
     );
   }
 
@@ -187,7 +186,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
                   radius: 100,
                   backgroundImage: userData.avatar == null
                       ? AssetImage('images/head.jpg')
-                      : NetworkImage(userData.avatar))),
+                      : NetworkImage(userData.avatar) as ImageProvider)),
           new Expanded(
             flex: 1,
             child: new Padding(
@@ -207,7 +206,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
                         child: new Padding(
                             padding: EdgeInsets.only(left: 5, right: 3),
                             child:
-                            new Image.asset('images/new_vip_tag_icon.png')),
+                                new Image.asset('images/new_vip_tag_icon.png')),
                       ),
                       new Container(
                         // width: 50,
@@ -276,7 +275,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
       new Padding(
         padding: EdgeInsets.only(top: 5),
         child:
-        new Text(b, style: new TextStyle(fontSize: 10, color: Colors.grey)),
+            new Text(b, style: new TextStyle(fontSize: 10, color: Colors.grey)),
       )
     ]);
   }
@@ -322,7 +321,7 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
                     flex: 1,
                     child: new Text(title,
                         style:
-                        new TextStyle(color: Colors.black, fontSize: 15))),
+                            new TextStyle(color: Colors.black, fontSize: 15))),
                 new Padding(
                   padding: EdgeInsets.only(right: 10),
                   child: new Icon(Icons.arrow_forward_ios,
@@ -343,6 +342,6 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
   }
 
   String verify(String value) {
-    return value != null && value.isNotEmpty ? value : "xxx";
+    return value.isNotEmpty ? value : "xxx";
   }
 }

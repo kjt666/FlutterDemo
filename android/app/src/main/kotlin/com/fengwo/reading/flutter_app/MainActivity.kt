@@ -25,54 +25,55 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        Pigeon.NativeApi.setup(flutterEngine.dartExecutor.binaryMessenger, NativeApiImpl(context))
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL_NATIVE)
-                .setMethodCallHandler(object : MethodChannel.MethodCallHandler {
-                    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-                        when (call.method) {
-                            "jumpToNative" -> {
-                                 var msg = "来自flutter的数据"
-                                val intent = Intent(this@MainActivity, SecondActivity::class.java)
-                                if (call.arguments != null) {
-                                    msg = call.argument<String>("msg").toString()
-                                    intent.putExtra("msg", msg)
-                                }
-                                Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
-                                startActivity(intent)
-                                result.success("成功接收来自flutter的消息")
+            .setMethodCallHandler(object : MethodChannel.MethodCallHandler {
+                override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+                    when (call.method) {
+                        "jumpToNative" -> {
+                            var msg = "来自flutter的数据"
+                            val intent = Intent(this@MainActivity, SecondActivity::class.java)
+                            if (call.arguments != null) {
+                                msg = call.argument<String>("msg").toString()
+                                intent.putExtra("msg", msg)
                             }
-                            "image" -> {
-                                if (call.hasArgument("name")) {
-                                    val path = call.argument<String>("name")?.let { getImageAsFile(it) }
-                                    if (path.isNullOrEmpty()) {
-                                        result.error("-1", "调用原生图片失败", null)
-                                    } else {
-                                        result.success(path)
-                                    }
-                                }
-                            }
-                            "logger"->{
-                                val level = call.argument<String>("level")
-                                val message = call.argument<String>("message")
-                                val error = call.argument<String>("error")
-                                println("level->$level,message->$message,error->$error")
-                                val data = call.argument<List<String>>("data")
-                                data?.forEach { println("Android ------> $it") }
-                            }
-	                        "saveImage"->{
-		                        if (call.hasArgument("data")) {
-			                        val flag = call.argument<ByteArray>("data")?.let { saveImage(it) }
-			                        if (flag!=null&&flag) {
-				                        result.success(flag)
-			                        } else {
-				                        result.error("-1", "调用原生图片失败", null)
-			                        }
-		                        }
-							}
-                            else -> result.notImplemented()
+                            Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+                            startActivity(intent)
+                            result.success("成功接收来自flutter的消息")
                         }
+                        "image" -> {
+                            if (call.hasArgument("name")) {
+                                val path = call.argument<String>("name")?.let { getImageAsFile(it) }
+                                if (path.isNullOrEmpty()) {
+                                    result.error("-1", "调用原生图片失败", null)
+                                } else {
+                                    result.success(path)
+                                }
+                            }
+                        }
+                        "logger" -> {
+                            val level = call.argument<String>("level")
+                            val message = call.argument<String>("message")
+                            val error = call.argument<String>("error")
+                            println("level->$level,message->$message,error->$error")
+                            val data = call.argument<List<String>>("data")
+                            data?.forEach { println("Android ------> $it") }
+                        }
+                        "saveImage" -> {
+                            if (call.hasArgument("data")) {
+                                val flag = call.argument<ByteArray>("data")?.let { saveImage(it) }
+                                if (flag != null && flag) {
+                                    result.success(flag)
+                                } else {
+                                    result.error("-1", "调用原生图片失败", null)
+                                }
+                            }
+                        }
+                        else -> result.notImplemented()
                     }
+                }
 
-                })
+            })
     }
 
     private fun getImageAsFile(imageName: String): String {
@@ -97,20 +98,20 @@ class MainActivity : FlutterActivity() {
         return imageFilePath
     }
 
-	private fun saveImage(data: ByteArray?): Boolean {
-		if (data==null||data.isEmpty()){
-			return false
-		}
-		var imageFilePath = "$externalCacheDir${File.separator}123.png"
-		val imageFile = File(imageFilePath)
-		val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-		val fos = FileOutputStream(imageFile)
-		val success = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
-		if (!success) {
-			imageFile.delete()
-			return false
-		}
-		return true
-	}
+    private fun saveImage(data: ByteArray?): Boolean {
+        if (data == null || data.isEmpty()) {
+            return false
+        }
+        var imageFilePath = "$externalCacheDir${File.separator}123.png"
+        val imageFile = File(imageFilePath)
+        val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
+        val fos = FileOutputStream(imageFile)
+        val success = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        if (!success) {
+            imageFile.delete()
+            return false
+        }
+        return true
+    }
 
 }

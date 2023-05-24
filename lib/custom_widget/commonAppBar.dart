@@ -7,7 +7,7 @@ class CommonAppBar extends AppBar {
     Color backgroundColor = Colors.white,
     Color arrowColor = Colors.black,
     double elevation = 1,
-    List<Widget> actions,
+    List<Widget>? actions,
   }) : super(
             backgroundColor: backgroundColor,
             toolbarHeight: 44,

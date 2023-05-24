@@ -9,7 +9,6 @@ import 'package:flutter_app/page/thirdPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
-import 'package:flutter_app/video/videoPage.dart';
 import 'package:flutter_app/video/videoPage2.dart';
 
 import '../other/nativeImage.dart';
@@ -23,8 +22,8 @@ class JumpPage extends StatefulWidget {
 
 class _JumpState extends State<JumpPage> {
   int index = 0;
-  Color oddItemColor = Colors.blueGrey[50];
-  Color evenItemColor = Colors.blueGrey[100];
+  Color oddItemColor = Colors.blueGrey.shade50;
+  Color evenItemColor = Colors.blueGrey.shade100;
 
   @override
   void initState() {
@@ -34,7 +33,7 @@ class _JumpState extends State<JumpPage> {
       if (call.method == "lal") {
         return Future.value("Hello~ ${call.arguments}\nI'm flutter");
       }
-      return null;
+      return Future.value(null);
     });
     DioUtil.init();
   }
@@ -57,15 +56,14 @@ class _JumpState extends State<JumpPage> {
           getJumpItem("复杂页面1~~~", jumpPage: new MyPage()),
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
           getJumpItem("复杂页面3~~~", jumpPage: new NoteLongGraphPage()),
-          getJumpItem("StateTest",jumpPage: new StateTestPage()),
-          getJumpItem("AliVideoView",jumpPage: new VideoPage()),
-          getJumpItem("AliVideoView2",jumpPage: new VideoPage2()),
+          getJumpItem("StateTest", jumpPage: new StateTestPage()),
+          getJumpItem("AliVideoView", jumpPage: new VideoPage2()),
         ],
       ),
     );
   }
 
-  Widget getJumpItem(String title, {Widget jumpPage, Function function}) {
+  Widget getJumpItem(String title, {Widget? jumpPage, Function? function}) {
     index++;
     return Card(
       color: index.isOdd ? oddItemColor : evenItemColor,

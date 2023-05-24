@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/bean/note_info_bean.dart';
 import 'package:flutter_app/eum_noscroll_behavior.dart';
+import 'package:flutter_app/pigeon.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/TimeUtil.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -37,13 +38,13 @@ class _NotePageState extends State<NotePage> {
 
   List<String> urls = [];
 
-  ScrollController scrollController;
+  late ScrollController scrollController;
   GlobalKey middleHeaderkey = GlobalKey();
   double titleBarOpacity = 0;
 
   GlobalKey<GradientAppBarState> barKey = GlobalKey();
   GlobalKey<DynamicPageState> bannerKey = GlobalKey();
-  RenderBox middleHeaderRender;
+  late RenderBox middleHeaderRender;
 
   //显示标题栏头像需要的位移量
   double barHeaderShowOffset = 0;
@@ -62,14 +63,14 @@ class _NotePageState extends State<NotePage> {
     scrollController.addListener(() {
       if (noHeaderImg) {
         int alpha = ((scrollController.offset / 50) * 255).toInt();
-        barKey.currentState.changeBarColor(alpha < 255 ? alpha : 255);
+        barKey.currentState?.changeBarColor(alpha < 255 ? alpha : 255);
       } else {
         int alpha = ((scrollController.offset / 200) * 255).toInt();
-        barKey.currentState.changeBarWithIconColor(alpha < 255 ? alpha : 255);
+        barKey.currentState?.changeBarWithIconColor(alpha < 255 ? alpha : 255);
       }
       // print("----------$scrollController.offset---------");
       // print("${render.localToGlobal(Offset.zero)}");
-      barKey.currentState.showHeader(
+      barKey.currentState?.showHeader(
           middleHeaderRender.localToGlobal(Offset.zero).dy <=
               barHeaderShowOffset);
     });
@@ -80,8 +81,10 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      middleHeaderRender = middleHeaderkey.currentContext.findRenderObject();
-      RenderBox render2 = barKey.currentContext.findRenderObject();
+      middleHeaderRender =
+          middleHeaderkey.currentContext?.findRenderObject() as RenderBox;
+      RenderBox render2 =
+          barKey.currentContext?.findRenderObject() as RenderBox;
       barHeaderShowOffset =
           render2.size.height - middleHeaderRender.size.height;
     });
@@ -97,7 +100,7 @@ class _NotePageState extends State<NotePage> {
                 controller: _refreshController,
                 footer: CustomFooter(
                   loadStyle: LoadStyle.ShowWhenLoading,
-                  builder: (BuildContext context, LoadStatus mode) {
+                  builder: (BuildContext context, LoadStatus? mode) {
                     Widget body;
                     if (mode == LoadStatus.idle) {
                       body = Text("上拉加载");
@@ -180,7 +183,7 @@ class _NotePageState extends State<NotePage> {
           children: [
             Padding(
                 padding: EdgeInsets.only(bottom: 10),
-                child: Text(noteInfo.title ?? "",
+                child: Text(noteInfo.title,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -195,7 +198,7 @@ class _NotePageState extends State<NotePage> {
                 )),*/
             Html(
               data: """
-            <div style=\"line-height: 24px;font-size:17px;background-color:red\">
+            <div style=\"line-height: 24px;font-size:17px;background-color:white\">
               <style>
               a{color: #4DAAB8; text-decoration:none;}
               <\/style>
@@ -205,7 +208,7 @@ class _NotePageState extends State<NotePage> {
               shrinkWrap: true,
               onImageTap: (url, context, attributes, element) {
                 // NavigatorUtil.pushImageBrowserPage(0, [url]);
-                Fluttertoast.showToast(msg: url);
+                Fluttertoast.showToast(msg: url ?? "");
               },
             ),
             SizedBox(height: 20),
@@ -215,7 +218,7 @@ class _NotePageState extends State<NotePage> {
             SizedBox(height: 20),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               _getMiddleIconBtn(
-                  noteInfo.diggCount ?? "0",
+                  noteInfo.diggCount,
                   "1" == noteInfo.isDigg
                       ? "wenzhang_detail_like_heart"
                       : "wenzhang_detail_like",
@@ -240,12 +243,12 @@ class _NotePageState extends State<NotePage> {
     return Row(
       children: [
         CircleImage(imageUrl, width: 35, height: 35, onTap: () {
-          Fluttertoast.showToast(msg: noteInfo.userData?.name);
+          Fluttertoast.showToast(msg: noteInfo.userData?.name ?? "");
         }),
         SizedBox(width: 10),
         GestureDetector(
             onTap: () {
-              Fluttertoast.showToast(msg: noteInfo.userData?.name);
+              Fluttertoast.showToast(msg: noteInfo.userData?.name ?? "");
             },
             child: Column(
               key: middleHeaderkey,
@@ -289,7 +292,7 @@ class _NotePageState extends State<NotePage> {
         offstage: noteInfo.relationData?.relationTitle == null,
         child: GestureDetector(
             onTap: () {
-              Fluttertoast.showToast(msg: noteInfo.relationData?.scheme);
+              Fluttertoast.showToast(msg: noteInfo.relationData?.scheme ?? "");
             },
             child: Stack(
               alignment: Alignment.bottomRight,
@@ -351,13 +354,13 @@ class _NotePageState extends State<NotePage> {
               onTap: () {
                 Fluttertoast.showToast(msg: noteInfo.topicTitle);
               },
-              child: Text(noteInfo.topicTitle ?? "",
+              child: Text(noteInfo.topicTitle,
                   style: TextStyle(color: Colors.blue))),
         ]));
   }
 
   Widget _getMiddleIconBtn(String text, String iconName,
-      {GestureTapCallback onTap}) {
+      {GestureTapCallback? onTap}) {
     return Flexible(
         flex: 1,
         child: GestureDetector(
@@ -366,7 +369,7 @@ class _NotePageState extends State<NotePage> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(top: 7.5, bottom: 7.5),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey[300], width: 0.5),
+              border: Border.all(color: Colors.grey.shade300, width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: Row(
@@ -411,7 +414,7 @@ class _NotePageState extends State<NotePage> {
                         fontWeight: FontWeight.bold,
                         fontSize: 17)),
                 SizedBox(width: 7),
-                Text("${noteInfo.commentCount ?? 0}条评论",
+                Text("${noteInfo.commentCount}条评论",
                     style: TextStyle(fontSize: 12, color: Colors.grey))
               ],
             ),
@@ -472,21 +475,20 @@ class _NotePageState extends State<NotePage> {
                               "1" == noteInfo.isDigg
                                   ? "tabbar_like_click_icon"
                                   : "tabbar_like_icon",
-                              labelText: noteInfo.diggCount ?? "0", onTap: () {
+                              labelText: noteInfo.diggCount, onTap: () {
                             _like();
                           }),
                           LabelImage(
                             "tabbar_comment_icon",
-                            labelText: noteInfo.commentCount ?? "0",
+                            labelText: noteInfo.commentCount,
                             labelBgColor: Colors.redAccent,
                             labelTextStyle:
                                 TextStyle(fontSize: 8, color: Colors.white),
                             onTap: () {
-                              RenderBox render = commentTitleKey.currentContext
-                                  .findRenderObject();
+                              /*RenderBox render = commentTitleKey.currentContext?.findRenderObject() as RenderBox;
                               scrollController.animateTo(
                                   render.localToGlobal(Offset.zero).dy,
-                                  duration: Duration(milliseconds: 250));
+                                  duration: Duration(milliseconds: 250),);*/
                             },
                           ),
                           LabelImage("tabbar_share_icon",
@@ -658,9 +660,9 @@ class _NotePageState extends State<NotePage> {
     Map<String, dynamic> data = json.decode(response.data);
     if (data['code'] != "1") {
       print("接口凑无！！！");
-      barKey.currentState.hideMoreIcon(true);
-      barKey.currentState.changeIconColor(Colors.black);
-      emptyViewKey.currentState.showEmptyView(true);
+      barKey.currentState?.hideMoreIcon(true);
+      barKey.currentState?.changeIconColor(Colors.black);
+      emptyViewKey.currentState?.showEmptyView(true);
     } else {
       setState(() {
         noteInfo = NoteInfo.fromJson(data['data']);
@@ -669,16 +671,16 @@ class _NotePageState extends State<NotePage> {
         print(
             "-----------isDigg = ${noteInfo.isDigg},isFav = ${noteInfo.isFav}");
         noHeaderImg = noteInfo.imgStr.isEmpty;
-        barKey.currentState.hideMoreIcon(false);
-        barKey.currentState.changeIconColor(Colors.black);
-        imageUrl = noteInfo.userData.avatar;
+        barKey.currentState?.hideMoreIcon(false);
+        barKey.currentState?.changeIconColor(Colors.black);
+        imageUrl = noteInfo.userData?.avatar ?? imageUrl;
         urls = noteInfo.imgStr;
-        emptyViewKey.currentState.showLoading(false);
+        emptyViewKey.currentState?.showLoading(false);
       });
     }
   }
 
-  CommentList commentList = new CommentList();
+  CommentList commentList = new CommentList(list: List.empty(growable: true));
 
   //获取评论列表
   void _getCommentListData() async {
@@ -736,7 +738,7 @@ class _NotePageState extends State<NotePage> {
       'type': 'note',
       'act': "1" == noteInfo.isDigg ? 'c' : 'a'
     });
-    int diggCount = int.tryParse(noteInfo.diggCount);
+    int diggCount = int.parse(noteInfo.diggCount);
     setState(() {
       if ("1" == noteInfo.isDigg) {
         noteInfo.isDigg = "0";

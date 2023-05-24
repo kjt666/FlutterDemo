@@ -12,7 +12,7 @@ class ProgressIndicatorPage extends StatefulWidget {
 
 class _ProgressIndicatorState extends State<ProgressIndicatorPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void dispose() {
@@ -57,7 +57,7 @@ class _ProgressIndicatorState extends State<ProgressIndicatorPage>
                 height: 200.0,
                 color: Colors.green,
               ),
-              builder: (BuildContext context, Widget child) {
+              builder: (BuildContext context, Widget? child) {
                 return CircularProgressIndicator(
                   value: _controller.value,
                   strokeWidth: 1,

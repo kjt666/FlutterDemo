@@ -6,12 +6,16 @@ class MyLogger extends Logger {
 
   @override
   void log(Level level, dynamic message,
-      [dynamic error, StackTrace stackTrace]) {
+      [dynamic error, StackTrace? stackTrace]) {
     super.log(level, message, error, stackTrace);
     print("$level,$message,$error,$stackTrace");
     var logEvent = LogEvent(level, message, error, stackTrace);
     var list = printer.log(logEvent);
-    MethodChannelUtil.nativeChannel.invokeMethod("logger",
-        {'level': level.toString(), 'message': message.toString(), 'error': error.toString(), 'data': list});
+    MethodChannelUtil.nativeChannel.invokeMethod("logger", {
+      'level': level.toString(),
+      'message': message.toString(),
+      'error': error.toString(),
+      'data': list
+    });
   }
 }

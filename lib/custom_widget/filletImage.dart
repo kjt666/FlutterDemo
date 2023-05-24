@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 
 class FilletImage extends StatefulWidget {
   final String url;
-  final double corner;
-  final double width;
-  final double height;
+  final double? corner;
+  final double? width;
+  final double? height;
 
   FilletImage(this.url, {this.corner, this.width, this.height});
 

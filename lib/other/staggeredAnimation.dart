@@ -10,13 +10,13 @@ class StaggeredAnimationPage extends StatefulWidget {
 
 class StaggeredAnimationState extends State<StaggeredAnimationPage>
     with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> opacity;
-  Animation<double> width;
-  Animation<double> height;
-  Animation<EdgeInsets> padding;
-  Animation<BorderRadius> borderRadius;
-  Animation<Color> color;
+  late AnimationController _controller;
+  late Animation<double> opacity;
+  late Animation<double> width;
+  late Animation<double> height;
+  late Animation<EdgeInsets> padding;
+  late Animation<BorderRadius?> borderRadius;
+  late Animation<Color?> color;
 
   @override
   void initState() {
@@ -68,7 +68,7 @@ class StaggeredAnimationState extends State<StaggeredAnimationPage>
     );
   }
 
-  Widget _buildAnimation(BuildContext context, Widget child) {
+  Widget _buildAnimation(BuildContext context, Widget? child) {
     return Container(
       width: width.value,
       height: height.value,
@@ -76,7 +76,7 @@ class StaggeredAnimationState extends State<StaggeredAnimationPage>
       decoration: BoxDecoration(
         borderRadius: borderRadius.value,
         color: color.value,
-        border: Border.all(color: Colors.indigo[300], width: 3.0),
+        border: Border.all(color: Colors.indigo.shade300, width: 3.0),
       ),
     );
   }

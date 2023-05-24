@@ -9,8 +9,7 @@ class ReorderableListViewPage extends StatefulWidget {
 }
 
 class _ReorderableListViewPage extends State<ReorderableListViewPage> {
-
-  List<int> _items;
+  late List<int> _items;
 
   @override
   void initState() {
@@ -29,19 +28,21 @@ class _ReorderableListViewPage extends State<ReorderableListViewPage> {
         title: Text("ReorderableListView"),
       ),
       body: ReorderableListView(
-        onReorder: (oldIndex,newIndex){
+        onReorder: (oldIndex, newIndex) {
           setState(() {
-            if(oldIndex< newIndex){
-              newIndex-=1;
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
             }
             final int item = _items.removeAt(oldIndex);
             _items.insert(newIndex, item);
           });
-      },
-        header: Padding(padding: EdgeInsets.all(10),child:Text("This is the header!",style: TextStyle(color: Colors.redAccent,fontSize: 16))),
-
+        },
+        header: Padding(
+            padding: EdgeInsets.all(10),
+            child: Text("This is the header!",
+                style: TextStyle(color: Colors.redAccent, fontSize: 16))),
         children: [
-          for(final item in _items)
+          for (final item in _items)
             ListTile(
               // tileColor: item.isOdd?oddItemColor:evenItemColor,
               key: ValueKey(item),

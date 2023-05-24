@@ -8,8 +8,8 @@ class TabPageSelectorPage extends StatefulWidget {
 }
 
 class TabPageSelectorState extends State with TickerProviderStateMixin {
-  PageController _pageController;
-  TabController _tabController;
+  late PageController _pageController;
+  late TabController _tabController;
 
   @override
   void initState() {

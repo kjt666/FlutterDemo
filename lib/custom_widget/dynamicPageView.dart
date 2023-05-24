@@ -10,9 +10,9 @@ typedef ClickCallBack = void Function(int postion, String url);
 class DynamicPageView extends StatefulWidget {
   final List<String> _urls;
   final BuildContext _context;
-  final ClickCallBack clickCallBack;
+  final ClickCallBack? clickCallBack;
 
-  DynamicPageView(Key key, this._context, this._urls,
+  DynamicPageView(Key? key, this._context, this._urls,
       {this.clickCallBack})
       : super(key: key);
 
@@ -33,9 +33,9 @@ class DynamicPageState extends State<DynamicPageView> {
   List<double> _heightList = [];
   List<Widget> _widgetList = [];
 
-  PageController _pageController;
+  late PageController _pageController;
 
-  MediaQueryData queryData;
+  late MediaQueryData queryData;
 
   @override
   void initState() {
@@ -47,24 +47,24 @@ class DynamicPageState extends State<DynamicPageView> {
     _pageController.addListener(() {
       setState(() {
         //向左滑
-        if (_pageController.page > _currentIndex) {
-          _currentIndex = _pageController.page.floor();
-          _nextIndex = _pageController.page.ceil();
+        if (_pageController.page! > _currentIndex) {
+          _currentIndex = _pageController.page!.floor();
+          _nextIndex = _pageController.page!.ceil();
           /* print(
               "向左滑--->value = ${_pageController.page}\n current index = $_currentIndex");*/
           _pageViewHeight = _heightList[_currentIndex] +
               (_heightList[_nextIndex] - _heightList[_currentIndex]) *
-                  (_pageController.page - _currentIndex);
+                  (_pageController.page! - _currentIndex);
         }
         //向右滑
-        else if (_pageController.page < _currentIndex) {
-          _currentIndex = _pageController.page.ceil();
-          _nextIndex = _pageController.page.floor();
+        else if (_pageController.page! < _currentIndex) {
+          _currentIndex = _pageController.page!.ceil();
+          _nextIndex = _pageController.page!.floor();
           /*print(
               "向右滑--->value = ${_pageController.page}\n current index = $_currentIndex");*/
           _pageViewHeight = _heightList[_currentIndex] +
               (_heightList[_nextIndex] - _heightList[_currentIndex]) *
-                  (_currentIndex - _pageController.page);
+                  (_currentIndex - _pageController.page!);
         }
       });
     });
@@ -100,7 +100,7 @@ class DynamicPageState extends State<DynamicPageView> {
     ImageStream stream =
         new NetworkImage(url).resolve(ImageConfiguration.empty);
     Completer<ui.Image> completer = new Completer<ui.Image>();
-    ImageStreamListener listener;
+    late ImageStreamListener listener;
     listener = new ImageStreamListener((ImageInfo frame, bool synchronousCall) {
       final ui.Image image = frame.image;
       completer.complete(image);

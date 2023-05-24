@@ -74,8 +74,8 @@ class EmptyViewState extends State<EmptyView> {
             width: double.infinity,
             height: double.infinity,
             child: PhysicalModel(
-              color: Colors.grey[100],
-              shadowColor: Colors.grey[100],
+              color: Colors.grey.shade100,
+              shadowColor: Colors.grey.shade100,
               borderRadius: BorderRadius.all(Radius.circular(12)),
               elevation: 10,
               child: Container(

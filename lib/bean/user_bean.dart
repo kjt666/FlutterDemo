@@ -1,5 +1,3 @@
-
-
 /// user_data : {"user_id":"90006269","name":"有书~8730","user_type":"0","sex":"0","avatar":"http://avatar.youshu.cc/ys_default.png","job":"","intro":"","province":"","city":"","create_time":"2020-08-24 10:41:54","rec":"","xingqu":"","level":"1","badge_id":"0","is_unlock":"1","flag_old_exp":"1","exp":"4350","user_img":"","wechat_id":"","education":"0","age":"0","coins":"2270","ios_money":"0.00","android_money":"999186.80","cash":"0.00","update_time":"2021-03-22 15:49:04","app_create_time":"0","is_choose_interest":"1"}
 /// user_token : "V28_MTYxNzg2NzAwNmNlMWIwYjNkNjc3NDY2YWJiY2UyYmVlMjJjYjZkMGQ2NzQ5ODVmYTI="
 /// bind : {"apple_id":"0","weibo":"0","qq":"0","weixin":"0","mobile":"157****8888"}
@@ -11,36 +9,43 @@
 /// skip_bind_text : "为了更好的为您服务，请您绑定微信号"
 
 class UserBean {
-  User_data _userData;
-  String _userToken;
-  Bind _bind;
-  String _isNewCreateUser;
-  String _isJoin;
-  String _isSetPwd;
-  String _isNewUser;
-  String _isSkipBind;
-  String _skipBindText;
+  User_data? _userData;
+  String _userToken = "";
+  Bind? _bind;
+  String _isNewCreateUser = "";
+  String _isJoin = "";
+  String _isSetPwd = "";
+  String _isNewUser = "";
+  String _isSkipBind = "";
+  String _skipBindText = "";
 
-  User_data get userData => _userData;
+  User_data? get userData => _userData;
+
   String get userToken => _userToken;
-  Bind get bind => _bind;
+
+  Bind? get bind => _bind;
+
   String get isNewCreateUser => _isNewCreateUser;
+
   String get isJoin => _isJoin;
+
   String get isSetPwd => _isSetPwd;
+
   String get isNewUser => _isNewUser;
+
   String get isSkipBind => _isSkipBind;
+
   String get skipBindText => _skipBindText;
 
-
-  UserBean({
-      User_data userData, 
-      String userToken, 
-      Bind bind, 
-      String isNewCreateUser, 
-      String isJoin, 
-      String isSetPwd, 
-      String isNewUser, 
-      String isSkipBind, 
+  /*UserBean({
+      User_data userData,
+      String userToken,
+      Bind bind,
+      String isNewCreateUser,
+      String isJoin,
+      String isSetPwd,
+      String isNewUser,
+      String isSkipBind,
       String skipBindText}){
     _userData = userData;
     _userToken = userToken;
@@ -51,10 +56,12 @@ class UserBean {
     _isNewUser = isNewUser;
     _isSkipBind = isSkipBind;
     _skipBindText = skipBindText;
-}
+}*/
 
   UserBean.fromJson(dynamic json) {
-    _userData = json["user_data"] != null ? User_data.fromJson(json["user_data"]) : null;
+    _userData = json["user_data"] != null
+        ? User_data.fromJson(json["user_data"])
+        : null;
     _userToken = json["user_token"];
     _bind = json["bind"] != null ? Bind.fromJson(json["bind"]) : null;
     _isNewCreateUser = json["is_new_create_user"];
@@ -68,11 +75,11 @@ class UserBean {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     if (_userData != null) {
-      map["user_data"] = _userData.toJson();
+      map["user_data"] = _userData?.toJson();
     }
     map["user_token"] = _userToken;
     if (_bind != null) {
-      map["bind"] = _bind.toJson();
+      map["bind"] = _bind?.toJson();
     }
     map["is_new_create_user"] = _isNewCreateUser;
     map["is_join"] = _isJoin;
@@ -96,30 +103,30 @@ class UserBean {
 /// mobile : "157****8888"
 
 class Bind {
-  String _appleId;
-  String _weibo;
-  String _qq;
-  String _weixin;
-  String _mobile;
+  String _appleId = "";
+  String _weibo = "";
+  String _qq = "";
+  String _weixin = "";
+  String _mobile = "";
 
   String get appleId => _appleId;
+
   String get weibo => _weibo;
+
   String get qq => _qq;
+
   String get weixin => _weixin;
+
   String get mobile => _mobile;
 
-  Bind({
-      String appleId, 
-      String weibo, 
-      String qq, 
-      String weixin, 
-      String mobile}){
+  /*Bind(
+      {String appleId, String weibo, String qq, String weixin, String mobile}) {
     _appleId = appleId;
     _weibo = weibo;
     _qq = qq;
     _weixin = weixin;
     _mobile = mobile;
-}
+  }*/
 
   Bind.fromJson(dynamic json) {
     _appleId = json["apple_id"];
@@ -175,94 +182,122 @@ class Bind {
 /// is_choose_interest : "1"
 
 class User_data {
-  String _userId;
-  String _name;
-  String _userType;
-  String _sex;
-  String _avatar;
-  String _job;
-  String _intro;
-  String _province;
-  String _city;
-  String _createTime;
-  String _rec;
-  String _xingqu;
-  String _level;
-  String _badgeId;
-  String _isUnlock;
-  String _flagOldExp;
-  String _exp;
-  String _userImg;
-  String _wechatId;
-  String _education;
-  String _age;
-  String _coins;
-  String _iosMoney;
-  String _androidMoney;
-  String _cash;
-  String _updateTime;
-  String _appCreateTime;
-  String _isChooseInterest;
+  String _userId = "";
+  String _name = "";
+  String _userType = "";
+  String _sex = "";
+  String _avatar = "";
+  String _job = "";
+  String _intro = "";
+  String _province = "";
+  String _city = "";
+  String _createTime = "";
+  String _rec = "";
+  String _xingqu = "";
+  String _level = "";
+  String _badgeId = "";
+  String _isUnlock = "";
+  String _flagOldExp = "";
+  String _exp = "";
+  String _userImg = "";
+  String _wechatId = "";
+  String _education = "";
+  String _age = "";
+  String _coins = "";
+  String _iosMoney = "";
+  String _androidMoney = "";
+  String _cash = "";
+  String _updateTime = "";
+  String _appCreateTime = "";
+  String _isChooseInterest = "";
 
   String get userId => _userId;
+
   String get name => _name;
+
   String get userType => _userType;
+
   String get sex => _sex;
+
   String get avatar => _avatar;
+
   String get job => _job;
+
   String get intro => _intro;
+
   String get province => _province;
+
   String get city => _city;
+
   String get createTime => _createTime;
+
   String get rec => _rec;
+
   String get xingqu => _xingqu;
+
   String get level => _level;
+
   String get badgeId => _badgeId;
+
   String get isUnlock => _isUnlock;
+
   String get flagOldExp => _flagOldExp;
+
   String get exp => _exp;
+
   String get userImg => _userImg;
+
   String get wechatId => _wechatId;
+
   String get education => _education;
+
   String get age => _age;
+
   String get coins => _coins;
+
   String get iosMoney => _iosMoney;
+
   String get androidMoney => _androidMoney;
+
   String get cash => _cash;
+
   String get updateTime => _updateTime;
+
   String get appCreateTime => _appCreateTime;
+
   String get isChooseInterest => _isChooseInterest;
 
-  User_data({
-      String userId, 
-      String name, 
-      String userType, 
-      String sex, 
-      String avatar, 
-      String job, 
-      String intro, 
-      String province, 
-      String city, 
-      String createTime, 
-      String rec, 
-      String xingqu, 
-      String level, 
-      String badgeId, 
-      String isUnlock, 
-      String flagOldExp, 
-      String exp, 
-      String userImg, 
-      String wechatId, 
-      String education, 
-      String age, 
-      String coins, 
-      String iosMoney, 
-      String androidMoney, 
-      String cash, 
-      String updateTime, 
-      String appCreateTime, 
-      String isChooseInterest}){
-    _userId = userId;
+  User_data(
+      /*{String userId,
+      String name,
+      String userType,
+      String sex,
+      String avatar,
+      String job,
+      String intro,
+      String province,
+      String city,
+      String createTime,
+      String rec,
+      String xingqu,
+      String level,
+      String badgeId,
+      String isUnlock,
+      String flagOldExp,
+      String exp,
+      String userImg,
+      String wechatId,
+      String education,
+      String age,
+      String coins,
+      String iosMoney,
+      String androidMoney,
+      String cash,
+      String updateTime,
+      String appCreateTime,
+      String isChooseInterest}*/
+      ) {
+    /*_userId = userId;
     _name = name;
     _userType = userType;
     _sex = sex;
@@ -289,8 +324,8 @@ class User_data {
     _cash = cash;
     _updateTime = updateTime;
     _appCreateTime = appCreateTime;
-    _isChooseInterest = isChooseInterest;
-}
+    _isChooseInterest = isChooseInterest;*/
+  }
 
   User_data.fromJson(dynamic json) {
     _userId = json["user_id"];

@@ -23,7 +23,7 @@ class NoteLongGraphPage extends StatefulWidget {
 }
 
 class _NoteLongGraphPageState extends State<NoteLongGraphPage> {
-  ScrollController _scrollController;
+  late ScrollController _scrollController;
   GlobalKey _repaintWidgetKey = GlobalKey(); // 绘图key值
   var _hideLoading = true;
 
@@ -296,7 +296,7 @@ class _NoteLongGraphPageState extends State<NoteLongGraphPage> {
                                 height: 12),
                             SizedBox(width: 1.5),
                             Flexible(
-                                child: Text("来自话题：" + ("我尼玛" ?? ""),
+                                child: Text("来自话题：" + ("我尼玛"),
                                     style: TextStyle(
                                         fontSize: 12,
                                         color: Color(0xff676767),
@@ -426,7 +426,7 @@ class _NoteLongGraphPageState extends State<NoteLongGraphPage> {
     setState(() {
       _hideLoading = !_hideLoading;
     });
-    Uint8List sourceBytes = await _capturePngToByteData();
+    Uint8List? sourceBytes = await _capturePngToByteData();
     if (sourceBytes == null) {
       return;
     }
@@ -457,7 +457,7 @@ class _NoteLongGraphPageState extends State<NoteLongGraphPage> {
   }
 
   /// 截屏图片生成图片，返回图片二进制
-  Future<Uint8List> _capturePngToByteData() async {
+  Future<Uint8List?> _capturePngToByteData() async {
     try {
       RenderRepaintBoundary boundary = _repaintWidgetKey.currentContext
           ?.findRenderObject() as RenderRepaintBoundary;
@@ -468,7 +468,7 @@ class _NoteLongGraphPageState extends State<NoteLongGraphPage> {
       double dpr = ui.window.devicePixelRatio;
       ui.Image image = await boundary.toImage(pixelRatio: dpr);
       final sourceBytes = await image.toByteData(format: ImageByteFormat.png);
-      return sourceBytes.buffer.asUint8List();
+      return sourceBytes?.buffer.asUint8List();
     } catch (e) {
       return null;
     }

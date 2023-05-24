@@ -3,11 +3,11 @@ import 'package:flutter/widgets.dart';
 
 class FilletButton extends StatelessWidget {
   final String text;
-  final TextStyle textStyle;
-  final Color bgColor;
-  final double radius;
-  final EdgeInsetsGeometry padding;
-  final GestureTapCallback onTap;
+  final TextStyle? textStyle;
+  final Color? bgColor;
+  final double? radius;
+  final EdgeInsetsGeometry? padding;
+  final GestureTapCallback? onTap;
 
   FilletButton(this.text,
       {this.textStyle, this.bgColor, this.radius, this.padding, this.onTap});

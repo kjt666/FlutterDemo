@@ -11,7 +11,7 @@ class VideoPage2 extends StatefulWidget {
 }
 
 class VideoPageState2 extends State<VideoPage2> {
-  FlutterAliplayer fAliplayer;
+  late FlutterAliplayer fAliplayer;
 
   @override
   void initState() {

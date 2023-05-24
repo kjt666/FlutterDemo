@@ -13,13 +13,13 @@ class TextSpanPage extends StatefulWidget {
 class _TextSpanState extends State<TextSpanPage> {
   String s =
       "我刚吃完饭 [(f)][(k)] [(f)][(t)]哈哈[(n)][(h)][(A)][(w)][(E)][(L)][(L)][(E)][(E)][(z)][(z)][(A)][(B)][(D)][(#)][(X)][(&)][(&)][(*)][(X)][(X)]";
-  List<InlineSpan> spans = [];
+  List<InlineSpan>? spans = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    spans.add(TextSpan(text: s, style: TextStyle(color: Colors.black)));
+    spans?.add(TextSpan(text: s, style: TextStyle(color: Colors.black)));
   }
 
   @override
@@ -74,7 +74,7 @@ class _TextSpanState extends State<TextSpanPage> {
             RichText(text: TextSpan(children: spans)),
             ElevatedButton(
                 onPressed: () {
-                  var list = EmojiUtil.getInstance().addSmiles(
+                  var list = EmojiUtil.getInstance()?.addSmiles(
                       s,
                       TapGestureRecognizer()
                         ..onTap = () {
