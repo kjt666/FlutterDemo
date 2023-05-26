@@ -80,7 +80,7 @@ class _AnimatedCrossFadeState extends State<AnimatedCrossFadePage> {
               ),
               Offstage(
                 offstage: hideAgain,
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text("不过瘾，再来一次"),
                   onPressed: () {
                     setState(() {

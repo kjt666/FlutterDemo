@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 class BadgePage extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class BadgeState extends State {
         child: Scaffold(
           bottomNavigationBar: _bottomNavigationBar(),
           appBar: AppBar(
-            leading: Badge(
+            leading: badges.Badge(
               position: BadgePosition.topEnd(top: 10, end: 10),
               badgeContent: null,
               child: IconButton(
@@ -64,7 +65,7 @@ class BadgeState extends State {
   Widget expandedBadge() {
     return Expanded(
       child: Center(
-        child: Badge(
+        child: badges.Badge(
           badgeContent: Text('10'),
           child: Icon(Icons.person, size: 30),
         ),
@@ -73,7 +74,7 @@ class BadgeState extends State {
   }
 
   Widget _shoppingCartBadge() {
-    return Badge(
+    return badges.Badge(
       position: BadgePosition.topEnd(top: 0, end: 3),
       animationDuration: Duration(milliseconds: 300),
       animationType: BadgeAnimationType.slide,
@@ -91,7 +92,7 @@ class BadgeState extends State {
   PreferredSizeWidget _tabBar() {
     return TabBar(tabs: [
       Tab(
-        icon: Badge(
+        icon: badges.Badge(
           badgeColor: Colors.blue,
           badgeContent: Text(
             '3',
@@ -101,7 +102,7 @@ class BadgeState extends State {
         ),
       ),
       Tab(
-        icon: Badge(
+        icon: badges.Badge(
           shape: BadgeShape.square,
           borderRadius: BorderRadius.circular(5),
           position: BadgePosition.topEnd(top: -12, end: -20),
@@ -133,7 +134,7 @@ class BadgeState extends State {
         ),
         BottomNavigationBarItem(
           label: 'Settings',
-          icon: Badge(
+          icon: badges.Badge(
             shape: BadgeShape.circle,
             position: BadgePosition.center(),
             borderRadius: BorderRadius.circular(100),
@@ -182,7 +183,7 @@ class BadgeState extends State {
   Widget _textBadge() {
     return Padding(
       padding: const EdgeInsets.all(20),
-      child: Badge(
+      child: badges.Badge(
         padding: EdgeInsets.all(6),
         gradient: LinearGradient(colors: [
           Colors.black,
@@ -202,7 +203,7 @@ class BadgeState extends State {
   }
 
   Widget _elevatedButtonBadge() {
-    return Badge(
+    return badges.Badge(
       showBadge: showElevatedButtonBadge,
       padding: EdgeInsets.all(8),
       badgeColor: Colors.deepPurple,
@@ -245,7 +246,7 @@ class BadgeState extends State {
   Widget _getExampleBadge({double? padding}) {
     return Padding(
       padding: const EdgeInsets.all(4),
-      child: Badge(
+      child: badges.Badge(
         badgeColor: Colors.lightBlueAccent,
         borderRadius: BorderRadius.circular(20),
         padding: EdgeInsets.all(padding ?? 4),
@@ -265,7 +266,7 @@ class BadgeState extends State {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text('Badges with borders:'),
-          Badge(
+          badges.Badge(
             position: BadgePosition.topEnd(top: 0, end: 2),
             elevation: 0,
             shape: BadgeShape.circle,
@@ -276,7 +277,7 @@ class BadgeState extends State {
               size: 30,
             ),
           ),
-          Badge(
+          badges.Badge(
             position: BadgePosition.topEnd(top: -5, end: -5),
             shape: BadgeShape.square,
             badgeColor: Colors.blue,
@@ -309,7 +310,7 @@ class BadgeState extends State {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Badge(
+              badges.Badge(
                 elevation: 0,
                 shape: BadgeShape.circle,
                 padding: EdgeInsets.all(7),
@@ -353,7 +354,7 @@ class BadgeState extends State {
   Widget _directionalBadge() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Badge(
+      child: badges.Badge(
         elevation: 0,
         position: BadgePosition.topEnd(),
         padding: EdgeInsetsDirectional.only(end: 4),

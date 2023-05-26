@@ -54,7 +54,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final myModel = Provider.of<MyModel>(context, listen: false);
-    return RaisedButton(
+    return ElevatedButton(
       child: Text('Do something'),
       onPressed: () {
         myModel.doSomething();

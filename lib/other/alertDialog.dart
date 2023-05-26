@@ -13,7 +13,7 @@ class AlertDialogPage extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RaisedButton(
+            ElevatedButton(
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -23,12 +23,12 @@ class AlertDialogPage extends StatelessWidget {
                             content: Text("Do you accept?"),
                             backgroundColor: Colors.amberAccent,
                             actions: [
-                              RaisedButton(
+                              ElevatedButton(
                                   onPressed: () {
                                     Navigator.pop(buildContext);
                                   },
                                   child: Text("No")),
-                              RaisedButton(
+                              ElevatedButton(
                                   onPressed: () {
                                     Navigator.pop(buildContext);
                                   },

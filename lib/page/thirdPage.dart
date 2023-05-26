@@ -10,6 +10,7 @@ import 'package:flutter_app/third/screenUtilPage.dart';
 import 'package:flutter_app/third/slidable.dart';
 import 'package:flutter_app/third/webViewPage.dart';
 
+import '../third/flutter_animate.dart';
 import '../third/googleFontsPage.dart';
 import '../third/html.dart';
 import 'imagePicker.dart';
@@ -46,7 +47,7 @@ class ThirdPageState extends State<ThirdPage> {
           getJumpItem("slidable(左滑右滑)", new SlidablePage()),
           getJumpItem("lottie(Json动画)", new LottiePage()),
           getJumpItem("ratingBar(评分栏)", new RatingBarPage()),
-          // getJumpItem("flutter_animate(方便快捷实现动画效果)", new FlutterAnimate())
+          getJumpItem("flutter_animate(方便快捷实现动画效果)", new FlutterAnimate()),
           getJumpItem("pigeon", new PigeonPage()),
         ],
       ),

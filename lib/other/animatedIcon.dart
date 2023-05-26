@@ -28,7 +28,7 @@ class _AnimatedIconPageState extends State<AnimatedIconPage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RaisedButton(
+          ElevatedButton(
               onPressed: () {
                 controller.forward();
               },
@@ -45,7 +45,7 @@ class _AnimatedIconPageState extends State<AnimatedIconPage>
             icon: AnimatedIcons.search_ellipsis,
             progress: controller,
           ),
-          RaisedButton(
+          ElevatedButton(
               onPressed: () {
                 controller.reverse();
               },

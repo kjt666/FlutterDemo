@@ -48,7 +48,7 @@ dependencies:
   path_provider: ^2.0.10
   flutter_aliplayer: ^5.4.9
   flutter_rating_bar: 4.0.1
-#  flutter_animate: 3.0.0
+  flutter_animate: ^4.1.1+1
   pigeon: ^9.1.2
 
 dev_dependencies:

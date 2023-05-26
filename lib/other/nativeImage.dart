@@ -40,7 +40,7 @@ class _NativeState extends State<NativeImagePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               child: Text("调用原生资源图片"),
               onPressed: () {
                 getNativeImage();

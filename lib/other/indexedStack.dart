@@ -23,17 +23,17 @@ class _IndexedStackState extends State<IndexedStackPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RaisedButton(onPressed: (){
+                ElevatedButton(onPressed: (){
                   setState(() {
                     widgetIndex = 0;
                   });
                 }, child: Text("切换方块儿1")),
-                RaisedButton(onPressed: (){
+                ElevatedButton(onPressed: (){
                   setState(() {
                     widgetIndex = 1;
                   });
                 }, child: Text("切换方块儿2")),
-                RaisedButton(onPressed: (){
+                ElevatedButton(onPressed: (){
                   setState(() {
                     widgetIndex = 2;
                   });
