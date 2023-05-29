@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/third/badge.dart';
 import 'package:flutter_app/third/cachedNetworkImage.dart';
+import 'package:flutter_app/third/flutter_animate/flutterAnimateExample.dart';
 import 'package:flutter_app/third/lottiePage.dart';
 import 'package:flutter_app/third/pigeonPage.dart';
 import 'package:flutter_app/third/providerPage.dart';
@@ -48,6 +49,7 @@ class ThirdPageState extends State<ThirdPage> {
           getJumpItem("lottie(Json动画)", new LottiePage()),
           getJumpItem("ratingBar(评分栏)", new RatingBarPage()),
           getJumpItem("flutter_animate(方便快捷实现动画效果)", new FlutterAnimate()),
+          getJumpItem("flutter_animate(官方示例)", new FlutterAnimateExample()),
           getJumpItem("pigeon", new PigeonPage()),
         ],
       ),
