@@ -36,14 +36,14 @@ class _MyPageState extends State<MyPage> with WidgetsBindingObserver {
       }
       return Future.value(null);
     });
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     DioUtil.init();
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
   }
 
   /*

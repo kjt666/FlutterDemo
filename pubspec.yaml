@@ -49,7 +49,7 @@ dependencies:
   flutter_aliplayer: ^5.4.9
   flutter_rating_bar: 4.0.1
 #  flutter_animate: 3.0.0
-  pigeon: ^9.1.2
+#  pigeon: ^9.1.2
 
 dev_dependencies:
   flutter_test:

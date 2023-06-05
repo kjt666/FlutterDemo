@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/bean/note_info_bean.dart';
 import 'package:flutter_app/eum_noscroll_behavior.dart';
-import 'package:flutter_app/pigeon.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/TimeUtil.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -80,7 +79,7 @@ class _NotePageState extends State<NotePage> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       middleHeaderRender =
           middleHeaderkey.currentContext?.findRenderObject() as RenderBox;
       RenderBox render2 =
