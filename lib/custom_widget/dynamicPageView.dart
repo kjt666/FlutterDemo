@@ -12,8 +12,7 @@ class DynamicPageView extends StatefulWidget {
   final BuildContext _context;
   final ClickCallBack? clickCallBack;
 
-  DynamicPageView(Key? key, this._context, this._urls,
-      {this.clickCallBack})
+  DynamicPageView(Key? key, this._context, this._urls, {this.clickCallBack})
       : super(key: key);
 
   @override
@@ -43,7 +42,7 @@ class DynamicPageState extends State<DynamicPageView> {
     queryData = MediaQuery.of(widget._context);
     _pageViewHeight = _defaultHeight;
     _heightList = List.generate(widget._urls.length, (index) => _defaultHeight);
-    _pageController = PageController();
+    _pageController = PageController(viewportFraction: 0.8);
     _pageController.addListener(() {
       setState(() {
         //向左滑
@@ -71,17 +70,19 @@ class DynamicPageState extends State<DynamicPageView> {
     print(queryData.toString());
     for (var i = 0; i < widget._urls.length; i++) {
       _widgetList.add(GestureDetector(
-        child: Image.network(
-          widget._urls[i],
-          fit: BoxFit.cover,
+        child: Padding(
+          padding: EdgeInsets.only(left: 10, right: 10),
+          child: Image.network(
+            widget._urls[i],
+            fit: BoxFit.cover,
+          ),
         ),
         onTap: () {
           widget.clickCallBack?.call(i, widget._urls[i]);
         },
       ));
       loadImage(widget._urls[i]).then((value) {
-        double height = (value.height.toDouble() /
-                queryData.devicePixelRatio) *
+        double height = (value.height.toDouble() / queryData.devicePixelRatio) *
             (queryData.size.width / (value.width / queryData.devicePixelRatio));
 
         _heightList[i] = min(height, queryData.size.height * 3 / 4);
