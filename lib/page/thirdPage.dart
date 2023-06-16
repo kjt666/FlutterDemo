@@ -16,7 +16,6 @@ import '../third/flutter_animate.dart';
 import '../third/googleFontsPage.dart';
 import '../third/html.dart';
 import '../third/imagePicker.dart';
-import 'imagePicker.dart';
 
 class ThirdPage extends StatefulWidget {
   @override
