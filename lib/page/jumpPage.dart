@@ -7,9 +7,9 @@ import 'package:flutter_app/page/notePage.dart';
 import 'package:flutter_app/page/stateTestPage.dart';
 import 'package:flutter_app/page/thirdPage.dart';
 import 'package:flutter_app/page/widgetsPage.dart';
+import 'package:flutter_app/test.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/methodChannelUtil.dart';
-import 'package:flutter_app/video/videoPage2.dart';
 
 import '../other/nativeImage.dart';
 
@@ -57,7 +57,7 @@ class _JumpState extends State<JumpPage> {
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
           getJumpItem("复杂页面3~~~", jumpPage: new NoteLongGraphPage()),
           getJumpItem("StateTest", jumpPage: new StateTestPage()),
-          getJumpItem("AliVideoView", jumpPage: new VideoPage2()),
+          getJumpItem("事件机制",jumpPage: new AllChildrenCanResponseEvent())
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter_app/third/badge.dart';
 import 'package:flutter_app/third/cachedNetworkImage.dart';
 import 'package:flutter_app/third/flutter_animate/flutterAnimateExample.dart';
 import 'package:flutter_app/third/lottiePage.dart';
+import 'package:flutter_app/third/permissionPage.dart';
 import 'package:flutter_app/third/pigeonPage.dart';
 import 'package:flutter_app/third/providerPage.dart';
 import 'package:flutter_app/third/ratingBarPage.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_app/third/webViewPage.dart';
 import '../third/flutter_animate.dart';
 import '../third/googleFontsPage.dart';
 import '../third/html.dart';
+import '../third/imagePicker.dart';
 import 'imagePicker.dart';
 
 class ThirdPage extends StatefulWidget {
@@ -51,6 +53,8 @@ class ThirdPageState extends State<ThirdPage> {
           getJumpItem("flutter_animate(方便快捷实现动画效果)", new FlutterAnimate()),
           getJumpItem("flutter_animate(官方示例)", new FlutterAnimateExample()),
           getJumpItem("pigeon", new PigeonPage()),
+          getJumpItem("permission", new PermissionPage()),
+          getJumpItem("imagePicker", new ImagePickerPage()),
         ],
       ),
     );

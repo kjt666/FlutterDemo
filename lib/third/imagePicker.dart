@@ -1,32 +1,30 @@
-import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
 class ImagePickerPage extends StatefulWidget {
-  const ImagePickerPage({Key? key, this.title}) : super(key: key);
-
-  final String? title;
+  const ImagePickerPage({key});
 
   @override
-  _ImagePickerPageState createState() => _ImagePickerPageState();
+  State<ImagePickerPage> createState() => _ImagePickerPageState();
 }
 
 class _ImagePickerPageState extends State<ImagePickerPage> {
   List<XFile>? _imageFileList;
 
-  set _imageFile(XFile? value) {
+  void _setImageFileListFromFile(XFile? value) {
     _imageFileList = value == null ? null : <XFile>[value];
   }
 
   dynamic _pickImageError;
   bool isVideo = false;
 
-  late VideoPlayerController _controller;
-  late VideoPlayerController _toBeDisposed;
+  VideoPlayerController? _controller;
+  VideoPlayerController? _toBeDisposed;
   String? _retrieveDataError;
 
   final ImagePicker _picker = ImagePicker();
@@ -34,10 +32,10 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   final TextEditingController maxHeightController = TextEditingController();
   final TextEditingController qualityController = TextEditingController();
 
-  Future<void> _playVideo(XFile file) async {
-    if (mounted) {
+  Future<void> _playVideo(XFile? file) async {
+    if (file != null && mounted) {
       await _disposeVideoController();
-      VideoPlayerController controller;
+      late VideoPlayerController controller;
       if (kIsWeb) {
         controller = VideoPlayerController.network(file.path);
       } else {
@@ -60,57 +58,61 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
 
   Future<void> _onImageButtonPressed(ImageSource source,
       {required BuildContext context, bool isMultiImage = false}) async {
-    await _controller.setVolume(0.0);
-    if (isVideo) {
-      final XFile? file = await _picker.pickVideo(
-          source: source, maxDuration: const Duration(seconds: 10));
-      if (file != null) {
+    if (_controller != null) {
+      await _controller!.setVolume(0.0);
+    }
+    if (context.mounted) {
+      if (isVideo) {
+        final XFile? file = await _picker.pickVideo(
+            source: source, maxDuration: const Duration(seconds: 10));
         await _playVideo(file);
+      } else if (isMultiImage) {
+        await _displayPickImageDialog(context,
+                (double? maxWidth, double? maxHeight, int? quality) async {
+              try {
+                final List<XFile> pickedFileList = await _picker.pickMultiImage(
+                  maxWidth: maxWidth,
+                  maxHeight: maxHeight,
+                  imageQuality: quality,
+                );
+                setState(() {
+                  _imageFileList = pickedFileList;
+                });
+              } catch (e) {
+                setState(() {
+                  _pickImageError = e;
+                });
+              }
+            });
+      } else {
+        await _displayPickImageDialog(context,
+                (double? maxWidth, double? maxHeight, int? quality) async {
+              try {
+                final XFile? pickedFile = await _picker.pickImage(
+                  source: source,
+                  maxWidth: maxWidth,
+                  maxHeight: maxHeight,
+                  imageQuality: quality,
+                );
+                setState(() {
+                  _setImageFileListFromFile(pickedFile);
+                });
+              } catch (e) {
+                setState(() {
+                  _pickImageError = e;
+                });
+              }
+            });
       }
-    } else if (isMultiImage) {
-      await _displayPickImageDialog(context,
-          (double maxWidth, double maxHeight, int quality) async {
-        try {
-          final List<XFile>? pickedFileList = await _picker.pickMultiImage(
-            maxWidth: maxWidth,
-            maxHeight: maxHeight,
-            imageQuality: quality,
-          );
-          setState(() {
-            _imageFileList = pickedFileList;
-          });
-        } catch (e) {
-          setState(() {
-            _pickImageError = e;
-          });
-        }
-      });
-    } else {
-      await _displayPickImageDialog(context,
-          (double maxWidth, double maxHeight, int quality) async {
-        try {
-          final XFile? pickedFile = await _picker.pickImage(
-            source: source,
-            maxWidth: maxWidth,
-            maxHeight: maxHeight,
-            imageQuality: quality,
-          );
-          setState(() {
-            _imageFile = pickedFile;
-          });
-        } catch (e) {
-          setState(() {
-            _pickImageError = e;
-          });
-        }
-      });
     }
   }
 
   @override
   void deactivate() {
-    _controller.setVolume(0.0);
-    _controller.pause();
+    if (_controller != null) {
+      _controller!.setVolume(0.0);
+      _controller!.pause();
+    }
     super.deactivate();
   }
 
@@ -124,13 +126,18 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   }
 
   Future<void> _disposeVideoController() async {
-    await _toBeDisposed.dispose();
+    if (_toBeDisposed != null) {
+      await _toBeDisposed!.dispose();
+    }
     _toBeDisposed = _controller;
+    _controller = null;
   }
 
   Widget _previewVideo() {
-    final Text retrieveError = _getRetrieveErrorWidget();
-    return retrieveError;
+    final Text? retrieveError = _getRetrieveErrorWidget();
+    if (retrieveError != null) {
+      return retrieveError;
+    }
     if (_controller == null) {
       return const Text(
         'You have not yet picked a video',
@@ -144,8 +151,45 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   }
 
   Widget _previewImages() {
-    final Text retrieveError = _getRetrieveErrorWidget();
-    return retrieveError;
+    final Text? retrieveError = _getRetrieveErrorWidget();
+    if (retrieveError != null) {
+      return retrieveError;
+    }
+    if (_imageFileList != null) {
+      return Semantics(
+        label: 'image_picker_example_picked_images',
+        child: ListView.builder(
+          key: UniqueKey(),
+          itemBuilder: (BuildContext context, int index) {
+            // Why network for web?
+            // See https://pub.flutter-io.cn/packages/image_picker_for_web#limitations-on-the-web-platform
+            return Semantics(
+              label: 'image_picker_example_picked_image',
+              child: kIsWeb
+                  ? Image.network(_imageFileList![index].path)
+                  : Image.file(
+                File(_imageFileList![index].path),
+                errorBuilder: (BuildContext context, Object error,
+                    StackTrace? stackTrace) =>
+                const Center(
+                    child: Text('This image type is not supported')),
+              ),
+            );
+          },
+          itemCount: _imageFileList!.length,
+        ),
+      );
+    } else if (_pickImageError != null) {
+      return Text(
+        'Pick image error: $_pickImageError',
+        textAlign: TextAlign.center,
+      );
+    } else {
+      return const Text(
+        'You have not yet picked an image.',
+        textAlign: TextAlign.center,
+      );
+    }
   }
 
   Widget _handlePreview() {
@@ -164,16 +208,19 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     if (response.file != null) {
       if (response.type == RetrieveType.video) {
         isVideo = true;
-        await _playVideo(response.file!);
+        await _playVideo(response.file);
       } else {
         isVideo = false;
         setState(() {
-          _imageFile = response.file;
-          _imageFileList = response.files;
+          if (response.files == null) {
+            _setImageFileListFromFile(response.file);
+          } else {
+            _imageFileList = response.files;
+          }
         });
       }
     } else {
-      _retrieveDataError = response.exception?.code;
+      _retrieveDataError = response.exception!.code;
     }
   }
 
@@ -181,37 +228,37 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title ?? ""),
+        title: Text("ImagePicker"),
       ),
       body: Center(
         child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
             ? FutureBuilder<void>(
-                future: retrieveLostData(),
-                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                      return const Text(
-                        'You have not yet picked an image.',
-                        textAlign: TextAlign.center,
-                      );
-                    case ConnectionState.done:
-                      return _handlePreview();
-                    default:
-                      if (snapshot.hasError) {
-                        return Text(
-                          'Pick image/video error: ${snapshot.error}}',
-                          textAlign: TextAlign.center,
-                        );
-                      } else {
-                        return const Text(
-                          'You have not yet picked an image.',
-                          textAlign: TextAlign.center,
-                        );
-                      }
-                  }
-                },
-              )
+          future: retrieveLostData(),
+          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return const Text(
+                  'You have not yet picked an image.',
+                  textAlign: TextAlign.center,
+                );
+              case ConnectionState.done:
+                return _handlePreview();
+              case ConnectionState.active:
+                if (snapshot.hasError) {
+                  return Text(
+                    'Pick image/video error: ${snapshot.error}}',
+                    textAlign: TextAlign.center,
+                  );
+                } else {
+                  return const Text(
+                    'You have not yet picked an image.',
+                    textAlign: TextAlign.center,
+                  );
+                }
+            }
+          },
+        )
             : _handlePreview(),
       ),
       floatingActionButton: Column(
@@ -288,10 +335,13 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     );
   }
 
-  Text _getRetrieveErrorWidget() {
-    final Text result = Text(_retrieveDataError??"");
-    _retrieveDataError = null;
-    return result;
+  Text? _getRetrieveErrorWidget() {
+    if (_retrieveDataError != null) {
+      final Text result = Text(_retrieveDataError!);
+      _retrieveDataError = null;
+      return result;
+    }
+    return null;
   }
 
   Future<void> _displayPickImageDialog(
@@ -306,14 +356,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                 TextField(
                   controller: maxWidthController,
                   keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
+                  const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
                       hintText: 'Enter maxWidth if desired'),
                 ),
                 TextField(
                   controller: maxHeightController,
                   keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
+                  const TextInputType.numberWithOptions(decimal: true),
                   decoration: const InputDecoration(
                       hintText: 'Enter maxHeight if desired'),
                 ),
@@ -335,15 +385,15 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               TextButton(
                   child: const Text('PICK'),
                   onPressed: () {
-                    final double width = maxWidthController.text.isNotEmpty
+                    final double? width = maxWidthController.text.isNotEmpty
                         ? double.parse(maxWidthController.text)
-                        : 0;
-                    final double height = maxHeightController.text.isNotEmpty
+                        : null;
+                    final double? height = maxHeightController.text.isNotEmpty
                         ? double.parse(maxHeightController.text)
-                        : 0;
-                    final int quality = qualityController.text.isNotEmpty
+                        : null;
+                    final int? quality = qualityController.text.isNotEmpty
                         ? int.parse(qualityController.text)
-                        : 0;
+                        : null;
                     onPick(width, height, quality);
                     Navigator.of(context).pop();
                   }),
@@ -354,27 +404,27 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
 }
 
 typedef OnPickImageCallback = void Function(
-    double maxWidth, double maxHeight, int quality);
+    double? maxWidth, double? maxHeight, int? quality);
 
 class AspectRatioVideo extends StatefulWidget {
-  const AspectRatioVideo(this.controller);
+  const AspectRatioVideo(this.controller, {key});
 
-  final VideoPlayerController controller;
+  final VideoPlayerController? controller;
 
   @override
   AspectRatioVideoState createState() => AspectRatioVideoState();
 }
 
 class AspectRatioVideoState extends State<AspectRatioVideo> {
-  VideoPlayerController get controller => widget.controller;
+  VideoPlayerController? get controller => widget.controller;
   bool initialized = false;
 
   void _onVideoControllerUpdate() {
     if (!mounted) {
       return;
     }
-    if (initialized != controller.value.isInitialized) {
-      initialized = controller.value.isInitialized;
+    if (initialized != controller!.value.isInitialized) {
+      initialized = controller!.value.isInitialized;
       setState(() {});
     }
   }
@@ -382,12 +432,12 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(_onVideoControllerUpdate);
+    controller!.addListener(_onVideoControllerUpdate);
   }
 
   @override
   void dispose() {
-    controller.removeListener(_onVideoControllerUpdate);
+    controller!.removeListener(_onVideoControllerUpdate);
     super.dispose();
   }
 
@@ -396,8 +446,8 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
     if (initialized) {
       return Center(
         child: AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: VideoPlayer(controller),
+          aspectRatio: controller!.value.aspectRatio,
+          child: VideoPlayer(controller!),
         ),
       );
     } else {

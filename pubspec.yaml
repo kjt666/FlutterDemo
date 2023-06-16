@@ -41,15 +41,15 @@ dependencies:
   flutter_slidable: ^1.2.0
   cached_network_image: ^3.2.0
   badges: ^2.0.2
-  image_picker: 0.8.4+11
+  image_picker: ^0.8.7+5
   video_player: any
   provider: 6.0.2
   lottie: 1.2.2
   path_provider: ^2.0.10
-  flutter_aliplayer: ^5.4.9
   flutter_rating_bar: 4.0.1
   flutter_animate: ^4.1.1+1
   pigeon: ^9.1.2
+  permission_handler: ^10.3.0
 
 dev_dependencies:
   flutter_test:
