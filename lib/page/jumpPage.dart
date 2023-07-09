@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/other/loggerPage.dart';
+import 'package:flutter_app/page/demoPage.dart';
 import 'package:flutter_app/page/myPage.dart';
 import 'package:flutter_app/page/noteLongGraphPage.dart';
 import 'package:flutter_app/page/notePage.dart';
@@ -57,7 +58,8 @@ class _JumpState extends State<JumpPage> {
           getJumpItem("复杂页面2~~~", jumpPage: new NotePage()),
           getJumpItem("复杂页面3~~~", jumpPage: new NoteLongGraphPage()),
           getJumpItem("StateTest", jumpPage: new StateTestPage()),
-          getJumpItem("事件机制",jumpPage: new AllChildrenCanResponseEvent())
+          getJumpItem("事件机制",jumpPage: new AllChildrenCanResponseEvent()),
+          getJumpItem("demo页面",jumpPage: new DemoPage())
         ],
       ),
     );
