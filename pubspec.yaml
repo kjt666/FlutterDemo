@@ -50,6 +50,7 @@ dependencies:
   flutter_animate: ^4.1.1+1
   pigeon: ^9.1.2
   permission_handler: ^10.3.0
+  flutter_barrage: ^0.5.4
 
 dev_dependencies:
   flutter_test:

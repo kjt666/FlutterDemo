@@ -334,6 +334,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.1.1+1"
+  flutter_barrage:
+    dependency: "direct main"
+    description:
+      name: flutter_barrage
+      sha256: d47404608dc66d4a08a5224179cfb4405aefe524f915d03dee4f5fab0cca3094
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.4"
   flutter_blurhash:
     dependency: transitive
     description:

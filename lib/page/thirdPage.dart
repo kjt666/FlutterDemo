@@ -12,6 +12,7 @@ import 'package:flutter_app/third/screenUtilPage.dart';
 import 'package:flutter_app/third/slidable.dart';
 import 'package:flutter_app/third/webViewPage.dart';
 
+import '../third/barrage.dart';
 import '../third/flutter_animate.dart';
 import '../third/googleFontsPage.dart';
 import '../third/html.dart';
@@ -54,6 +55,7 @@ class ThirdPageState extends State<ThirdPage> {
           getJumpItem("pigeon", new PigeonPage()),
           getJumpItem("permission", new PermissionPage()),
           getJumpItem("imagePicker", new ImagePickerPage()),
+          getJumpItem("barrage（弹幕）", new BarragePage()),
         ],
       ),
     );
