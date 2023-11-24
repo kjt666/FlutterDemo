@@ -7,7 +7,7 @@ import 'package:flutter_app/eum_noscroll_behavior.dart';
 import 'package:flutter_app/pigeon.dart';
 import 'package:flutter_app/util/DioUtil.dart';
 import 'package:flutter_app/util/TimeUtil.dart';
-import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:logger/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -196,21 +196,21 @@ class _NotePageState extends State<NotePage> {
                   height: 1.5,
                   color: Colors.black,
                 )),*/
-            Html(
-              data: """
-            <div style=\"line-height: 24px;font-size:17px;background-color:white\">
-              <style>
-              a{color: #4DAAB8; text-decoration:none;}
-              <\/style>
-              ${noteInfo.content != null ? noteInfo.content.replaceAll("\n", "</br>") : ""}
-            <\/div>
-            """,
-              shrinkWrap: true,
-              onImageTap: (url, context, attributes, element) {
-                // NavigatorUtil.pushImageBrowserPage(0, [url]);
-                Fluttertoast.showToast(msg: url ?? "");
-              },
-            ),
+            // Html(
+            //   data: """
+            // <div style=\"line-height: 24px;font-size:17px;background-color:white\">
+            //   <style>
+            //   a{color: #4DAAB8; text-decoration:none;}
+            //   <\/style>
+            //   ${noteInfo.content != null ? noteInfo.content.replaceAll("\n", "</br>") : ""}
+            // <\/div>
+            // """,
+            //   shrinkWrap: true,
+            //   onImageTap: (url, context, attributes, element) {
+            //     // NavigatorUtil.pushImageBrowserPage(0, [url]);
+            //     Fluttertoast.showToast(msg: url ?? "");
+            //   },
+            // ),
             SizedBox(height: 20),
             _getMiddleBook(),
             SizedBox(height: 20),

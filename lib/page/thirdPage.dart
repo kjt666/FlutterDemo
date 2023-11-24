@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/third/badge.dart';
+import 'package:flutter_app/third/badge/badge.dart';
 import 'package:flutter_app/third/cachedNetworkImage.dart';
 import 'package:flutter_app/third/flutter_animate/flutterAnimateExample.dart';
 import 'package:flutter_app/third/lottiePage.dart';
 import 'package:flutter_app/third/permissionPage.dart';
 import 'package:flutter_app/third/pigeonPage.dart';
+import 'package:flutter_app/third/provider/models/cart.dart';
+import 'package:flutter_app/third/provider/models/catalog.dart';
+import 'package:flutter_app/third/provider/screens/catalog.dart';
 import 'package:flutter_app/third/providerPage.dart';
 import 'package:flutter_app/third/ratingBarPage.dart';
 import 'package:flutter_app/third/screenUtilPage.dart';
 import 'package:flutter_app/third/slidable.dart';
 import 'package:flutter_app/third/webViewPage.dart';
+import 'package:provider/provider.dart';
 
 import '../third/barrage.dart';
 import '../third/flutter_animate.dart';
@@ -44,6 +48,7 @@ class ThirdPageState extends State<ThirdPage> {
           getJumpItem("GoogleFonts(字体样式)", new GoogleFontsPage()),
           getJumpItem("ImagePicker(图片选择器)", new ImagePickerPage()),
           getJumpItem("Provider", new ProviderPage()),
+          getJumpItem("Provider(官方示例)", new MyCatalog()),
           getJumpItem("badge(徽章，小红点)", new BadgePage()),
           getJumpItem(
               "cachedNetworkImage(带网络缓存的图片)", new CachedNetworkImagePage()),

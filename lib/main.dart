@@ -1,7 +1,10 @@
 // import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/page/jumpPage.dart';
+import 'package:flutter_app/third/provider/models/cart.dart';
+import 'package:flutter_app/third/provider/models/catalog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 void main() {
@@ -19,30 +22,45 @@ class MyApp extends StatelessWidget {
           BuildContext context,
           Widget? child,
         ) =>
-            MaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                // This is the theme of your application.
-                //
-                // Try running your application with "flutter run". You'll see the
-                // application has a blue toolbar. Then, without quitting the app, try
-                // changing the primarySwatch below to Colors.green and then invoke
-                // "hot reload" (press "r" in the console where you ran "flutter run",
-                // or simply save your changes to "hot reload" in a Flutter IDE).
-                // Notice that the counter didn't reset back to zero; the application
-                // is not restarted.
-                primarySwatch: Colors.green,
+            MultiProvider(
+              providers: [
+                Provider(create: (context) => CatalogModel()),
+                ChangeNotifierProxyProvider<CatalogModel, CartModel>(
+                  create: (BuildContext context) {
+                    return CartModel();
+                  },
+                  update: (BuildContext context, catalog, cart) {
+                    if (cart == null) throw ArgumentError.notNull("cart");
+                    cart.catalog = catalog;
+                    return cart;
+                  },
+                )
+              ],
+              child: MaterialApp(
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  // This is the theme of your application.
+                  //
+                  // Try running your application with "flutter run". You'll see the
+                  // application has a blue toolbar. Then, without quitting the app, try
+                  // changing the primarySwatch below to Colors.green and then invoke
+                  // "hot reload" (press "r" in the console where you ran "flutter run",
+                  // or simply save your changes to "hot reload" in a Flutter IDE).
+                  // Notice that the counter didn't reset back to zero; the application
+                  // is not restarted.
+                  primarySwatch: Colors.green,
 
-                /* //配置分割线样式
+                  /* //配置分割线样式
           dividerTheme: DividerThemeData(
-              space: 1,
-              thickness: 1,
-              color: Colors.redAccent,
-              indent: 10,
-              endIndent: 10)*/
+                space: 1,
+                thickness: 1,
+                color: Colors.redAccent,
+                indent: 10,
+                endIndent: 10)*/
+                ),
+                darkTheme: ThemeData.dark(),
+                home: JumpPage(),
               ),
-              darkTheme: ThemeData.dark(),
-              home: JumpPage(),
             ));
   }
 }

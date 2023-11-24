@@ -47,7 +47,7 @@ class LoggerPage extends StatelessWidget {
                 String str = "abc123";
                 str.substring(10,15);
               }  catch (e) {
-                logger.e("error~error~error~error~error~error~error~",e);
+                logger.e("error~error~error~error~error~error~error~",error: e);
               }
             },
           )

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/flutter_html.dart';
 
 import '../custom_widget/commonAppBar.dart';
 
@@ -18,14 +18,14 @@ class HtmlPage extends StatelessWidget {
       appBar: CommonAppBar(context, "Html"),
       body: ListView(
         children: [
-          Html(
-            data: content,
-            onImageTap: (url, context, attributes, element) {
-              print("url =====>  $url");
-              print("attributes =====>  $attributes");
-              print("element =====>  $element");
-            },
-          )
+          // Html(
+          //   data: content,
+          //   onImageTap: (url, context, attributes, element) {
+          //     print("url =====>  $url");
+          //     print("attributes =====>  $attributes");
+          //     print("element =====>  $element");
+          //   },
+          // )
         ],
       ),
     );

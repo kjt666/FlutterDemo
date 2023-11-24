@@ -8,8 +8,8 @@ class DioUtil {
     var baseUrl = "https://gongdu.laidan.com/";
     var options = BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: 5000,
-        receiveTimeout: 10000,
+        connectTimeout: Duration(seconds: 10),
+        receiveTimeout: Duration(seconds: 10),
         headers: {
           'x-ys-os': 'android',
           'x-ys-uid': '90006269',
